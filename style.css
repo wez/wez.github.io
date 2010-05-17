@@ -1,0 +1,293 @@
+/* Credits and Kudos to Matthew James Taylor.
+ * Layout borrowed from:
+ * http://matthewjamestaylor.com/blog/perfect-3-column-blog-style.htm
+ */
+
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	background: #fff;
+	font-family: verdana, sans-serif;
+	font-size: 90%;
+}
+
+img {
+	border: none;
+}
+
+#navtitle {
+	clear: both;
+	float: left;
+	width: 100%;
+	color: white;
+    background-color: #210040;
+	border-bottom: 4px solid rgb(141,139,156); 
+	font-family: "trebuchet ms", verdana, sans-serif;
+}
+
+#tpad {
+	padding: 1em;
+}
+
+#maintitle {
+	font-size: 180%;
+}
+
+#maintitle a {
+	color: white;
+	text-decoration: none;
+}
+
+
+/* column container */
+.colmask {
+	position:relative;		/* This fixes the IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;				/* width of whole page */
+	overflow:hidden;			/* This chops off any overhanging divs */
+}
+/* common column settings */
+.colright,
+.colmid,
+.colleft {
+	float:left;
+	width:100%;				/* width of page */
+	position:relative;
+}
+.col1,
+.col2,
+.col3 {
+	float:left;
+	position:relative;
+	/* no left and right padding on columns, we just make them narrower instead
+	 * only padding top and bottom is included here, make it whatever value you
+	 * need */
+	padding:0 0 0 0;
+	overflow:hidden;
+}
+.onlycol {
+	padding: 1.5em;
+}
+
+/* info bar column bits */
+
+#infobar {
+	/* right column background colour */
+	background:#eee;
+	font-size: 90%;
+	border-bottom: 1px solid #eee;
+}
+#infobar .colmid {
+	/* width of the right column */
+	right:25%;
+	/* center column background colour */
+	background:#f4f4f4;
+}
+#infobar .colleft {
+	/* width of the middle column */
+	right:25%;
+	/* left column background colour */
+	background:#fff;i
+}
+#infobar .col1 {
+	/* width of center column content (column width minus padding on either
+	 * side) */
+	width:46%;
+	/* 100% plus left padding of center column */
+	left:52%;
+	margin-top: 1em;
+	padding-bottom: 1em;
+}
+#infobar .col2 {
+	/* Width of left column content (column width minus padding on either side)
+	 * */
+	width:21%;
+	/* width of (right column) plus (center column left and right padding) plus
+	 * (left column left padding) */
+	left:56%;
+	margin-top: 1em;
+}
+#infobar .col3 {
+	/* Width of right column content (column width minus padding on either
+	 * side) */
+	width:21%;
+	/* Please make note of the brackets here: (100% - left column width) plus
+	 * (center column left and right padding) plus (left column left and right
+	 * padding) plus (right column left padding) */ 
+	left:60%;
+	margin-top: 1em;
+	font-size: 90%;
+}
+
+#infobar {
+	margin-bottom: 1em;
+}
+
+#mugshot {
+	float: left;
+	padding: 0 0.5em 0 0;
+}
+
+#footer {
+	clear: both;
+	float: left;
+	width: 100%;
+	color: white;
+	border-top: 1px solid #eee;
+	overflow:hidden;
+/*	margin-top: 5em; */
+}
+#footer p {
+	font-family: "trebuchet ms", verdana, sans-serif;
+	margin:0;
+	padding: 1em;
+}
+#content .colmask {
+	padding-bottom: 5em;
+}
+
+#content .col1, #content .col2 {
+	padding-top: 1em;
+}
+
+#content .col2 {
+	font-size: 90%;
+}
+
+#content .col2 .flt {
+	float: left;
+	padding: 0 0.5em 0 0;
+}
+
+/* 2 column right menu settings */
+.rightmenu .colleft {
+	right:25%;
+	background:#fff;
+}
+
+.rightmenu .col1 {
+	width:71%;
+	left:27%;
+}
+.rightmenu .col2 {
+	width:21%;
+	left:31%;
+}
+
+div.nodeouter {
+	margin-bottom: 4em;
+}
+
+div.comments {
+	margin-top: 2em;
+}
+
+h1.subject {
+	font-family: "trebuchet ms", verdana, sans-serif;
+}
+h1.subject a {
+	text-decoration: none;
+	color: black;
+}
+
+.nodewhowhen {
+	color: #777;
+}
+
+.when {
+	color: #777;
+}
+
+p.lure a {
+	font-style: italic;
+	color: #444;
+}
+
+#authblurb {
+	float: right;
+	width: 50%;
+	margin-left: 2em;
+	font-size: 0.9em;
+}
+
+#authform {
+	width: 50%;
+}
+
+#authform a.rpxnow {
+	border-left: solid 2px #ccc;
+	border-top: solid 2px #ccc;
+	border-bottom: solid 2px #777;
+	border-right: solid 2px #777;
+	background-color: #eee;
+	color: black;
+	font-family: sans-serif;
+	padding: 0.2em;
+	text-decoration: none;
+	text-align: center;
+}
+
+#authform input.button {
+	border-left: solid 2px #ccc;
+	border-top: solid 2px #ccc;
+	border-bottom: solid 2px #777;
+	border-right: solid 2px #777;
+	background-color: #eee;
+	color: black;
+	font-family: sans-serif;
+	padding: 0.2em;
+	text-decoration: none;
+	text-align: center;
+}
+
+#authform a.rpxnow:hover, #authform input.button:hover {
+	background-color: gold;
+}
+
+dl.conferences dt {
+	margin-top: 1.2em;
+	font-weight: bold;
+}
+
+pre, code {
+	font-family: consolas, 'courier new', monospace;
+}
+
+#workplay {
+	position: static;
+}
+
+div.bitbucketinfo {
+  /*
+  background-image: url(images/BitBucket64.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  */
+	font-size: 0.8em;
+}
+
+div.bitbucketinfo div.bbsummary {
+	/*
+	padding-right: 70px;
+	min-height: 64px;
+	*/
+}
+
+
+div.bitbucketinfo .commitlog {
+	color: #777;
+}
+
+.projinfo {
+	border-top: 1px solid #eee;
+	padding-top: 1em;
+	padding-bottom: 2em;
+}
+
+.projinfo img {
+	float: right;
+	padding-left: 1em;
+}
