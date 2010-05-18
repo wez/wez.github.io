@@ -102,6 +102,27 @@ function wfo_get_project_data()
     $repos[] = $R;
   }
 
+  $sf_skip = array(
+    'libumem' => true
+  );
+  // See: http://sourceforge.net/apps/trac/sourceforge/wiki/API
+  $sfuser = wfo_rest('GET',
+              'http://sourceforge.net/api/user/username/wez/json');
+  foreach ($sfuser->User->projects as $proj) {
+    if (isset($sf_skip[$proj->name])) {
+      continue;
+    }
+    $pdata = wfo_rest('GET',
+      "http://sourceforge.net/api/project/id/$proj->id/json");
+    $proj = $pdata->Project;
+    $R = new wfo_repo_info;
+    $R->name = $proj->name;
+    $R->description = $proj->description;
+    $R->website = $proj->homepage;
+    $R->source = $proj->CVSRepository->browse;
+    $repos[] = $R;
+  }
+
   // Query ohloh
   $key = trim(file_get_contents(".ohloh"));
   $me = '0616d52b31da6ce7bd0d296a5f61a96e'; // email md5

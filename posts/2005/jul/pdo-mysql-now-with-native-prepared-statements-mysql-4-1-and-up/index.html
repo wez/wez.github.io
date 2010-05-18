@@ -1,0 +1,10 @@
+<p>I've had a number of people ask me about this feature recently, and now it's here.  What took so long?  I just didn't have mysql 4.1 installed anywhere, or enough time to set aside to look into it.  A patch from Guy Harrison (for multiple rowsets) caught me at just the right time today, and set me up for some hacking.   </p>
+<p>In CVS (and showing up on <a href="http://snaps.php.net/">snaps</a> soon), the pdo_mysql driver now has support for the following features when compiled against mysql 4.1 or higher:   </p>
+<p><ul>
+<li>Support for queries returning multiple rowsets, via PDOStatement::nextRowset().
+ <li>Supports &quot;native&quot; sqlstate error codes, for &quot;better&quot; error reporting.
+ <li>Supports native prepared statements and bound parameters.
+   </ul>
+<p>I'm looking for feedback on these changes; even if you have an older mysql installation, please try the snapshot, as I want to ensure that it continues to build and work fine there (should be fine, but there's nothing better than physically confirming it).   </p>
+<p>Any problems, then hop along to <a href="http://bugs.php.net/">http://bugs.php.net/</a> and file a bug report; thanks!   </p>
+<p>(PS: installing mysql 4.1 on a gentoo box when you only have a 56k modem takes a while)  </p>

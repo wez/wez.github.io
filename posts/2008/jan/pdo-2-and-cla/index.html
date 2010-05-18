@@ -1,0 +1,37 @@
+<p>You may be aware that we're starting discussions on the future of PDO; despite being pretty good for many common uses, it isn't perfect, and we want to improve it.  One of the items to be discussed is whether we can or should adopt a <a href="http://www.php.net/~wez/pdo/PDO-CLA-Individual-12-07-07.pdf">Contributor License Agreement</a> (CLA), which will make it simpler for the database vendors to work together with us on PDO.
+</p><p>The discussion is aimed chiefly at the "core developer" community, that is, the people that are working on the internals code for PHP, because the CLA would impact how they contribute to PDO.   The broader PHP user/developer community would not be affected by a CLA (if we were to go that route), as it would not affect their ability to use PDO in their applications.
+</p><p>If you are wondering what all the fuss is about, you might be interested in reading the transcript of a conversation I had on IRC this evening; you can find it below.  It's between myself and a few members of the <a href="http://phpcommunity.org/">PHP Community</a> IRC channel on FreeNode (used with their permission!), and I think it does a good job of explaining in fairly simple and somewhat unbiased terms a couple of the main arguments for and against the CLA.  I'm not saying that this is all there is to it, just that these are likely to be the main points that the core developers need to discuss first.
+</p><p>It would be premature to say that you are for or against PDO 2 at this stage because we are yet to define what PDO 2 will actually be; that is the purpose of the discussion on the PDO mailing list.
+</p><p>If, after reading this, you have questions or comments of your own, then please <a href="http://news.php.net/php.pdo/1">read the email that Andi and myself put together</a>, take a look at the <a href="http://www.php.net/~wez/pdo/pdo-faq.txt">FAQ</a>, and if your question is still unanswered, join the discussion on the PDO mailing list (read the archives first!) <a href="http://news.php.net/php.pdo">Browse it via the web</a>, <a href="news://news.php.net/php.pdo">over NNTP</a>, or <a href="mailto:pdo-subscribe@lists.php.net">subscribe via email</a>.  
+</p><p>We'll be working to update the FAQ to reflect questions and answers that keep coming up.  It's important to direct questions and comments to the mailing list, so that we have an archive of the discussion and a single thing to keep track of.
+</p><p>Here is the transcript from IRC; the initial question was in response to blog entries from <a href="http://daylessday.org/archives/21-We-dont-need-no-new-PDO.html">Antony</a> and <a href="http://blog.thepimp.net/index.php/post/2008/01/24/Say-NO-to-CLA-in-PHP">Pierre</a>, and some questions are based on content from our initial email to the PDO list.
+</p><p><pre><code>21:59 &lt;vluther&gt; Wez: so why would a CLA be bad?
+</code></pre></p><p><pre><code>22:00 &lt;Wez&gt; vluther: two arguments are 1) it actually increases the risk potential<br/>            for some companies that have a patent portfolio (Rasmus and Adam<br/>            brought this up on internals a little while back)
+</code></pre></p><p><pre><code>22:01 &lt;vluther&gt; but that puts the company at risk, not php right?
+</code></pre></p><p><pre><code>22:01 &lt;Wez&gt; vluther: 2) The contributor community might be segmented into people<br/>            that can/will sign the CLA and people that won't, which could be bad<br/>            for the community (but also might not matter)
+</code></pre></p><p><pre><code>22:02 &lt;Wez&gt; vluther: yeah, it puts the company at risk, not PHP, which means that<br/>            it makes if difficult/impossible for people that work for those companies<br/>            to contribute
+</code></pre></p><p><pre><code>22:03 &lt;vluther&gt; ahh, so if we force a cla.. then we risk losing contributors.. got it
+</code></pre></p><p><pre><code>22:03 &lt;vortex`&gt; does it work the other way, no CLA no commercial support?
+</code></pre></p><p><pre><code>22:04 &lt;Wez&gt; vluther: yeah, that seems to be the main argument against it really.<br/>            Whether that has a tangible impact is something to discuss
+</code></pre></p><p><pre><code>22:04 &lt;Wez&gt; vortex`: without a CLA, the amount of support that a vendor can provide<br/>            would be limited, because it is difficult for them to share their work<br/>            with the other vendors (they're in competition)
+</code></pre></p><p><pre><code>22:04 &lt;vluther&gt; Wez: so the say no movement is based purely out of fear of what may<br/>                happen?
+</code></pre></p><p><pre><code>22:04 &lt;Wez&gt; vluther: yep
+</code></pre></p><p><pre><code>22:08 &lt;coldflame_&gt; can i ask why it's been important for php to _not_ have a legal<br/>                   entity?
+</code></pre></p><p><pre><code>22:09 &lt;Wez&gt; coldflame_: it's not "important to not have one" so much as impossible to<br/>            retro-fit one.  To do so would require tracking down everyone that ever<br/>            contributed and sign off on transferring that work to the legal entity
+</code></pre></p><p><pre><code>22:09 &lt;coldflame_&gt; Wez: ahh.. thanks
+</code></pre></p><p><pre><code>22:10 &lt;Wez&gt; so PHP as a whole could never (in any practical sense of the word) be put<br/>            under CLA
+</code></pre></p><p><pre><code>22:10 &lt;coldflame_&gt; Wez: is there a list of main vendors?
+</code></pre></p><p><pre><code>22:11 &lt;Wez&gt; and that was another of the fears that people had about PDO being under a<br/>            CLA; that it would "leak" out to affect PHP as a whole
+</code></pre></p><p><pre><code>22:11 &lt;Wez&gt; coldflame_: Andi, Ilia and myself have been talking to MySQL, PostgreSQL,<br/>            IBM, Oracle and Microsoft
+</code></pre></p><p><pre><code>22:11 &lt;Wez&gt; all of which want to contribute to PDO
+</code></pre></p><p><pre><code>22:11 &lt;vortex`&gt; nice :D
+</code></pre></p><p><pre><code>22:12 &lt;Wez&gt; the problem is doing so in such a way that the companies feel happy about<br/>            Working together, and in such a way that doesn't cause problems with the<br/>            php developer community
+</code></pre></p><p><pre><code>22:12 &lt;Wez&gt; and that's what I want to get people discussing on the pdo mailing list
+</code></pre></p><p><pre><code>22:13 &lt;coldflame_&gt; Wez: oh cool, and the last of my n00b questions is that this CLA is<br/>                   Meant  only for PDO yer? not to be confused with the one for PHP?
+</code></pre></p><p><pre><code>22:13 &lt;Wez&gt; correct, we don't want and are not suggesting that PHP go under CLA<br/>            (it's impossible anyway), just that putting PDO under CLA will let us get<br/>            the most out of the vendors
+</code></pre></p><p><pre><code>22:14 &lt;coldflame_&gt; Wez: thanks for your clear and concise answers :)
+</code></pre></p><p><pre><code>22:14 &lt;Wez&gt; coldflame_: you're welcome.
+</code></pre></p><p><pre><code>22:15 &lt;vortex`&gt; coldflame_: just judging how good pdo1 is, pdo2 should be a cracker :D
+</code></pre></p><p><pre><code>22:15 &lt;coldflame_&gt; Wez: good luck :) i look forward to hearing about it
+</code></pre></p><p><pre><code>22:15  * coldflame_ signs up to pdo list
+</code></pre></p><p><em>Please <strong>don't</strong> comment on this blog entry, discuss on the pdo mailing list instead!</em></p>

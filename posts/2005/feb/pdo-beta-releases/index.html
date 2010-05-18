@@ -1,0 +1,19 @@
+<p>[Update: I forgot to mention that windows binaries are availaing from <a href="http://snaps.php.net/win32/PECL_5_0/">snaps</a>; all PDO drivers are present, including MS-SQL, which doesn't show up in the PECL package list yet.  Note that the sqlite driver has a bug that has already been fixed in CVS; wait a couple of hours for the next snapshot build before trying to use it on windows. ]   </p>
+<p>I posted this message to the PHP internals and PECL development lists just now.  I'm soliciting beta testers for PDO.  If you want to help QA PDO ready for its PHP 5.1 debut, please read on.   </p>
+<p>You may have noticed my &quot;drive-by release&quot; of various different PDO packages tonight/this morning.   </p>
+<p>This is stage one of the &quot;PDO push&quot;.   </p>
+<p>I'd like to encourage you all to try it out; as you should know, we're going to be releasing PDO as part of PHP 5.1, so we need as many people as possible to play around with it to discover any remaining issues.   </p>
+<p>Some drivers have had more testing and support than others, simply because they are easier or more convenient to develop and test against.   </p>
+<p>If you find any missing features, inconsistencies between drivers, bugs or crashes, please report them using the PECL bug tracking system.  Please categorize bugs correctly, and, if possible, try out more than one driver.  If you have the same problem for more than one driver, report the bug using the PDO bug reporting page, otherwise use the bug reporting page for your driver.  The bug reporting pages can be found by visiting http://pecl.php.net/&lt;extensionname&gt; and clicking on the &quot;Package Bugs&quot; link.  Please don't submit the same problem more than once; add your feedback to existing bugs if it is appropriate.   </p>
+<p>During the PDO push, I want to release updated PDO packages at the end of each day in which a bug is found and fixed.  Please help me with this task by reporting any issues as clearly and completely as possible.  Now is the time to test and evaluate PDO; if we don't get enough feedback over the next couple of weeks, it won't make it into PHP 5.1 and you'll have to wait until the next major PHP release.   </p>
+<p>You'll no doubt be wondering how to use PDO, so here are some useful resources:   </p>
+<p><a href="http://www.php.net/manual/en/ref.pdo.php">The PHP manual</a>   </p>
+<p>Various posts from my blog; some information is slightly outdated, one of the links includes slides from one of my talks on PDO at the php|works conference last year:   </p>
+<p><a href="http://netevil.org/uuid/41572e4a-0757-8311-6093-1572e4a93e1b">PDO semi-toy example</a>   </p>
+<p><a href="http://netevil.org/uuid/415464e0-6270-1081-4799-15464e02aa74">php|works slides</a>   </p>
+<p><a href="http://netevil.org/uuid/a1907cf3-1afc-4ffe-b36b-a17b405fbeb5">More on PDO</a>   </p>
+<p><a href="http://netevil.org/uuid/bf0a58d7-68ab-49d0-9a29-f5ec97c5dfde">First steps</a>   </p>
+<p><a href="http://www.oracle.com/technology/pub/articles/php_experts/otn_pdo_oracle5.html">My article on the Oracle Technology Network giving an overview of PDO</a>, again, some information my be slightly outdated.   </p>
+<p>Also during the PDO push, I'll be working with Dan to help flesh out the official PHP documentation for PDO, and quite probably blogging little handy snippets for some of the newer/more advanced features.   </p>
+<p>Thanks for your attention, and looking forward to your feedback.   </p>
+<p>--Wez.  </p>

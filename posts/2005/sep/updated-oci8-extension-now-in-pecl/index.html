@@ -1,0 +1,8 @@
+<p>You may have heard of <a href="http://www.zend.com/core/oracle/">the Zend Core for Oracle</a>; as part of that project the oci8 extension for PHP received a lot of attention from teams of people from Zend, Oracle and OmniTI.  As a result, the oci8 extension is now more robust, performant, better documented and more thoroughly tested than ever before (the list of closed bugs is enourmous).   </p>
+<p>Although the extension is currently marked as beta, it's a significant improvement over the older versions that have shipped with PHP.   </p>
+<p>The updated code is available now via PECL, and will compile against PHP 4 and PHP 5 (Windows users can obtain the updated extension DLL via <a href="http://snaps.php.net/">snaps</a>).   </p>
+<p>Installation on unix should be as simple as:   </p>
+<pre>   # pear install oci8-beta
+</pre><p>However, if you compiled the oci8 extension statically, you will need to recompile PHP using --with-oci8=shared (or --without-oci8) before this will work.   </p>
+<p>Updated documentation will be appearing at <a href="http://php.net/oci8">your local PHP documentation mirror</a> as soon as the manual build finishes.   </p>
+<p>Many thanks to Antony Dovgal for doing the lions share of the implementation and testing; good work Tony!  </p>

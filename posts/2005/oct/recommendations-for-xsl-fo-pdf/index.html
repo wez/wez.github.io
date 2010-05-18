@@ -1,0 +1,8 @@
+<p>[Update: thanks for the suggestions; we went with RenderX and have it running from cron to rebuild our product manual as it changes]   </p>
+<p>I've been playing around with DocBook this weekend, converting our product manual to HTML and PDF.  I'm using the docbook xsl stylesheets to convert to HTML and <a href="http://www.w3.org/TR/xsl/">XSL-FO</a>, and then using an FO processor to convert from XSL-FO to PDF.   </p>
+<p><a href="http://xml.apache.org/fop/">Apache FOP</a> is a free FO processor, but the version that gentoo emerged for me borks on our manual; it either stops generating pages after page 36, or spins in an infinite loop.   </p>
+<p>I also tried <a href="http://xmlroff.sf.net/">XMLroff</a>, which is the only C based FO processor I've found (based on libxml2).  It segfaults straight away for me, so it's not immediately useful; maybe a future release will work.   </p>
+<p>I've downloaded trial versions of two commercial offerings; <a href="http://www.renderx.com/tools/xep.html">RenderX XEP</a> and <a href="http://www.lunasil.com/">Lunasil XINC</a>.   </p>
+<p>RenderX seems to work ok, but blanks out every odd page after page 11, so it's a little bit hard to figure out if we want to pay $300 for the full version.  It does look promising though, and the price doesn't sound that bad.   </p>
+<p>Lunasil XINC appears to be based on an older version of Apache FOP, and doesn't have support for PDF bookmarks.  It works though, which is more than can be said for the real Apache FOP that I tried.  Lunasil XINC is only $95 for the full version.   </p>
+<p>Does anyone else have any experience in this area and care to share it?  Has anyone dared to implement XSL-FO -&gt; PDF using PHP ?   </p>

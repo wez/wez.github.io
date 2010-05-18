@@ -1,0 +1,34 @@
+<p>Here's a little script I just cooked up for my crontab. It watches the sites listed in the URLs array for changes in the &quot;plain text&quot;; when a change is detected, it outputs the URL.   </p>
+<p>Although the task is somewhat trivial, this script does a good job of demonstrating how convenient bound parameters can be.  To make the update, I simply need to call $upd-&gt;execute().  No need to manipulate or massage the variables in the script, and no need to generate the SQL statement on each iteration.   </p>
+<pre class="phpcode"><span class="default">&lt;?php   
+   $URLS </span><span class="keyword">= array(
+      </span><span class="string">'http://www.nvidia.com/object/linux.html'</span><span class="keyword">,
+      </span><span class="string">'http://ipw2200.sourceforge.net/news.php'</span><span class="keyword">,
+   );
+   if (!</span><span class="default">extension_loaded</span><span class="keyword">(</span><span class="string">'pdo_sqlite'</span><span class="keyword">)) {
+      </span><span class="default">dl</span><span class="keyword">(</span><span class="string">'pdo.so'</span><span class="keyword">);
+      </span><span class="default">dl</span><span class="keyword">(</span><span class="string">'pdo_sqlite.so'</span><span class="keyword">);
+   }
+   </span><span class="default">$db </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">'sqlite:' </span><span class="keyword">. </span><span class="default">getenv</span><span class="keyword">(</span><span class="string">'HOME'</span><span class="keyword">) . </span><span class="string">"/.web-watch.sql3"</span><span class="keyword">);
+   </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">'create table hash(url primary key, hash)'</span><span class="keyword">);
+   </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">(</span><span class="default">PDO_ATTR_ERRMODE</span><span class="keyword">, </span><span class="default">PDO_ERRMODE_EXCEPTION</span><span class="keyword">);
+   </span><span class="default">$cached_hash </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;
+   </span><span class="default">$stmt </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'select hash from hash where url = :url'</span><span class="keyword">);
+   </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">':url'</span><span class="keyword">, </span><span class="default">$url</span><span class="keyword">);
+   </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">bindColumn</span><span class="keyword">(</span><span class="string">'hash'</span><span class="keyword">, </span><span class="default">$cached_hash</span><span class="keyword">);
+   </span><span class="default">$upd </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">'replace into hash (url, hash) values (:url, :hash)'</span><span class="keyword">);
+   </span><span class="default">$upd</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">':url'</span><span class="keyword">, </span><span class="default">$url</span><span class="keyword">);
+   </span><span class="default">$upd</span><span class="keyword">-&gt;</span><span class="default">bindParam</span><span class="keyword">(</span><span class="string">':hash'</span><span class="keyword">, </span><span class="default">$hash</span><span class="keyword">);
+   foreach (</span><span class="default">$URLS </span><span class="keyword">as </span><span class="default">$url</span><span class="keyword">) {
+      </span><span class="default">$body </span><span class="keyword">= </span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);
+      </span><span class="default">$hash </span><span class="keyword">= </span><span class="default">md5</span><span class="keyword">(</span><span class="default">strip_tags</span><span class="keyword">(</span><span class="default">$body</span><span class="keyword">));
+      </span><span class="default">$cached_hash </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;
+      if (</span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">()) {
+         </span><span class="default">$stmt</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">(</span><span class="default">PDO_FETCH_BOUND</span><span class="keyword">);
+      }
+      if (</span><span class="default">$cached_hash </span><span class="keyword">!= </span><span class="default">$hash</span><span class="keyword">) {
+         </span><span class="default">$upd</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">();
+         echo </span><span class="string">"Changed web:\\n$url\\n"</span><span class="keyword">;
+      }
+   }
+</span><span class="default">?&gt;</span></pre>

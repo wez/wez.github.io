@@ -1,0 +1,30 @@
+<p>I've spent some hacking time this weekend improving the COM/.Net extension for PHP.  I am both happy and annoyed with the results.  In order to convey why I'm annoyed, you'll need a bit of background.   </p>
+<p>COM is all about interfaces.  PHP uses the OLE Automation interfaces that allow run time binding of classes and methods; the key here is IDispatch.  There are also a set of interfaces known as Connection Points that effectively allow an object to call you back, via another object that you supply, to be able to handle events.  The guts of Connection Points are hidden away from you in VB via the WithEvents keyword.  PHP also supports Connection Points and also hides the details from your script via the com_event_sink() function.   </p>
+<p>Now, .Net is similar, but not.  It has a number of COM-ish concepts and even ships with the &quot;interop&quot; layer that will automagically map COM into .Net and vice versa.  PHP uses the interop layer to bind to .Net at runtime; this is cool because it means that PHP doesn't then require the .Net runtime to be installed on the target machine.   </p>
+<p>As part of my quest for a better offline blogging tool, I thought about using .Net from PHP to get at the System.Windows.Forms classes.  It quickly became apparent that there are some shortcomings with the .Net interop stuff.  The theory is that .Net will map its classes to IDispatch'able interfaces via CCW's (COM Compatible Wrappers).  In practice it does that, but doesn't explicitly implement the interfaces; instead, IDispatch is present implicitly in the System.Object interface.  The effect of this is that the PHP stuff breaks when it sees these objects coming back out from COM, because it can't see IDispatch: .Net is being naughty.   </p>
+<p>The fix for this is simply to import the interface definition for System.Object and explicitly check for that interface in each of the places where we are looking for IDispatch.  This is fine, except that it isn't simple.  System.Object is defined in the mscorlib assembly.  There is no mscorlib.h header file, and there is no mscorlib.idl to generate a C header file either.  In order to get at this stuff I had to load up the binary type library file and export it as IDL.  I then needed to hand-edit the 20k lines of IDL so that it could be compiled by MIDL (the order of many declarations was wrong).  This process resulted in a 3MB mscorlib.h file (115k lines).   </p>
+<p>Armed with the header, I added support for System.Object and was able to instantiate the System.Windows.Form::Form class from PHP, set its caption and size and see it on-screen.  <b>Yay!</b>   </p>
+<p>The next step was events, because a form that doesn't react to user input is not very useful.   </p>
+<p>Events in .Net are based on delegates.  Delegates is a posh way of saying &quot;callbacks&quot;; your delegate is essentially a structure containing a pointer to a function or method and a pointer to the object to which the method belongs.  Hooking up the event is simply a matter of telling the source object (say, a button on a form) where your delegate structure lives.   </p>
+<p>At the lower level, the procedure for hooking up a 'Click' event for a button is something like this:   </p>
+<p><ul>
+<li>$type = $button-&gt;get_Type();
+ <li>$event = $type-&gt;GetEvent('Click');
+ <li>$event-&gt;AddHandler($button, new Delegate('my_click_handler'));
+   </ul>
+<p>With the help of our 3MB header file, we can execute this code.  We need to implement the Delegate interface on our own stub, because there is no standard Delegate class that we can set up with a generic C callback function.   </p>
+<p>And this is where things fall down:  .Net doesn't accept our Delegate instance because it is not managed code.   </p>
+<p>The way to get this stuff to work is to build the PHP com extension as managed code, and re-implement chunks to use the Microsoft specific extensions to C++.  This poses 3 problems:   </p>
+<p><ul>
+<li>Not everyone has a CLR capable compiler, so our build system needs to either detect this or provide a switch for the user to turn it on.
+ <li>/CLR mode is not compatible with the majority of regular CFLAGS we use (like turning on debug info), so it requires some hackery in the build system to even get it to build.
+ <li>Building with the /CLR switch will force a hard dependency on the .Net runtime, so we would need to:
+ <ul>
+<li>make COM a shared extension (php_com_dotnet.dll)
+ <li>build one version with and one version without .Net support (more build hackery)
+   </ul>
+</ul>
+<p>Big ouch.   </p>
+<p>A really nice clean solution would appear to be to separate the .Net stuff out in its own extension; that would solve a couple of problems, but introduce others: there are a few places that need to handle .net specific cases, and those introduce linkage dependencies on the .Net extension.   </p>
+<p>This is fixable, but we're now into the realms of work-exceeds-fun-returns, so I'm probably just going to leave things as they are.  Sorry folks.   </p>
+<p>If you want events in the mean time, all the .Net docs suggest that you should instead make your own wrappers for the objects, using a .Net compatible language, and implement them as Connection Point style interfaces.  The interop layer can then perform behind the scenes voodoo for the CCW's, and you should then be able to use com_event_sink() to hook up your events.   </p>

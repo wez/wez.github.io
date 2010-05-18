@@ -1,0 +1,28 @@
+<p>I don't think we do a very good job of evangelizing some of the nice things that the PHP streams layer does in the PHP manual, or even in general.  At least, every time I search for the code snippet that allows you to do an HTTP POST request, I don't find it in the manual and resort to reading the source.  (You can find it if you search for &quot;HTTP wrapper&quot; in the online documentation, but that's not really what you think you're searching for when you're looking).   </p>
+<p>So, here's an example of how to send a POST request with straight up PHP, no cURL:   </p>
+<pre class="phpcode"><span class="default">&lt;?php
+  </span><span class="keyword">function </span><span class="default">do_post_request</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">, </span><span class="default">$optional_headers </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)
+  {
+     </span><span class="default">$params </span><span class="keyword">= array(</span><span class="string">'http' </span><span class="keyword">=&gt; array(
+                  </span><span class="string">'method' </span><span class="keyword">=&gt; </span><span class="string">'POST'</span><span class="keyword">,
+                  </span><span class="string">'content' </span><span class="keyword">=&gt; </span><span class="default">$data
+               </span><span class="keyword">));
+     if (</span><span class="default">$optional_headers </span><span class="keyword">!== </span><span class="default">null</span><span class="keyword">) {
+        </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'http'</span><span class="keyword">][</span><span class="string">'header'</span><span class="keyword">] = </span><span class="default">$optional_headers</span><span class="keyword">;
+     }
+     </span><span class="default">$ctx </span><span class="keyword">= </span><span class="default">stream_context_create</span><span class="keyword">(</span><span class="default">$params</span><span class="keyword">);
+     </span><span class="default">$fp </span><span class="keyword">= @</span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">, </span><span class="string">'rb'</span><span class="keyword">, </span><span class="default">false</span><span class="keyword">, </span><span class="default">$ctx</span><span class="keyword">);
+     if (!</span><span class="default">$fp</span><span class="keyword">) {
+        throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Problem with $url, $php_errormsg"</span><span class="keyword">);
+     }
+     </span><span class="default">$response </span><span class="keyword">= @</span><span class="default">stream_get_contents</span><span class="keyword">(</span><span class="default">$fp</span><span class="keyword">);
+     if (</span><span class="default">$response </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {
+        throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">"Problem reading data from $url, $php_errormsg"</span><span class="keyword">);
+     }
+     return </span><span class="default">$response</span><span class="keyword">;
+  }
+</span></pre><p>$optional_headers is a string containing additional HTTP headers that you would like to send in your request.   </p>
+<p>PHP's HTTP wrapper will automatically fill out the Content-Length header based on the length of the $data that you pass in.  It will also automatically set the Content-Type to application/x-www-form-urlencoded if you don't specify one in the $optional_headers.   </p>
+<p>I find this very handy; I don't need to code in redirection logic, HTTP auth handling, user agent setting and so on; they are handled for me by PHP.   </p>
+<p>You may also want to look into <a href="http://php.net/http_build_query">http_build_query()</a> which is a convenience function that allows you to assemble query/post parameters from a PHP variable, applying appropriate escaping.   </p>
+<p>Kudos to Sara Golemon for both of these things.  You can find more documentation on the HTTP wrapper options in the <a href="http://www.php.net/manual/en/wrappers.http.php">HTTP and HTTPS</a> page in the PHP manual.  </p>

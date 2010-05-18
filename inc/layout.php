@@ -45,7 +45,7 @@ HTML
   'main-links' => <<<HTML
 <p>
   <a href="bio.php">Biography</a><br/>
-  <a href="http://netevil.org">Blog</a><br/>
+  <a href="blog/">Blog</a><br/>
   <a href="projects.php">Projects</a><br/>
   <a href="publications.php">Publications</a><br/>
 </p>
@@ -83,6 +83,7 @@ function wfo_head($title, $area = 'home')
   global $AREAS;
   global $AREA;
   global $BOXES;
+  global $RELROOT;
 
   $A = $AREAS[$area];
   $AREA = $area;
@@ -119,7 +120,7 @@ function wfo_head($title, $area = 'home')
     <meta name="copyright"
       content="&copy; 2003-2010, Wez Furlong, unless otherwise attributed">
     
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="{$RELROOT}style.css" type="text/css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 
     <link rel="openid.server" 
@@ -144,7 +145,7 @@ function wfo_head($title, $area = 'home')
   <body>
     <div id="navtitle">
       <div id="tpad">
-        <div id="maintitle"><a href="/">$AREA_TITLE</a></div>
+        <div id="maintitle"><a href="$RELROOT">$AREA_TITLE</a></div>
         <div id="strapline">$AREA_STRAP</div>
       </div>
     </div>

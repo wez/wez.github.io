@@ -1,0 +1,39 @@
+<p>Introducing unix-style task scheduling for Windows 2000 and later.   </p>
+<p><b>Features</b>   </p>
+<p><ul>
+<li>Power Management aware Cron service
+ <li>Command line crontab tool to edit/delete/fetch individual crontabs
+ <li>POSIX style crontab file syntax
+ <li>Additional extensions allow scheduling tasks based on system events (such as start-up and power events).
+ <li>No need to save passwords when scheduling jobs
+   </ul>
+<p><b>Limitations</b>   </p>
+<p><ul>
+<li>Only per-user crontabs are supported.  There is no /etc/crontab equivalent.
+ <li>Executed processes are run without a login session.  This prevents a certain amount of interaction with the desktop.  This shouldn't be a problem, since cron scheduled tasks are not intended to receive user input.
+ <li>The output from executed commands is not captured by the cron service itself, and no email is sent.  You need to redirect output somewhere appropriate if you wish to keep it.
+   </ul>
+<p><b>Download</b>   </p>
+<p><a href="http://netevil.org/downloads/ntcron.zip">Download Here</a>   </p>
+<p><b>Crontab Syntax</b>   </p>
+<p>In addition to the syntax documented <a href="http://www.hmug.org/man/5/crontab.html">here</a>, this cron supports the following special events:   </p>
+<p><ul>
+<li>@batlow - when the system signals a low battery condition
+ <li>@resume - when resuming from sleep or suspend
+ <li>@onac - when system switches to AC power
+ <li>@onbat - when system is switches to run on battery power
+   </ul>
+<p>Environmental variables beginning with the tilde (~) character have special meaning:   </p>
+<p><ul>
+<li>~CWD - sets the current working directory for entries that follow the line on which the value is found.  You may specify this multiple times in a crontab.  The default value is undefined (processes inherit the working directory of the cron service).
+ <li>~AC_ONLY - when set to the numeric value of &quot;1&quot;, indicates the entries that follow will only run when the system is running on AC power (not batteries).  If set to &quot;0&quot; instead, the tasks will run regardless of the power state.  The default is &quot;0&quot;.
+   </ul>
+<p>Also note that when a job is run, the user's profile and registry hive are loaded, and the environment for the job is based on their configured environment settings before being modified by the crontab.   </p>
+<p><b>TODO</b>   </p>
+<p><ul>
+<li>ntcrontab -e syntax to edit a tab interactively
+ <li>ntcrontab -u syntax for administratoes to edit the tab for an specific user
+ <li>ntcrontab -s syntax to specify the machine on which the crontab is/will reside
+ <li>make @daily, @weekly, @monthly etc. behave like anacron.
+ <li>add generic output capture support and pipe it somewhere according to settings in the crontab.
+  </ul>

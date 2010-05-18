@@ -1,0 +1,54 @@
+<p>A few people have reported problems with trying to run PDO on OSX; I believe them to be general dynamic loading issues in the PHP build system itself.  We'll try to resolve them for PHP 5.1.  In the meantime, if you're on OSX and want to try PDO, then you can try building it statically; here's how:   </p>
+<p><ul>
+<li>Get the sources for the PHP stable branch <a href="http://snaps.php.net/php5-STABLE-latest.tar.bz2">from the snaps site</a>.  I tried building 5.0.3, but it appears to be broken on OSX.  The stable snapshot is essentially what will be in 5.0.4.
+ <li>Get the sources for PDO from <a href="http://pecl.php.net/get/PDO">http://pecl.php.net/get/PDO</a>
+ <li>You also need to choose a driver, I'll use sqlite as an example: <a href="http://pecl.php.net/get/PDO_SQLITE">http://pecl.php.net/get/PDO_SQLITE</a>
+   </ul>
+<p>Now we need to integrate the PDO extensions into the PHP source tree.  Open up a terminal window and cd to where you've downloaded the sources.   </p>
+<pre>   tar xjf php5-STABLE-latest.tar.bz2
+   tar xzf PDO-0.2.2.tgz
+   tar xzf PDO_SQLITE-0.2.2.tgz
+   mv PDO-0.2.2 php5-STABLE-200502120730/ext/pdo
+   mv PDO_SQLITE-0.2.2 php5-STABLE-200502120730/ext/pdo_sqlite
+   cd php5-STABLE-200502120730
+   rm configure
+   ./buildconf --force
+</pre><p>At this point, you're ready to build configure PHP.  As I'm writing this, I'm testing things out on a G4 450MHz running OSX.2; it's not quite as fast as I'd like, so I'm going for a fairly minimal PHP install, skipping all the xml stuff and using only pdo and pdo sqlite.  You should probably leave out the &quot;--disable-all&quot; option when you build it:   </p>
+<pre>   ./configure --disable-all --enable-debug \\
+          --prefix=/usr/local/php-5.0.4 \\
+          --enable-cli --enable-pdo \\
+          --with-pdo-sqlite
+</pre><p>Now, here's a tricky part.  The build system in PHP 5.0.x doesn't know that PDO should be initialized before the PDO driver(s), so we need to edit two files to make that happen.  For PHP 5.1, you won't need to do this step.  Use your favourite editor to open up <b>main/internal_functions.c</b>.  Find the part that looks like this:   </p>
+<pre>    zend_module_entry *php_builtin_extensions[] = {
+        phpext_standard_ptr,
+        phpext_pdo_sqlite_ptr,
+        phpext_pdo_ptr,
+    };
+</pre><p>You need to change it so it looks like this instead:   </p>
+<pre>    zend_module_entry *php_builtin_extensions[] = {
+        phpext_standard_ptr,
+        phpext_pdo_ptr,
+        phpext_pdo_sqlite_ptr,
+    };
+</pre><p>In other words, you need to make sure that the pdo_ptr line is listed before any other pdo_XXX_ptr line.  Note that you will probably have a bunch of other extensions listed here; leave the order of those as they are; the important thing is that pdo comes before the other pdo lines.   </p>
+<p>Repeat this step for <b>main/internal_functions_cli.c</b>   </p>
+<p>Now you're ready to build:   </p>
+<pre>    make
+</pre><p>And you're done.  You can install this if you like, by running &quot;make install&quot;; it will land in the prefix you specified (if you copied me, that will be /usr/local/php-5.0.4), but for the sake of testing, you don't need to do that.   </p>
+<p>I quickly tested that my build worked by running:   </p>
+<pre>    ./sapi/cli/php -m
+</pre><p>and I saw:   </p>
+<pre>    [PHP Modules]
+    PDO
+    pdo_sqlite
+    standard
+</pre><pre>    [Zend Modules]
+</pre><p>And a really quick test to make sure that it doesn't blow up straight-away:   </p>
+<pre>    ./sapi/cli/php -r '$d = new PDO(&quot;sqlite::memory:&quot;); debug_zval_dump($d);'
+</pre><p>Showed:   </p>
+<pre>    object(PDO)#1 (0) refcount(2){
+    }
+</pre><p>Done.   </p>
+<p>It took a long time to compose this post, mostly due to the processor speed on that box; please put the info to good use!   </p>
+<p>I'm not an OSX expert, so I can't tell you how to set up your build environment (because I don't remember!), and it's not convenient for me to check things out.  If you have OSX specific problems please ask around on the pecl-dev@lists.php.net mailing list.  If you run into a crash, use gdb to generate a backtrace and report the bug using the PECL bug tracker.   </p>
+<p>Good luck!  </p>

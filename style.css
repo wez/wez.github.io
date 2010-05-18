@@ -69,7 +69,7 @@ img {
 	overflow:hidden;
 }
 .onlycol {
-	padding: 1.5em;
+	padding: 0 1.5em 0 1.5em;
 }
 
 /* info bar column bits */
@@ -90,7 +90,7 @@ img {
 	/* width of the middle column */
 	right:25%;
 	/* left column background colour */
-	background:#fff;i
+	background:#fff;
 }
 #infobar .col1 {
 	/* width of center column content (column width minus padding on either
@@ -145,6 +145,7 @@ img {
 	margin:0;
 	padding: 1em;
 }
+	/*
 #content .colmask {
 	padding-bottom: 5em;
 }
@@ -161,6 +162,7 @@ img {
 	float: left;
 	padding: 0 0.5em 0 0;
 }
+*/
 
 /* 2 column right menu settings */
 .rightmenu .colleft {
@@ -177,24 +179,12 @@ img {
 	left:31%;
 }
 
-div.nodeouter {
-	margin-bottom: 4em;
-}
-
-div.comments {
-	margin-top: 2em;
-}
-
 h1.subject {
 	font-family: "trebuchet ms", verdana, sans-serif;
 }
 h1.subject a {
 	text-decoration: none;
 	color: black;
-}
-
-.nodewhowhen {
-	color: #777;
 }
 
 .when {
@@ -261,11 +251,6 @@ pre, code {
 }
 
 div.bitbucketinfo {
-  /*
-  background-image: url(images/BitBucket64.png);
-  background-repeat: no-repeat;
-  background-position: right top;
-  */
 	font-size: 0.8em;
 }
 
@@ -290,4 +275,28 @@ div.bitbucketinfo .commitlog {
 .projinfo img {
 	float: right;
 	padding-left: 1em;
+}
+
+div.comment {
+	margin-left: 4em;
+}
+
+div.comment div.who {
+	background:#eee;
+	padding: 0.5em;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+div.comment div.who img {
+	vertical-align: middle;
+	border: solid 1px #ccc;
+	margin-right: 1em;
+}
+div.comment div.who a.who {
+	margin-right: 1em;
+}
+
+div.comment div.commenttext {
+	padding: 1em;
 }

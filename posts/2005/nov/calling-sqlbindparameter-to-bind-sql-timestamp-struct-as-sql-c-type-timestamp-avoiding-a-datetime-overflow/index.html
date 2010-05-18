@@ -1,0 +1,25 @@
+<p>I've spent a lot of time with ODBC recently, working on interfacing our PostalEngine product with SQL Server.  One of the things that caused me a LOT of trouble is binding date/time values into our stored procedure calls.  One of the reasons that it was hard work was lack of documentation-by-example.   </p>
+<p>This particular part of the product is a SOAP server implemented using <a href="http://www.cs.fsu.edu/~engelen/soap.html">gSOAP</a>, and since we need to be able handle people born before the 70's, we're using ISO8601 strings for datetime values rather than the unix time_t type.  We parse the string (watching out for timezones) and store it into a SQL_TIMESTAMP_STRUCT and bind a pointer to that struct as an input parameter.   </p>
+<p>Our ODBC code tries to be smart by not being too smart; when we call out to the stored procedures in the database, we bind parameters using the best fitting native C types for the data we're sending in.  For each parameter in the procedure, we execute the following code:   </p>
+<pre>    SWORD sqltype, ctype, scale, nullable;
+    UDWORD precis;
+    struct odbc_param *param = &amp;params[i];
+</pre><pre>    SQLDescribeParam(stmt-&gt;stmt, i+1, &amp;sqltype, &amp;precis, &amp;scale, &amp;nullable);
+    SQLBindParameter(stmt-&gt;stmt, i+1, param-&gt;inout, ctype, sqltype,
+         precis, scale, (SQLPOINTER)param-&gt;buf, param-&gt;size,
+         &amp;param-&gt;len_ind);
+</pre><p>The timestamp parameters are already set up with param-&gt;buf pointing to the SQL_TIMESTAMP_STRUCT, ctype is set to SQL_C_TYPE_TIMESTAMP, and param-&gt;size is set to sizeof(SQL_TIMESTAMP_STRUCT).   </p>
+<p>When this is run, the execute fails with SQLSTATE 22008, Date time overflow.  Everything looks correct in the code, and most of the values we're passing are based on the description of the parameter provided by ODBC, so what's going on?   It took me several hours to figure out the answer; it's the precision field screwing things up.  The driver reports a precision of 16, which is the size of the timestamp structure in bytes.  However, when binding the parameter, ODBC wants the precision to reflect the number of human-readable characters; 16 is too small, so the datetime would overflow it.  I found that 22 is the magic number; I now have code like this:   </p>
+<pre>    SWORD sqltype, ctype, scale, nullable;
+    UDWORD precis;
+    struct odbc_param *param = &amp;params[i];
+</pre><pre>    SQLDescribeParam(stmt-&gt;stmt, i+1, &amp;sqltype, &amp;precis, &amp;scale, &amp;nullable);
+    if (ctype == SQL_C_TYPE_TIMESTAMP) {
+        precis = 22;
+    }
+    SQLBindParameter(stmt-&gt;stmt, i+1, param-&gt;inout, ctype, sqltype,
+         precis, scale, (SQLPOINTER)param-&gt;buf, param-&gt;size,
+         &amp;param-&gt;len_ind);
+</pre><p>and my datetime values can be bound and passed correctly.   </p>
+<p>Interestingly, you don't have this same problem when using SQLBindCol() to bind rowset cols to a SQL_TIMESTAMP_STRUCT.   </p>
+<p>So, there we have it; I posted this here in the hope that it saves someone else a few hours of scratching around in the ass-end of google's search results.  </p>

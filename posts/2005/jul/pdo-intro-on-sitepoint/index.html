@@ -1,0 +1,9 @@
+<p>Well, it's nice to have publicity, but the <a href="http://www.sitepoint.com/blog-post-view.php?id=282428">SitePoint intro by David</a> has a few factoids (and user comments) that are slightly &quot;off&quot;, so here are some comments of my own to bolster his post:   </p>
+<p><ul>
+<li>PDO is Beta now, not alpha (if you're running PHP 5.1b3 that is)
+ <li>Use <a href="http://www.php.net/manual/en/function.pdo-drivers.php">pdo_drivers()</a> if you want to see what drivers are available.  The dl() function is not guaranteed to work in a lot of SAPI.
+ <li>David missed out on <a href="http://www.ibm.com/developerworks/db2/library/techarticle/dm-0505furlong/">my article on PDO for IBM developerWorks</a>, which is a bit more up to date than the <a href="http://www.oracle.com/technology/pub/articles/php_experts/otn_pdo_oracle5.html">OTN article</a>.
+ <li>PDO is all C-based native code, and will, one day in the future, eventually replace the traditional database extensions.
+ <li>PDO is <i>data access</i> abstraction rather than <i>database</i> abstraction.  They are not the same thing; data access abstraction is making the way you get at the data the same, whereas database abstraction is making databases look the same.  Pretty big difference.
+   </ul>
+<p><i>Remember: we're relying on you to get out there and play with PDO to uncover any bugs that might be lurking; it works fine for the test cases we have.  One of the rules for good QA is to have people other than the people that built something do the testing; they're sure to use things in ways that the architect didn't consider on the first run.  Please try it out and report any bugs/strange behaviour to <a href="http://bugs.php.net">bugs.php.net</a>--Thank you!</i>   </p>

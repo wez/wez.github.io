@@ -1,0 +1,43 @@
+<p>PHPScript is PHP's own ActiveScript interface. In practical terms, this means that you can use PHP from within any application that can host ActiveScript engines.  The list of known hosts includes, and is not limited to:   </p>
+<p><ul>
+<li>Windows Scripting Host (WSH), cscript.exe/wscript.exe
+ <li>&quot;Classic&quot; Active Server Pages
+ <li>Microsoft Scripting Control, and by extension any application that loads that control
+ <li><a href="http://users.chello.be/ws36637/#script">psvActiveScript</a> Control for Delphi applications
+ <li><a href="http://www.weaverslave.ws">Weaverslave</a> an IDE
+ <li><a href="http://kapsules.shellscape.org">Kapsules</a> a desktop widget engine
+   </ul>
+<p><b>Installation</b>   </p>
+<p><ul>
+<li>Download and install <a href="http://www.php.net/download.php#v5">PHP 5</a>
+ <li><a href="http://snaps.php.net/win32/PECL_5_0/php5activescript.dll">Download PHPScript</a> and put it in your c:\\php5 directory
+ <li>run
+ regsvr32 c:\\php5\\php5activescript.dll   </ul>
+<p><b>Usage</b>   </p>
+<p><b>Windows Script Host</b>   </p>
+<p>Create a .wsf file like this:   </p>
+<pre>   &lt;job id=&quot;test&quot;&gt;
+       &lt;script language=&quot;PHPScript&quot;&gt;
+           $WScript-&gt;Echo(&quot;Hello&quot;);
+       &lt;/script&gt;
+   &lt;/job&gt;
+</pre><p>or invoke your .php script directly from cscript.exe or wscript.exe using the //E:PHPScript option.   </p>
+<p><b>ASP (untested)</b>   </p>
+<pre>    &lt;%@language=PHPScript %&gt;
+    &lt;%$Response-&gt;Write(&quot;Hello&quot;); %&gt;
+</pre><p><b>Script Controls</b>   </p>
+<p>Set the language property to PHPScript   </p>
+<p><b>Script Components / IE</b>   </p>
+<p><i>note: it is very dangerous to deploy PHPScript inside IE</i>   </p>
+<p>Simply use &lt;script language=&quot;PHPScript&quot;&gt; for your script tags.   </p>
+<p><b>Developers Notes</b>   </p>
+<p>If you are developing code to run under PHPScript, you need to keep in mind the following differences from regular PHP:   </p>
+<p><ul>
+<li><b>echo</b> doesn't have any practical effect.  You need to call methods of the host to output information.  You may still use output buffering etc., it just won't go anywhere if you flush it.
+   </ul>
+<p><ul>
+<li>global objects added by the host are created as super-globals, so you need not reference them using the &quot;global&quot; statement.
+   </ul>
+<p><ul>
+<li>PHPScript will not search for a default <b>php.ini</b> file.  It will look instead for <b>php-activescript.ini</b> inside the folder of the .exe process that launched it.
+   </ul>

@@ -1,0 +1,6 @@
+<p>From time to time, I find that I need to put a parser together.  Most of the time I find that I need to do this in C for performance, but other times I just want something convenient, like PHP, and have been out of luck.   </p>
+<p>This thanksgiving I set out to remedy this and adapted <a href="http://www.hwaci.com/sw/lemon/lemon.html">lemon</a> to optionally emit PHP code, and likewise with <a href="http://www.cs.princeton.edu/~appel/modern/java/JLex/">JLex</a>.   </p>
+<p>You need a C compiler to build lemon and a java compiler and runtime to build and run JLexPHP, but after having translated your .y and .lex files with these tools, you're left with a pure PHP parser and lexer implementation.   </p>
+<p>The parser and lexer generators are available under a BSDish license:   </p>
+<p><a href="http://netevil.org/downloads/lemon-php-151.tgz">lemon-php.tgz</a> <a href="http://netevil.org/downloads/JLexPHP-151.tgz">JLexPHP-151.tgz</a>   </p>
+<p>See enclosed README files for more information.  </p>
