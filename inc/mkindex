@@ -1,0 +1,158 @@
+#!/usr/bin/php
+<?php # vim:ts=2:sw=2:et:ft=php:
+# Reads posts and builds out the index data
+include 'inc/rest.php';
+
+$A = array();
+
+function innerHTML($node)
+{
+  $t = '';
+  if ($node->childNodes) {
+    foreach ($node->childNodes as $child) {
+      $t .= $child->ownerDocument->saveXML($child);
+    }
+    return $t;
+  } else {
+    return "<$node->nodeName>$node->textContent</$node->nodeName>";
+  }
+}
+
+function excerpt_inner($doc, $data, $node)
+{
+  $avail = $data->limit - $data->words;
+  if ($avail == 0) {
+    $next = $node->nextSibling;
+    $node->parentNode->removeChild($node);
+    return $next;
+  }
+
+  if ($node->nodeType == XML_TEXT_NODE) {
+    $w = preg_split("/\s+/", $node->textContent);
+    if (count($w) > $avail) {
+      $w = array_slice($w, 0, $avail);
+      $t = ' ' . join(" ", $w) . " ...";
+      $newnode = $doc->createTextNode($t);
+      $parent = $node->parentNode;
+      $newnode = $parent->insertBefore($newnode, $node);
+      $parent->removeChild($node);
+      $data->words += $avail;
+      $data->over = true;
+      return $newnode->nextSibling;
+    } else {
+      $data->words += count($w);
+      return $node->nextSibling;
+    }
+  } else if ($node->childNodes) {
+    $child = $node->firstChild;
+    while ($child !== null) {
+      $child = excerpt_inner($doc, $data, $child);
+    }
+    return $node->nextSibling;
+  } else {
+    throw new Exception("$node->nodeType $node->nodeName");
+  }
+}
+
+function html_excerpt($content, $limit = 100)
+{
+//  echo "Input:\n$content\n\n\n";
+  libxml_use_internal_errors(true);
+  $doc = new DOMDocument;
+  $doc->loadHTML('<?xml encoding="UTF-8">' . $content);
+  foreach ($doc->childNodes as $item) {
+    if ($item->nodeType == XML_PI_NODE) {
+      $doc->removeChild($item);
+    }
+  }
+  $doc->encoding = 'UTF-8';
+  $xpath = new DOMXpath($doc);
+
+  $data = new stdclass;
+  $data->limit = $limit;
+  $data->words = 0;
+
+  foreach ($xpath->query("/html/body") as $ele) {
+    excerpt_inner($doc, $data, $ele);
+    break;
+  }
+
+  $subset = $doc->saveHTML();
+  $subset = preg_replace("/^(.*)<body>/ism", "", $subset);
+  $subset = preg_replace("/^<\/body>(.*)$/ism", "", $subset);
+
+  return $subset;
+}
+
+function load_page($filename)
+{
+  global $A;
+
+  $content = file_get_contents($filename);
+  $meta = json_decode(file_get_contents(dirname($filename) . '/meta.json'));
+
+  $filename = preg_replace('/^posts\//', '/', dirname($filename));
+
+
+  $ent = new stdclass;
+  $ent->subject = $meta->subject;
+  $ent->date = $meta->date;
+  $ent->changed = $meta->changed;
+  $ent->path = $filename;
+  $ent->tags = $meta->tags;
+  $ent->excerpt = html_excerpt($content);
+  $A['byid'][$meta->uniqid] = $ent;
+
+  if (is_array($meta->aliases)) {
+    foreach ($meta->aliases as $alias) {
+      $A['alias']["/$alias"] = $meta->uniqid;
+    }
+  }
+  if (is_array($meta->tags)) {
+    foreach ($meta->tags as $tag) {
+      $A['tags'][$tag][] = $meta->uniqid;
+    }
+  }
+}
+
+/* breadth-first filesystem traverse to find all the files
+ * under a particular location */
+function find_files_in($dirname)
+{ 
+  $d = opendir($dirname);
+  $dirs = array();
+  while (($name = readdir($d)) !== false) {
+    if ($name[0] == '.') continue;
+    $path = $dirname . '/' . $name;
+    if (is_dir($path)) {
+      $dirs[] = $path;
+    } else if (preg_match("/\.html$/", $name)) {
+      load_page($path);
+    }
+  } 
+  closedir($d);
+  foreach ($dirs as $path) {
+    find_files_in($path);
+  }
+}
+
+find_files_in('posts');
+
+// Sort by most recent first
+function sort_by_most_recent($a, $b)
+{
+  $A = strtotime($a->date);
+  if (isset($a->changed)) {
+    $A = strtotime($a->changed);
+  }
+  $B = strtotime($b->date);
+  if (isset($b->changed)) {
+    $B = strtotime($b->changed);
+  }
+
+  return $B - $A;
+}
+
+uasort($A['byid'], 'sort_by_most_recent');
+
+wfo_file_put('posts/articles.json', json_encode($A));

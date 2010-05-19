@@ -44,10 +44,10 @@ HTML
 
   'main-links' => <<<HTML
 <p>
-  <a href="bio.php">Biography</a><br/>
-  <a href="blog/">Blog</a><br/>
-  <a href="projects.php">Projects</a><br/>
-  <a href="publications.php">Publications</a><br/>
+  <a href="{$RELROOT}bio.php">Biography</a><br/>
+  <a href="{$RELROOT}blog/">Blog</a><br/>
+  <a href="{$RELROOT}projects.php">Projects</a><br/>
+  <a href="{$RELROOT}publications.php">Publications</a><br/>
 </p>
 HTML
   ,

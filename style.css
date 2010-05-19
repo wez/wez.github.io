@@ -179,10 +179,10 @@ img {
 	left:31%;
 }
 
-h1.subject {
+h1, h2, h3, h4, h5, h6 {
 	font-family: "trebuchet ms", verdana, sans-serif;
 }
-h1.subject a {
+h1.subject a, h2.subject a {
 	text-decoration: none;
 	color: black;
 }
