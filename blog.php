@@ -2,7 +2,8 @@
 include 'inc/layout.php';
 include 'inc/rest.php';
 
-$pi = $_SERVER['PATH_INFO'];
+$pi = urldecode($_SERVER['PATH_INFO']);
+
 if (strpos($pi, '..') !== false) {
   header('HTTP/1.1 400 Invalid Request');
   wfo_head('Not found');
@@ -20,56 +21,164 @@ function format_date($datestr)
   return date('M j, Y', strtotime($datestr));
 }
 
+function make_article_link($ent)
+{
+  global $RELROOT;
+  $target = $RELROOT . 'blog' . $ent->path;
+  $subj = wfo_html_esc($ent->subject);
+
+  return "<a href='$target'>$subj</a>";
+}
+
+function show_excerpt($ent)
+{
+  global $RELROOT;
+
+  $subj = wfo_html_esc($ent->subject);
+  $ctime = format_date($ent->date);
+  $subj = wfo_html_esc($ent->subject);
+
+  $tags = wfo_taglink($ent->tags);
+  $artlink = make_article_link($ent);
+
+  $box = <<<HTML
+    <h2 class='subject'>$artlink</h2>
+    $tags<br/>
+    <span class='when'>$ctime</span>
+HTML;
+
+  if ($ent->changed) {
+    $mtime = format_date($ent->changed);
+    $box .= "<br><span class='when'>Updated $mtime</span>";
+  }
+
+  $box .= $ent->excerpt;
+
+  return $box;
+}
+
+$i = 0;
+$taglist = '';
+$recent = '';
+
+$tags = array();
+foreach ($A->tags as $tag => $tids) {
+  $tags[] = $tag;
+}
+usort($tags, 'strnatcasecmp');
+foreach ($tags as $tag) {
+  $taglist .= '<li>' . wfo_taglink($tag) . "</li>\n";
+}
+
+foreach ($A->byid as $ent) {
+  if ($i++ <= 20) {
+    $recent .= '<li>' . make_article_link($ent) . "</li>\n";
+  }
+}
+
+$rightbox = <<<HTML
+<h3>Recent Articles</h3>
+<ul class='recentarticles'>
+$recent
+</ul>
+<h3>Articles by tag</h3>
+<ul class='taglist'>
+$taglist
+</ul>
+HTML;
+
 if ($pi == '/') {
 
   wfo_head('Recent Articles');
 
-  wfo_box('recentarticles', array(<<<HTML
-<h2>Recent Articles</h2>
-
-HTML
-  ));
-
-  $i = 0;
-  foreach ($A->byid as $ent) {
-    if ($i++ == 6) break;
-
-    $subj = wfo_html_esc($ent->subject);
-    $ctime = format_date($ent->date);
-    $subj = wfo_html_esc($ent->subject);
-
-    $tags = $ent->tags;
-    if (count($tags) > 1) {
-      $last_tag = array_pop($tags);
-      $t = array();
-      foreach ($tags as $tag) {
-        $t[] = wfo_html_esc($tag);
-      }
-      $tags = join(", ", $t) . " and " . wfo_html_esc($last_tag);
-    } else if (count($tags) == 0) {
-      $tags = '';
-    } else {
-      $tags = wfo_html_esc($tags[0]);
-    }
-    $target = $RELROOT . 'blog' . $ent->path;
-
-    $box = <<<HTML
-<h2 class='subject'><a href='$target'>$subj</a></h2>
-$tags<br/>
-<span class='when'>$ctime</span>
-HTML;
-
-    if ($ent->changed) {
-      $mtime = format_date($ent->changed);
-      $box .= "<br><span class='when'>Updated $mtime</span>";
-    }
-
-    $box .= $ent->excerpt;
-
-    wfo_box("subject-$i", array($box));
-
-
+  if (!isset($_GET['limit'])) {
+    $limit = 10;
+  } else {
+    $limit = (int)$_GET['limit'];
   }
+  if (isset($_GET['offset'])) {
+    $off = (int)$_GET['offset'];
+  } else {
+    $off = 0;
+  }
+
+  $snip = '';
+  $arts = get_object_vars($A->byid);
+  $more = $off + $limit < count($arts);
+  $less = $off > 0;
+  $arts = array_slice($arts, $off, $limit);
+  foreach ($arts as $ent) {
+    $snip .= show_excerpt($ent);
+  }
+
+  if ($less) {
+    $p = $off - $limit;
+    if ($p < 0) {
+      $p = '';
+    } else {
+      $p = "?offset=$p";
+    }
+    $snip .= "<a href='${RELROOT}blog/$p'>Newer Entries</a> ";
+  }
+  if ($more) {
+    $p = '?offset=' . ($off + $limit);
+    $snip .= "<a href='${RELROOT}blog/$p'>Older Entries</a> ";
+  }
+
+  wfo_box('recentarticles', array($snip, $rightbox));
+
+
+} else if (!strncmp($pi, "/tag/", 5)) {
+
+  $tag = substr($pi, 5);
+
+  if (!isset($A->tags->$tag)) {
+    header('HTTP/1.1 404 Not found');
+    wfo_head("No Articles tagged $tag");
+    wfo_box('notfound', array(
+      "No Articles tagged " . wfo_html_esc($tag) . 
+      " were found on this server"));
+    wfo_foot();
+    exit();
+  }
+  wfo_head("Articles tagged $tag");
+
+  if (!isset($_GET['limit'])) {
+    $limit = 10;
+  } else {
+    $limit = (int)$_GET['limit'];
+  }
+  if (isset($_GET['offset'])) {
+    $off = (int)$_GET['offset'];
+  } else {
+    $off = 0;
+  }
+
+  $snip = '';
+  $tags = array_slice($A->tags->$tag, $off, $limit);
+  $ntags = count($A->tags->$tag);
+  $more = $off + $limit < $ntags;
+  $less = $off > 0;
+  foreach ($tags as $id) {
+    $ent = $A->byid->$id;
+    $snip .= show_excerpt($ent);
+  }
+
+  $ut = urlencode($tag);
+  if ($less) {
+    $p = $off - $limit;
+    if ($p < 0) {
+      $p = '';
+    } else {
+      $p = "?offset=$p";
+    }
+    $snip .= "<a href='${RELROOT}blog/tag/$ut$p'>Newer Entries</a> ";
+  }
+  if ($more) {
+    $p = '?offset=' . ($off + $limit);
+    $snip .= "<a href='${RELROOT}blog/tag/$ut$p'>Older Entries</a> ";
+  }
+  wfo_box('tagged', array($snip, $rightbox));
 
 } else {
 
@@ -101,19 +210,7 @@ HTML;
   $ctime = format_date($meta->date);
   $subj = wfo_html_esc($meta->subject);
 
-  $tags = $meta->tags;
-  if (count($tags) > 1) {
-    $last_tag = array_pop($tags);
-    $t = array();
-    foreach ($tags as $tag) {
-      $t[] = wfo_html_esc($tag);
-    }
-    $tags = join(", ", $t) . " and " . wfo_html_esc($last_tag);
-  } else if (count($tags) == 0) {
-    $tags = '';
-  } else {
-    $tags = wfo_html_esc($tags[0]);
-  }
+  $tags = wfo_taglink($meta->tags);
 
 $header = <<<HTML
 <h1 class='subject'><a href='#'>$subj</a></h1>

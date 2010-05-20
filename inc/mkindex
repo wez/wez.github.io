@@ -139,7 +139,7 @@ function find_files_in($dirname)
 find_files_in('posts');
 
 // Sort by most recent first
-function sort_by_most_recent($a, $b)
+function sort_by_most_recent_item($a, $b)
 {
   $A = strtotime($a->date);
   if (isset($a->changed)) {
@@ -153,6 +153,16 @@ function sort_by_most_recent($a, $b)
   return $B - $A;
 }
 
-uasort($A['byid'], 'sort_by_most_recent');
+function sort_by_most_recent_id($a, $b)
+{
+  global $A;
+  return sort_by_most_recent_item($A['byid'][$a], $A['byid'][$b]);
+}
+
+uasort($A['byid'], 'sort_by_most_recent_item');
+foreach ($A['tags'] as $tag => $idlist) {
+  usort($idlist, 'sort_by_most_recent_id');
+  $A['tags'][$tag] = $idlist;
+}
 
 wfo_file_put('posts/articles.json', json_encode($A));

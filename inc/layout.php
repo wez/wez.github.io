@@ -224,3 +224,28 @@ function wfo_foot()
 
 HTML;
 }
+
+function wfo_taglink($name)
+{
+  global $RELROOT;
+  if (is_array($name)) {
+    $tags = $name;
+    if (count($tags) > 1) {
+      $last_tag = array_pop($tags);
+      $t = array();
+      foreach ($tags as $tag) {
+        $t[] = wfo_taglink($tag);
+      }
+      $tags = join(", ", $t) . " and " . wfo_taglink($last_tag);
+    } else if (count($tags) == 0) {
+      $tags = '';
+    } else {
+      $tags = wfo_taglink($tags[0]);
+    }
+    return $tags;
+  }
+  return "<a href='{$RELROOT}blog/tag/" . urlencode($name) . "'>" .
+    wfo_html_esc($name) . "</a>";
+}
+
+

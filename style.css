@@ -300,3 +300,24 @@ div.comment div.who a.who {
 div.comment div.commenttext {
 	padding: 1em;
 }
+
+ul.recentarticles, ul.taglist {
+	padding-left: 0;
+	margin-left: 0;
+}
+
+ul.recentarticles li, ul.taglist li {
+	list-style: none;
+	font-size: 0.8em;
+	padding-bottom: 0.75em;
+	font-family: "trebuchet ms", verdana, sans-serif;
+	font-weight: bold;
+}
+
+ul.recentarticles li a, ul.taglist li a {
+	text-decoration: none;
+	color: black;
+}
+
+
+
