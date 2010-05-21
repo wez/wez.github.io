@@ -81,6 +81,9 @@ function html_excerpt($content, $limit = 100)
   $subset = preg_replace("/^(.*)<body>/ism", "", $subset);
   $subset = preg_replace("/^<\/body>(.*)$/ism", "", $subset);
 
+  // Not sure how this gets in there, but we don't want it
+  $subset = str_replace("\x02", ' ', $subset);
+
   return $subset;
 }
 
@@ -138,9 +141,13 @@ function find_files_in($dirname)
 
 find_files_in('posts');
 
+$latest_change = 0;
+
 // Sort by most recent first
 function sort_by_most_recent_item($a, $b)
 {
+  global $latest_change;
+
   $A = strtotime($a->date);
   if (isset($a->changed)) {
     $A = strtotime($a->changed);
@@ -149,6 +156,7 @@ function sort_by_most_recent_item($a, $b)
   if (isset($b->changed)) {
     $B = strtotime($b->changed);
   }
+  $latest_change = max($latest_change, $A, $B);
 
   return $B - $A;
 }
@@ -166,3 +174,79 @@ foreach ($A['tags'] as $tag => $idlist) {
 }
 
 wfo_file_put('posts/articles.json', json_encode($A));
+
+function rss_esc($str)
+{
+  return htmlspecialchars($str, ENT_QUOTES, 'utf-8');
+}
+
+$title = rss_esc('Wez Furlong');
+$source = rss_esc('http://wezfurlong.org/blog/');
+$description = rss_esc('Software Architect, OpenSourceror');
+$now = rss_esc(date('r'));
+$build = rss_esc(date('r', $latest_change));
+
+
+// Build RSS feed
+$feed = <<<XML
+<rss version="2.0"
+  xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+  xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+  <channel>
+    <title>$title</title>
+    <link>$source</link>
+    <description>$description</description>
+    <language>en</language>
+    <pubDate>$now</pubDate>
+    <lastBuildDate>$build</lastBuildDate>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <creativeCommons:license>http://creativecommons.org/licenses/by/3.0/</creativeCommons:license>
+XML;
+$arts = array_slice($A['byid'], 0, 6);
+foreach ($arts as $ent) {
+  $title = rss_esc($ent->subject);
+  $link = rss_esc('http://wezfurlong.org/blog' . $ent->path);
+  $description = rss_esc($ent->excerpt . <<<HTML
+<a href='$link'>Continue reading on wezfurlong.org</a><br/>
+HTML
+  );
+  $author = rss_esc('Wez Furlong');
+  $comments = rss_esc('http://wezfurlong.org/blog' . $ent->path . '#comments');
+  $permalink = $link;
+  if ($ent->changed) {
+    $d = strtotime($ent->changed);
+  } else {
+    $d = strtotime($ent->date);
+  }
+  $pubDate = rss_esc(date('r', $d));
+
+  $feed .= <<<XML
+<item>
+  <title>$title</title>
+  <link>$link</link>
+  <description>$description</description>
+  <dc:creator>$author</dc:creator>
+  <comments>$comments</comments>
+  <guid isPermaLink="false">$permalink</guid>
+  <pubDate>$pubDate</pubDate>
+  <source url="$source">$source</source>
+  <creativeCommons:license>http://creativecommons.org/licenses/by/3.0/</creativeCommons:license>
+XML;
+
+  foreach ($ent->tags as $tag) {
+    $feed .= "<category>" . rss_esc($tag) . "</category>\n";
+  }
+
+  $feed .= "</item>\n";
+
+}
+
+$feed .= <<<XML
+  </channel>
+</rss>
+XML;
+
+file_put_contents('feed.xml', $feed);
+

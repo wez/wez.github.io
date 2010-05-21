@@ -72,7 +72,9 @@ function wfo_get_project_data()
     $repos[] = $R;
   }
 
-  foreach (array('gimli', 'jlog', 'portableumem') as $name) {
+  foreach (array(
+      //'gimli',
+      'jlog', 'portableumem') as $name) {
 
     $trac = wfo_rest('GET', 
         "http://labs.omniti.com/trac/$name/log/?limit=1&mode=stop_on_copy&format=rss", null, 'xml');

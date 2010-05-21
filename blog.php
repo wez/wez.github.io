@@ -52,7 +52,7 @@ HTML;
     $box .= "<br><span class='when'>Updated $mtime</span>";
   }
 
-  $box .= $ent->excerpt;
+  $box .= "<div class='excerpt'>$ent->excerpt</div>\n";
 
   return $box;
 }

@@ -23,6 +23,7 @@ wfo_box('projabout', array(<<<HTML
   <a class='svclogo' href="http://bitbucket.org"><img src="images/bitbucketlogo.png"></a>
   <a class='svclogo' href="http://github.com"><img src="images/githublogo.png"></a>
   <a class='svclogo' href="https://labs.omniti.com"><img src="images/omnitilabslogo.png"></a>
+  <a class='svclogo' href='http://sourceforge.net'><img src='images/sf.net.jpg'/></a>
   <a class='svclogo' href="http://www.ohloh.net"><img src="http://www.ohloh.net/images/badges/mini.gif" width="80" height="15" /></a>
 </p>
 

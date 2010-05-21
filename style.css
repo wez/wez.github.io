@@ -186,6 +186,12 @@ h1.subject a, h2.subject a {
 	text-decoration: none;
 	color: black;
 }
+h1.subject, h2.subject {
+	clear: both;
+}
+div.excerpt {
+	padding-bottom: 2em;
+}
 
 .when {
 	color: #777;

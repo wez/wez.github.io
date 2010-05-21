@@ -1,5 +1,11 @@
 <?php # vim:ts=2:sw=2:et:
 
+if (php_sapi_name() == 'cli') {
+  $REST_CACHE_TIME = 3600;
+} else {
+  $REST_CACHE_TIME = 7 * 86400;
+}
+
 /* multi-process consistent file-get-contents */
 function wfo_file_get($path)
 {
@@ -52,6 +58,8 @@ function wfo_file_put($path, $content)
 
 function wfo_rest($verb, $url, $params = null, $format = 'json')
 {
+  global $REST_CACHE_TIME;
+
   $cparams = array(
     'http' => array(
       'method' => $verb,
@@ -73,7 +81,8 @@ function wfo_rest($verb, $url, $params = null, $format = 'json')
     // Make use of a cache
     $cache_path = '/tmp/.wfo_' . md5($url . ":$format");
     $now = time();
-    if (file_exists($cache_path) && (filemtime($cache_path) + 3600) > $now) {
+    if (file_exists($cache_path) &&
+        (filemtime($cache_path) + $REST_CACHE_TIME) > $now) {
       $res = wfo_file_get($cache_path);
     }
   }
