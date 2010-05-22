@@ -7,7 +7,7 @@ if ($_SERVER['REMOTE_ADDR'] == '::1') {
   $WEBROOT = 'http://wezfurlong.org/';
   $DISQUS_DEVELOPER = 0;
 }
-$DISQUS_SITE = 'testingevilasindr2';
+$DISQUS_SITE = 'evilasindr';
 
 $AREA = null;
 $AREAS = array(

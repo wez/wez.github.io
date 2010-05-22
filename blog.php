@@ -218,6 +218,7 @@ HTML;
     $mtime = format_date($meta->changed);
     $header .= "<br><span class='when'>Updated $mtime</span>";
   }
+  $header .= "<br><a class='permalink' href='{$WEBROOT}blog$ent->path#disqus_thread'>Permalink</a>";
 
   wfo_box('subject', array($header));
 

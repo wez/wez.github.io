@@ -2,6 +2,7 @@
 <?php # vim:ts=2:sw=2:et:ft=php:
 # Synchronizes local state with disqus
 include 'inc/rest.php';
+include 'inc/layout.php';
 
 if (php_sapi_name() != 'cli') {
   header("Location: $WEBROOT");
@@ -9,8 +10,6 @@ if (php_sapi_name() != 'cli') {
 }
 
 $DKEY = trim(file_get_contents(".disqus"));
-
-$site = 'testingevilasindr2';
 
 function disqus($func, $params = null, $method = 'GET')
 {
@@ -29,7 +28,7 @@ function disqus($func, $params = null, $method = 'GET')
 
 $flist = disqus('get_forum_list');
 foreach ($flist->message as $forum) {
-  if ($forum->shortname == $site) {
+  if ($forum->shortname == $DISQUS_SITE) {
     $forumid = $forum->id;
     break;
   }
@@ -56,40 +55,38 @@ foreach ($arts->byid as $uniqid => $ent)
       foreach ($comments as $c) {
         unset($c->did);
       }
-      wfo_file_put("posts/$ent->path/comments.json", json_encode($comments));
-      continue;
-    }
+    } else {
+      $thread_id = disqus('thread_by_identifier', array(
+            'identifier' => $uniqid,
+            'forum_api_key' => $forumkey,
+            'title' => $ent->subject,
+            ), 'POST')->message->thread->id;
+      echo "thread: $thread_id $ent->subject\n";
+      disqus('update_thread', array(
+            'thread_id' => $thread_id,
+            'forum_api_key' => $forumkey,
+            'url' => 'http://wezfurlong.org/blog' . $ent->path,
+            ), 'POST');
 
-    $thread_id = disqus('thread_by_identifier', array(
-      'identifier' => $uniqid,
-      'forum_api_key' => $forumkey,
-      'title' => $ent->subject,
-      ), 'POST')->message->thread->id;
-    echo "thread: $thread_id $ent->subject\n";
-    disqus('update_thread', array(
-      'thread_id' => $thread_id,
-      'forum_api_key' => $forumkey,
-      'url' => 'http://wezfurlong.org/blog' . $ent->path,
-      ), 'POST');
-
-    foreach ($comments as $c) {
-      if (!isset($c->did)) {
-        var_dump($c);
-        $c->email = preg_replace("/[\x80-\xff]/", "-", $c->email);
-        $p = disqus('create_post', array(
-              'thread_id' => $thread_id,
-              'author_name' => $c->n,
-              'author_email' => $c->email,
-              'author_url' => $c->url,
-              'forum_api_key' => $forumkey,
-              'created_at' => strftime('%Y-%m-%dT%H:%M', strtotime($c->d)),
-              'message' => $c->c,
-              ), 'POST');
-        echo "ID: ", $p->message->id, "\n";
-        $c->did = $p->message->id;
-        wfo_file_put("posts/$ent->path/comments.json", json_encode($comments));
+      foreach ($comments as $c) {
+        if (!isset($c->did)) {
+          var_dump($c);
+          $c->email = preg_replace("/[\x80-\xff]/", "-", $c->email);
+          $p = disqus('create_post', array(
+                'thread_id' => $thread_id,
+                'author_name' => $c->n,
+                'author_email' => $c->email,
+                'author_url' => $c->url,
+                'forum_api_key' => $forumkey,
+                'created_at' => strftime('%Y-%m-%dT%H:%M', strtotime($c->d)),
+                'message' => $c->c,
+                ), 'POST');
+          echo "ID: ", $p->message->id, "\n";
+          $c->did = $p->message->id;
+        }
       }
     }
+    wfo_file_put("posts/$ent->path/comments.json", json_encode($comments));
   }
 }
 
