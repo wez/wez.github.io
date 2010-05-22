@@ -11,6 +11,9 @@ if (strpos($pi, '..') !== false) {
   wfo_foot();
   exit();
 }
+if (!strlen($pi)) {
+  $pi = '/';
+}
 
 $A = json_decode(wfo_file_get('posts/articles.json'));
 function format_date($datestr)
@@ -68,7 +71,7 @@ foreach ($tags as $tag) {
 }
 
 foreach ($A->byid as $ent) {
-  if ($i++ <= 20) {
+  if ($i++ <= 8) {
     $recent .= '<li>' . make_article_link($ent) . "</li>\n";
   }
 }
@@ -122,6 +125,7 @@ if ($pi == '/') {
     $snip .= "<a href='${WEBROOT}blog/$p' class='blognav older'>Older Entries</a> ";
   }
 
+
   wfo_box('recentarticles', array($snip, $rightbox));
 
 
@@ -169,11 +173,11 @@ if ($pi == '/') {
     } else {
       $p = "?offset=$p";
     }
-    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p'>Newer Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p' class='blognav newer'>Newer Entries</a> ";
   }
   if ($more) {
     $p = '?offset=' . ($off + $limit);
-    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p'>Older Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p' class='blognav older'>Older Entries</a> ";
   }
   wfo_box('tagged', array($snip, $rightbox));
 

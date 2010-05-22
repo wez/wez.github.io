@@ -326,12 +326,27 @@ ul.recentarticles li, ul.taglist li {
 
 ul.recentarticles li a, ul.taglist li a {
 	text-decoration: none;
-	color: black;
+	color: #777;
 }
 
 ul.recentarticles li a:hover, ul.taglist li a:hover {
 	background-color: gold; /*#f63; */
+	color: black;
 }
+
+#recentarticles h2, #recentarticles h3 {
+	color: #666;
+}
+
+/*
+#recentarticles div.col2 {
+	background:#eee;
+	padding: 0.5em;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+*/
 
 a.blognav {
 	font-family: "trebuchet ms", verdana, sans-serif;
@@ -361,3 +376,5 @@ p {
 	max-width: 55em;
 	line-height: 150%;
 }
+
+	

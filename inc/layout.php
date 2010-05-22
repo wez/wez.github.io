@@ -1,7 +1,10 @@
 <?php # vim:ts=2:sw=2:et:
 
-$WEBROOT = 'http://localhost/~wez/wfo/';
-#$WEBROOT = 'http://wezfurlong.org/';
+if ($_SERVER['REMOTE_ADDR'] == '::1') {
+  $WEBROOT = 'http://localhost/~wez/wfo/';
+} else {
+  $WEBROOT = 'http://wezfurlong.org/';
+}
 
 $AREA = null;
 $AREAS = array(
@@ -26,7 +29,7 @@ $BOXES = array(
 <p>
   I'm also a <a href="http://php.net">PHP</a> Core developer and
   OpenSource contributor, residing in Maryland, USA
-  with Juliette, Xander and Lily. <a href="bio.php" title="read more">(read more)</a>
+  with Juliette, Xander and Lily. <a href="{$WEBROOT}about.php" title="read more">(read more)</a>
 </p>
 HTML
   ,
@@ -40,14 +43,14 @@ HTML
   <a href="http://php.net">PHP</a> Core developer and
   OpenSource contributor.  I live in Maryland, USA
   with Juliette, Xander and Lily.
-  <a href="bio.php" title="read more">(read more)</a>
+  <a href="${WEBROOT}about.php" title="read more">(read more)</a>
 </p>
 HTML
   ,
 
   'main-links' => <<<HTML
 <p>
-  <a href="{$WEBROOT}bio.php">Biography</a><br/>
+  <a href="{$WEBROOT}about.php">About</a><br/>
   <a href="{$WEBROOT}blog/">Blog</a><br/>
   <a href="{$WEBROOT}projects.php">Projects</a><br/>
   <a href="{$WEBROOT}publications.php">Publications</a><br/>

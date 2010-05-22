@@ -15,17 +15,31 @@ wfo_box('bio', array(<<<HTML
 
 <p>
   I'm married to Juliette and we have a son called Xander.  Juliette studies
-  Tae Kwon Do and writing, and Xander attends Kindergarten and loves numbers.
+  Tae Kwon Do and writing, and Xander attends school and loves math and space.
 </p>
 
+<p>
+<a style='float:right'
+  href='http://messagesystems.com' alt='Message Systems, Inc.'><img
+  src="images/msys.png"></a>
+  At work, I'm responsible for ensuring that the 
+  architecture of Message Systems' software continues to meet the
+  performance, scalability and flexibility demands placed upon it by clientele
+  such as
+  <a href="http://facebook.com">Facebook</a>,
+  <a href="http://salesforce.com">Salesforce</a>,
+  <a href="http://match.com">Match.com</a>
+  and <a href="http://messagelabs.com">MessageLabs</a>.
+</p>
+<br>
 <h2>Professional Biography</h2>
 
 <p>
   Wez Furlong is Chief Software Architect at
   <a href="http://messagesystems.com/">Message Systems</a>
   (part of the <a href="http://omniti.com/">OmniTI</a> family),
-  where he designs new features and refinements for
-  <a href="http://messagesystems.com/">the fastest MTA on Earth</a>.  Prior
+  where he designs new features and refinements for their technology platform.
+  Prior
   to his time at Message Systems/OmniTI, Wez was the Principal of his own small
   software consultancy based in England, developing internet and desktop
   applications for clients as far away as Japan and Australia.

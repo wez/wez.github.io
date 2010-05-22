@@ -10,7 +10,7 @@ wfo_box('pubs', array(<<<HTML
 
 <ul>
   <li><a href="http://devzone.zend.com/node/view/id/1148">30 Minutes with Wez Furlong</a> by Cal Evans at OSCON 2006</li>
-  <li><a href="http://www.unixreview.com/documents/s=10104/ur0611e/ur0611e.htm">Interview with Wez Furlong</a> by Peter Lavin at php|works 2006</li>
+  <li><a href="http://softcoded.com/articles/wz.php">Interview with Wez Furlong</a> by Peter Lavin at php|works 2006</li>
 </ul>
 
 <h3>Book Contributions</h3>
@@ -23,7 +23,7 @@ wfo_box('pubs', array(<<<HTML
 <h3>Awards and Nominations</h3>
 
 <ul>
-  <li>Oracle Magazine's PHP Developer of the Year 2005.</li>
+  <li><a href="http://www.oracle.com/technology/oramag/oracle/05-nov/o65awards.html#furlong">Oracle Magazine's PHP Developer of the Year 2005.</a></li>
   <li>Nominee for the ActiveState ActiveAwards 2003 for contributions to the PHP programming language.</li>
 </ul>
 
@@ -31,7 +31,7 @@ wfo_box('pubs', array(<<<HTML
 
 <ul>
   <li><a href="http://www-128.ibm.com/developerworks/db2/library/techarticle/dm-0505furlong/index.html">Connect PHP to DB2 and Cloudscape via PDO</a> (IBM developerWorks)</li>
-  <li><a href="http://www.oracle.com/technology/pub/articles/php_experts/otn_pdo_oracle5.html">The PHP 5 Data Object Abstraction Layer and Oracle</a> (Oracle Technology Network)</li>
+  <li><a href="http://www.oracle.com/technology/pub/articles/php_experts/otn_pdo_oracle5.html">The PHP 5 Data Object Abstraction Layer and Oracle</a> (Oracle Technology Network; link is dead now :-()</li>
   <li><a href="http://devzone.zend.com/article/762-Com_dotnet">com_dotnet</a> (Zend DevZone)</li>
   <li><a href="http://phparch.com/">php|architect</a>
     <ul>

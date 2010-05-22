@@ -16,11 +16,13 @@ class wfo_repo_info {
 
 function wfo_sort_repos($a, $b)
 {
-  if ($a->total_commits && $b->total_commits
-      && $a->total_commits != $b->total_commits) {
-    return $b->total_commits - $a->total_commits;
+  $A = max($a->total_commits, $a->recent_commits);
+  $B = max($b->total_commits, $b->recent_commits);
+  $d = $B - $A;
+  if ($d) {
+    return $d;
   }
-  return strnatcmp(strtolower($a->name), strtolower($b->name));
+  return strnatcasecmp($a->name, $b->name);
 }
 
 function wfo_get_project_data()
