@@ -1,0 +1,90 @@
+#!/usr/bin/php
+<?php # vim:ts=2:sw=2:et:ft=php:
+# Synchronizes local state with disqus
+include 'inc/rest.php';
+
+$DKEY = trim(file_get_contents(".disqus"));
+
+$site = 'testingevilasindr2';
+
+function disqus($func, $params = null, $method = 'GET')
+{
+  global $DKEY;
+
+  if ($params === null) {
+    $params = array();
+  }
+  $params['api_version'] = '1.1';
+  $params['user_api_key'] = $DKEY;
+
+  $url = "http://disqus.com/api/$func/";
+
+  return wfo_rest($method, $url, $params);
+}
+
+$flist = disqus('get_forum_list');
+foreach ($flist->message as $forum) {
+  if ($forum->shortname == $site) {
+    $forumid = $forum->id;
+    break;
+  }
+}
+echo $forumid, "\n";
+
+$forumkey = disqus('get_forum_api_key', array(
+  'forum_id' => $forumid,
+  ))->message;
+
+echo $forumkey, "\n";
+
+$arts = json_decode(wfo_file_get('posts/articles.json'));
+
+foreach ($arts->byid as $uniqid => $ent)
+{
+  if (!file_exists("posts/$ent->path/comments.json")) {
+    continue;
+  }
+  echo $ent->path, "\n";
+  $comments = json_decode(wfo_file_get("posts/$ent->path/comments.json"));
+  if (is_array($comments) && count($comments) > 0) {
+    if (false) {
+      foreach ($comments as $c) {
+        unset($c->did);
+      }
+      wfo_file_put("posts/$ent->path/comments.json", json_encode($comments));
+      continue;
+    }
+
+    $thread_id = disqus('thread_by_identifier', array(
+      'identifier' => $uniqid,
+      'forum_api_key' => $forumkey,
+      'title' => $ent->subject,
+      ), 'POST')->message->thread->id;
+    echo "thread: $thread_id $ent->subject\n";
+    disqus('update_thread', array(
+      'thread_id' => $thread_id,
+      'forum_api_key' => $forumkey,
+      'url' => 'http://wezfurlong.org/blog' . $ent->path,
+      ), 'POST');
+
+    foreach ($comments as $c) {
+      if (!isset($c->did)) {
+        var_dump($c);
+        $c->email = preg_replace("/[\x80-\xff]/", "-", $c->email);
+        $p = disqus('create_post', array(
+              'thread_id' => $thread_id,
+              'author_name' => $c->n,
+              'author_email' => $c->email,
+              'author_url' => $c->url,
+              'forum_api_key' => $forumkey,
+              'created_at' => strftime('%Y-%m-%dT%H:%M', strtotime($c->d)),
+              'message' => $c->c,
+              ), 'POST');
+        echo "ID: ", $p->message->id, "\n";
+        $c->did = $p->message->id;
+        wfo_file_put("posts/$ent->path/comments.json", json_encode($comments));
+      }
+    }
+  }
+}
+

@@ -94,6 +94,10 @@ function load_page($filename)
   $content = file_get_contents($filename);
   $meta = json_decode(file_get_contents(dirname($filename) . '/meta.json'));
 
+  if (!isset($meta->uniqid)) {
+    throw new Exception("missing uniqid");
+  }
+
   $filename = preg_replace('/^posts\//', '/', dirname($filename));
 
 

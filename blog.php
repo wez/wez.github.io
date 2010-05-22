@@ -194,10 +194,10 @@ if ($pi == '/') {
     exit();
   }
 
-  $meta = json_decode(file_get_contents("$article/meta.json"));
-  $content = file_get_contents("$article/index.html");
+  $meta = json_decode(wfo_file_get("$article/meta.json"));
+  $content = wfo_file_get("$article/index.html");
   if (file_exists("$article/comments.json")) {
-    $comments = json_decode(file_get_contents("$article/comments.json"));
+    $comments = json_decode(wfo_file_get("$article/comments.json"));
   } else {
     $comments = array();
   }
