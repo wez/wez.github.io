@@ -65,13 +65,13 @@ HTML
    <p>
     <a title="Subscribe to my blog" rel="alternate"
       type="application/rss+xml"
-      href="http://feeds.netevil.org/EvilAsInDr"><img
+      href="http://feeds.feedburner.com/EvilAsInDr"><img
         src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png"
         width="32" height="32" alt="Subscribe to my blog"></a>
     &nbsp;
     <a title="Subscribe to my blog" rel="alternate"
       type="application/rss+xml"
-      href="http://feeds.netevil.org/EvilAsInDr"><img
+      href="http://feeds.feedburner.com/EvilAsInDr"><img
         src="http://feeds.feedburner.com/~fc/EvilAsInDr?bg=ff6633&amp;fg=000000&amp;anim=0"
         height="26" width="88" style="border:0" alt="" /></a>
     </p>
@@ -146,7 +146,7 @@ function wfo_head($title, $area = 'home')
 
     <link rel="alternate" type="application/rss+xml"
           title="Evil, as in Dr."
-          href="http://feeds.netevil.org/EvilAsInDr">
+          href="http://feeds.feedburner.com/EvilAsInDr">
     <title>$TITLE</title>
     <script src="http://www.google.com/jsapi?key=$GOOG_API" type="text/javascript"></script>
     <script type="text/javascript">
