@@ -1,1 +1,3 @@
 Sitemap: http://wezfurlong.org/sitemap.xml
+User-agent: *
+Allow: /
