@@ -3,6 +3,11 @@
 # Reads posts and builds out the index data
 include 'inc/rest.php';
 
+if (php_sapi_name() != 'cli') {
+  header("Location: $WEBROOT");
+  exit;
+}
+
 $A = array();
 
 function innerHTML($node)

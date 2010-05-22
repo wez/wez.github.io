@@ -1,6 +1,7 @@
 <?php # vim:ts=2:sw=2:et:
 
 $WEBROOT = 'http://localhost/~wez/wfo/';
+#$WEBROOT = 'http://wezfurlong.org/';
 
 $AREA = null;
 $AREAS = array(

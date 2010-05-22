@@ -9,7 +9,7 @@ body {
 	border: 0;
 	width: 100%;
 	background: #fff;
-	font-family: verdana, sans-serif;
+	font-family: Lucida Grande, Lucida Sans Unicode, Arial, verdana, sans-serif;
 	font-size: 90%;
 }
 
@@ -23,7 +23,7 @@ img {
 	width: 100%;
 	color: white;
     background-color: #210040;
-	border-bottom: 4px solid rgb(141,139,156); 
+	border-bottom: 4px solid rgb(141,139,156);
 	font-family: "trebuchet ms", verdana, sans-serif;
 }
 
@@ -186,6 +186,10 @@ h1.subject a, h2.subject a {
 	text-decoration: none;
 	color: black;
 }
+h2.subject a:hover {
+	background-color: gold;
+}
+
 h1.subject, h2.subject {
 	clear: both;
 }
@@ -325,16 +329,35 @@ ul.recentarticles li a, ul.taglist li a {
 	color: black;
 }
 
+ul.recentarticles li a:hover, ul.taglist li a:hover {
+	background-color: gold; /*#f63; */
+}
+
 a.blognav {
 	font-family: "trebuchet ms", verdana, sans-serif;
 	color: black;
 	font-weight: bold;
 }
 
-a.blognav.newer {
-	padding-right: 5em;
+a.blognav.older {
+	float: right;
 }
 
-a.blognav.older {
-	padding-left: 15em;
+#footer {
+	margin-top: 5em;
+	background-image: url(images/gradient-footer.png);
+	background-repeat: repeat-x;
+	min-height: 28px;
+
+}
+
+#copyright a {
+	color: #777;
+	font-size: 0.9em;
+	text-decoration: none;
+}
+
+p {
+	max-width: 55em;
+	line-height: 150%;
 }

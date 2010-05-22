@@ -2,5 +2,12 @@ Options +FollowSymLinks
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)/blog/(.*)$ $1/blog.php/$2 [L,QSA]
+RewriteRule ^blog/(.*)$ blog.php/$1 [L,QSA]
+<Files .*>
+order deny,allow
+deny from all
+</Files>
+order deny,allow
+deny from all
+allow from ::1 127.0.0.1 68.54.255.27
 

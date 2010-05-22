@@ -3,6 +3,11 @@
 # Synchronizes local state with disqus
 include 'inc/rest.php';
 
+if (php_sapi_name() != 'cli') {
+  header("Location: $WEBROOT");
+  exit;
+}
+
 $DKEY = trim(file_get_contents(".disqus"));
 
 $site = 'testingevilasindr2';

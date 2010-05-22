@@ -196,12 +196,6 @@ if ($pi == '/') {
 
   $meta = json_decode(wfo_file_get("$article/meta.json"));
   $content = wfo_file_get("$article/index.html");
-  if (file_exists("$article/comments.json")) {
-    $comments = json_decode(wfo_file_get("$article/comments.json"));
-  } else {
-    $comments = array();
-  }
-
   wfo_head($meta->subject);
 
   $ctime = format_date($meta->date);
@@ -227,25 +221,31 @@ HTML;
   ));
 
   $com = '';
-  if (count($comments)) {
-    wfo_box('comments', array(<<<HTML
+  if (isset($_GET['comments'])) {
+    if (file_exists("$article/comments.json")) {
+      $comments = json_decode(wfo_file_get("$article/comments.json"));
+    } else {
+      $comments = array();
+    }
+    if (count($comments)) {
+      wfo_box('comments', array(<<<HTML
   <div class='comment'>
 <h2>Comments</h2>
 </div>
 HTML
-    ));
-    foreach ($comments as $c) {
-      $when = format_date($c->d);
-      $img = 'http://www.gravatar.com/avatar/' . md5($c->email) 
-              . '?s=32&amp;d=identicon';
-      $who = wfo_html_esc($c->n);
-      if (preg_match("/^https?:\/\//", $c->url)) {
-        $url = wfo_html_esc($c->url);
-      } else {
-        $url = "#$c->i";
-      }
-      $text = $c->c;
-      $box = <<<HTML
+      ));
+      foreach ($comments as $c) {
+        $when = format_date($c->d);
+        $img = 'http://www.gravatar.com/avatar/' . md5($c->email)
+                . '?s=32&amp;d=identicon';
+        $who = wfo_html_esc($c->n);
+        if (preg_match("/^https?:\/\//", $c->url)) {
+          $url = wfo_html_esc($c->url);
+        } else {
+          $url = "#$c->i";
+        }
+        $text = $c->c;
+        $box = <<<HTML
 <div class='comment'>
   <div class='who'>
     <a name='$c->u'></a>
@@ -256,8 +256,35 @@ HTML
   <div class='commenttext'>$text</div>
 </div>
 HTML;
-      wfo_box("comment-$c->i", array($box));
+        wfo_box("comment-$c->i", array($box));
+      }
     }
+  } else {
+    $title = addcslashes($meta->subject, "'\"\n\r\t");
+    $commentlink = $WEBROOT . "blog/" . $meta->url . "?comments=1";
+    $id = $meta->uniqid;
+    $com = <<<HTML
+  <div class='comment'>
+<h2>Comments</h2>
+<div id="disqus_thread">
+  <a href="$commentlink">See this page with comments inline</a>
+</div>
+<script type="text/javascript">
+var disqus_developer = 1;
+var disqus_title = '$title';
+var disqus_identifier = '$id';
+$('#disqus_thread').html('');
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript';
+   dsq.async = true;
+   dsq.src = 'http://testingevilasindr2.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+</div>
+HTML;
+    wfo_box('comments', array($com));
   }
 }
 
