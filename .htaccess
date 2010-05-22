@@ -7,7 +7,7 @@ RewriteRule ^blog/(.*)$ blog.php/$1 [L,QSA]
 order deny,allow
 deny from all
 </Files>
-order deny,allow
-deny from all
-allow from ::1 127.0.0.1 68.54.255.27
+#order deny,allow
+#deny from all
+#allow from ::1 127.0.0.1 68.54.255.27
 

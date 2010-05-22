@@ -144,9 +144,9 @@ function wfo_head($title, $area = 'home')
     <meta http-equiv="X-YADIS-Location"
           content="http://netevil.org/yadis.xrdf">
 
-    <!-- link rel="alternate" type="application/rss+xml"
+    <link rel="alternate" type="application/rss+xml"
           title="Evil, as in Dr."
-          href="/feeds/rss.xml" -->
+          href="http://feeds.netevil.org/EvilAsInDr">
     <title>$TITLE</title>
     <script src="http://www.google.com/jsapi?key=$GOOG_API" type="text/javascript"></script>
     <script type="text/javascript">
