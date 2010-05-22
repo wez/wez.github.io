@@ -1,5 +1,7 @@
 <?php # vim:ts=2:sw=2:et:
 
+$WEBROOT = 'http://localhost/~wez/wfo/';
+
 $AREA = null;
 $AREAS = array(
   'home' => array(
@@ -44,30 +46,32 @@ HTML
 
   'main-links' => <<<HTML
 <p>
-  <a href="{$RELROOT}bio.php">Biography</a><br/>
-  <a href="{$RELROOT}blog/">Blog</a><br/>
-  <a href="{$RELROOT}projects.php">Projects</a><br/>
-  <a href="{$RELROOT}publications.php">Publications</a><br/>
+  <a href="{$WEBROOT}bio.php">Biography</a><br/>
+  <a href="{$WEBROOT}blog/">Blog</a><br/>
+  <a href="{$WEBROOT}projects.php">Projects</a><br/>
+  <a href="{$WEBROOT}publications.php">Publications</a><br/>
 </p>
 HTML
   ,
 
   'feeds' => <<<HTML
    <p>
-    <a title="Subscribe to my feed, Evil, as in Dr." rel="alternate"
+    <a title="Subscribe to my blog" rel="alternate"
       type="application/rss+xml"
       href="http://feeds.netevil.org/EvilAsInDr"><img
-        src="http://netevil.org/images/feed-icon16x16.png"
-        width="16" height="16" alt=""></a>
-    <a title="Subscribe to my feed, Evil, as in Dr." rel="alternate"
+        src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png"
+        width="32" height="32" alt="Subscribe to my blog"></a>
+    &nbsp;
+    <a title="Subscribe to my blog" rel="alternate"
       type="application/rss+xml"
-      href="http://feeds.netevil.org/EvilAsInDr">Subscribe to my Blog</a>
-    </p>
-    <p>
-      <a href="http://feeds.netevil.org/EvilAsInDr"><img
+      href="http://feeds.netevil.org/EvilAsInDr"><img
         src="http://feeds.feedburner.com/~fc/EvilAsInDr?bg=ff6633&amp;fg=000000&amp;anim=0"
         height="26" width="88" style="border:0" alt="" /></a>
     </p>
+    <p>
+      <a href="http://www.twitter.com/wezfurlong"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow wezfurlong on Twitter"/></a>
+    </p>
+
 HTML
   ,
 
@@ -83,7 +87,7 @@ function wfo_head($title, $area = 'home')
   global $AREAS;
   global $AREA;
   global $BOXES;
-  global $RELROOT;
+  global $WEBROOT;
 
   $A = $AREAS[$area];
   $AREA = $area;
@@ -120,7 +124,7 @@ function wfo_head($title, $area = 'home')
     <meta name="copyright"
       content="&copy; 2003-2010, Wez Furlong, unless otherwise attributed">
     
-    <link rel="stylesheet" href="{$RELROOT}style.css" type="text/css">
+    <link rel="stylesheet" href="{$WEBROOT}style.css" type="text/css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 
     <link rel="openid.server" 
@@ -145,7 +149,7 @@ function wfo_head($title, $area = 'home')
   <body>
     <div id="navtitle">
       <div id="tpad">
-        <div id="maintitle"><a href="$RELROOT">$AREA_TITLE</a></div>
+        <div id="maintitle"><a href="$WEBROOT">$AREA_TITLE</a></div>
         <div id="strapline">$AREA_STRAP</div>
       </div>
     </div>
@@ -216,8 +220,21 @@ function wfo_foot()
   echo <<<HTML
     <div id="footer">
       <p id="copyright">
-        <a href="/publications.php#copyright">&copy; 2003-2010 Wez Furlong</a>
+
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"
+><img alt="Creative Commons License" style="border-width:0"
+  valign="middle"
+   src="http://i.creativecommons.org/l/by/3.0/80x15.png"/></a>
+        <a rel="license" 
+          href="http://creativecommons.org/licenses/by/3.0/"
+          >Copyright &copy; 2003-2010</a>
+  <a xmlns:cc="http://creativecommons.org/ns#"
+        property="cc:attributionName" rel="cc:attributionURL"
+        href="http://wezfurlong.org">Wez Furlong</a>
       </p>
+
     </div>
   </body>
 </html>
@@ -227,7 +244,7 @@ HTML;
 
 function wfo_taglink($name)
 {
-  global $RELROOT;
+  global $WEBROOT;
   if (is_array($name)) {
     $tags = $name;
     if (count($tags) > 1) {
@@ -244,7 +261,7 @@ function wfo_taglink($name)
     }
     return $tags;
   }
-  return "<a href='{$RELROOT}blog/tag/" . urlencode($name) . "'>" .
+  return "<a href='{$WEBROOT}blog/tag/" . urlencode($name) . "'>" .
     wfo_html_esc($name) . "</a>";
 }
 

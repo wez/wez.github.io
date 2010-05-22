@@ -12,9 +12,6 @@ if (strpos($pi, '..') !== false) {
   exit();
 }
 
-$levels = explode('/', $pi);
-$RELROOT = str_repeat("../", count($levels)-1);
-
 $A = json_decode(wfo_file_get('posts/articles.json'));
 function format_date($datestr)
 {
@@ -23,8 +20,8 @@ function format_date($datestr)
 
 function make_article_link($ent)
 {
-  global $RELROOT;
-  $target = $RELROOT . 'blog' . $ent->path;
+  global $WEBROOT;
+  $target = $WEBROOT . 'blog' . $ent->path;
   $subj = wfo_html_esc($ent->subject);
 
   return "<a href='$target'>$subj</a>";
@@ -32,7 +29,7 @@ function make_article_link($ent)
 
 function show_excerpt($ent)
 {
-  global $RELROOT;
+  global $WEBROOT;
 
   $subj = wfo_html_esc($ent->subject);
   $ctime = format_date($ent->date);
@@ -118,11 +115,11 @@ if ($pi == '/') {
     } else {
       $p = "?offset=$p";
     }
-    $snip .= "<a href='${RELROOT}blog/$p'>Newer Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/$p' class='blognav newer'>Newer Entries</a> ";
   }
   if ($more) {
     $p = '?offset=' . ($off + $limit);
-    $snip .= "<a href='${RELROOT}blog/$p'>Older Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/$p' class='blognav older'>Older Entries</a> ";
   }
 
   wfo_box('recentarticles', array($snip, $rightbox));
@@ -172,11 +169,11 @@ if ($pi == '/') {
     } else {
       $p = "?offset=$p";
     }
-    $snip .= "<a href='${RELROOT}blog/tag/$ut$p'>Newer Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p'>Newer Entries</a> ";
   }
   if ($more) {
     $p = '?offset=' . ($off + $limit);
-    $snip .= "<a href='${RELROOT}blog/tag/$ut$p'>Older Entries</a> ";
+    $snip .= "<a href='${WEBROOT}blog/tag/$ut$p'>Older Entries</a> ";
   }
   wfo_box('tagged', array($snip, $rightbox));
 

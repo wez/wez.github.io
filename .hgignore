@@ -1,3 +1,5 @@
 syntax: glob
 .ohloh
+feed.xml
+posts/articles.json
 *.swp

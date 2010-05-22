@@ -37,30 +37,18 @@ wfo_box('atplay', array(
 HTML
   ));
 
-echo <<<HTML
-<script type='text/javascript'>
-var work = true;
-var work_timer = 10000;
-$(function(){
-  function toggle_work_play() {
-    if (work) {
-      $('#atwork').fadeOut('slow', function() {
-        $('#atplay').fadeIn();
-      });
-    } else {
-      $('#atplay').fadeOut('slow', function() {
-        $('#atwork').fadeIn();
-      });
-    }
-    work = !work;
-    setTimeout(toggle_work_play, work_timer);
-  }
-//  $('#atplay').hide();
-//  setTimeout(toggle_work_play, work_timer);
-});
-</script>
-HTML;
+wfo_box('elsewhere', array(
+  <<<HTML
+<p>
+  <a href="{$WEBROOT}blog/"><b>Read my Blog &hellip;</b></a>
+</p>
+<p>
+  <a href="{$WEBROOT}bio.php"><b>Read more about me &hellip;</b></a>
+</p>
 
+
+HTML
+  ));
 
 wfo_foot();
 

@@ -325,5 +325,16 @@ ul.recentarticles li a, ul.taglist li a {
 	color: black;
 }
 
+a.blognav {
+	font-family: "trebuchet ms", verdana, sans-serif;
+	color: black;
+	font-weight: bold;
+}
 
+a.blognav.newer {
+	padding-right: 5em;
+}
 
+a.blognav.older {
+	padding-left: 15em;
+}
