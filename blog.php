@@ -51,6 +51,7 @@ HTML;
     $mtime = format_date($ent->changed);
     $box .= "<br><span class='when'>Updated $mtime</span>";
   }
+  $box .= "<br><a class='permalink' href='{$WEBROOT}blog$ent->path#disqus_thread'>Permalink</a>";
 
   $box .= "<div class='excerpt'>$ent->excerpt</div>\n";
 
@@ -270,11 +271,12 @@ HTML;
     $com = <<<HTML
   <div class='comment'>
 <h2>Comments</h2>
+<a name='disqus_thread'></a>
 <div id="disqus_thread">
   <a href="$commentlink">See this page with comments inline</a>
 </div>
 <script type="text/javascript">
-var disqus_developer = 1;
+var disqus_developer = $DISQUS_DEVELOPER;
 var disqus_title = '$title';
 var disqus_identifier = '$id';
 $('#disqus_thread').html('');
@@ -282,7 +284,7 @@ $('#disqus_thread').html('');
    var dsq = document.createElement('script');
    dsq.type = 'text/javascript';
    dsq.async = true;
-   dsq.src = 'http://testingevilasindr2.disqus.com/embed.js';
+   dsq.src = 'http://$DISQUS_SITE.disqus.com/embed.js';
    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

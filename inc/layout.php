@@ -2,9 +2,12 @@
 
 if ($_SERVER['REMOTE_ADDR'] == '::1') {
   $WEBROOT = 'http://localhost/~wez/wfo/';
+  $DISQUS_DEVELOPER = 1;
 } else {
   $WEBROOT = 'http://wezfurlong.org/';
+  $DISQUS_DEVELOPER = 0;
 }
+$DISQUS_SITE = 'testingevilasindr2';
 
 $AREA = null;
 $AREAS = array(
@@ -221,6 +224,8 @@ HTML;
 
 function wfo_foot()
 {
+  global $DISQUS_SITE;
+
   echo <<<HTML
     <div id="footer">
       <p id="copyright">
@@ -240,6 +245,20 @@ function wfo_foot()
       </p>
 
     </div>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+  var links = document.getElementsByTagName('a');
+  var query = '?';
+  for(var i = 0; i < links.length; i++) {
+  if(links[i].href.indexOf('#disqus_thread') >= 0) {
+    query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+  }
+  }
+  document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/$DISQUS_SITE/get_num_replies.js' + query + '"></' + 'script>');
+})();
+//]]>
+</script>
   </body>
 </html>
 
@@ -265,7 +284,7 @@ function wfo_taglink($name)
     }
     return $tags;
   }
-  return "<a href='{$WEBROOT}blog/tag/" . urlencode($name) . "'>" .
+  return "<a class='tag' href='{$WEBROOT}blog/tag/" . urlencode($name) . "'>" .
     wfo_html_esc($name) . "</a>";
 }
 
