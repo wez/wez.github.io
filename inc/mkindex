@@ -232,7 +232,6 @@ $description = rss_esc('Software Architect, OpenSourceror');
 $now = rss_esc(date('r'));
 $build = rss_esc(date('r', $latest_change));
 
-
 // Build RSS feed
 $feed = <<<XML
 <rss version="2.0"
@@ -295,4 +294,25 @@ $feed .= <<<XML
 XML;
 
 file_put_contents('feed.xml', $feed);
+
+$sitemap = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://wezfurlong.org/</loc></url>
+  <url><loc>http://wezfurlong.org/blog</loc></url>
+  <url><loc>http://wezfurlong.org/about.php</loc></url>
+  <url><loc>http://wezfurlong.org/projects.php</loc></url>
+  <url><loc>http://wezfurlong.org/publications.php</loc></url>
+XML;
+
+foreach ($A['byid'] as $ent) {
+  $link = rss_esc('http://wezfurlong.org/blog' . $ent->path);
+  $sitemap .= "<url><loc>$link</loc></url>\n";
+}
+
+$sitemap .= <<<XML
+</urlset>
+XML;
+
+file_put_contents('sitemap.xml', $sitemap);
 

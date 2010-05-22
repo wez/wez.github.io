@@ -143,7 +143,8 @@ function wfo_head($title, $area = 'home')
           content="http://netevil.org/yadis.xrdf">
     <meta http-equiv="X-YADIS-Location"
           content="http://netevil.org/yadis.xrdf">
-
+    <meta name="google-site-verification"
+          content="2tWTnYdH04ToM7YYypyMMmzWr-DGrADQrHXRhsTNZJU" />
     <link rel="alternate" type="application/rss+xml"
           title="Evil, as in Dr."
           href="http://feeds.feedburner.com/EvilAsInDr">
