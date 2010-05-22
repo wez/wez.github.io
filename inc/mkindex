@@ -92,15 +92,52 @@ function html_excerpt($content, $limit = 100)
   return $subset;
 }
 
+function prettify($title)
+{
+  $pretty = strtolower(trim($title));
+  $pretty = str_replace('@', '-at-', $pretty);
+  $pretty = str_replace('=', '-equals-', $pretty);
+  $pretty = str_replace("i'll", '-i-will-', $pretty);
+  $pretty = str_replace("i'm", '-i-am-', $pretty);
+  $pretty = str_replace('\'', '', $pretty);
+  $pretty = preg_replace('/[^a-z0-9]+/', '-', $pretty);
+  $pretty = preg_replace('/-+/', '-', $pretty);
+  $pretty = trim($pretty, '-');
+  return $pretty;
+}
+
 function load_page($filename)
 {
   global $A;
 
   $content = file_get_contents($filename);
-  $meta = json_decode(file_get_contents(dirname($filename) . '/meta.json'));
+  $metaname = dirname($filename) . "/meta.json";
+  if (!file_exists($metaname)) {
+    throw new Exception("missing meta file: $metaname");
+  }
+  $metasave = false;
+  $meta = json_decode(file_get_contents($metaname));
 
   if (!isset($meta->uniqid)) {
-    throw new Exception("missing uniqid");
+    $meta->uniqid = strtolower(trim(shell_exec('uuidgen')));
+    $metasave = true;
+  }
+  if (!isset($meta->date)) {
+    $meta->date = date('%Y-%m-%d %H:%M', filectime($filename));
+    $metasave = true;
+  }
+  if (isset($meta->changed) && !strlen($meta->changed)) {
+    $meta->changed = date('%Y-%m-%d %H:%M', filemtime($filename));
+    $metasave = true;
+  }
+  if (!isset($meta->url)) {
+    $meta->url = strtolower(date('Y/M/', strtotime($meta->date))) .
+      prettify($meta->subject);
+    $metasave = true;
+  }
+
+  if ($metasave) {
+    file_put_contents($metaname, json_encode($meta));
   }
 
   $filename = preg_replace('/^posts\//', '/', dirname($filename));
