@@ -97,7 +97,7 @@ HTML;
 
 if ($pi == '/') {
 
-  wfo_head('Recent Articles');
+  wfo_head('');
 
   if (!isset($_GET['limit'])) {
     $limit = 10;
