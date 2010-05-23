@@ -59,6 +59,9 @@ wfo_box('pubs', array(<<<HTML
 </p>
 
 <dl class="conferences">
+  <dt>OSCON, Portland, Oregon, July 2010</dt>
+  <dd>Gimli - Server Process Monitoring and Fault Analysis</dd>
+
   <dt>OSCON, San Jose, July 2009</dt>
   <dd>Getting IT done</dd>
 

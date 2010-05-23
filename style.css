@@ -379,3 +379,29 @@ p {
 
 a.permalink {
 }
+
+ul.dsq-widget-list {
+	line-height: normal;
+	font-size: 0.75em;
+	line-height: 100%;
+	color: #777;
+}
+p.dsq-widget-meta {
+	font-size: 100% !important;
+}
+p.dsq-widget-meta a {
+	font-family: "trebuchet ms", verdana, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+p.dsq-widget-meta a:hover {
+	background-color: gold;
+}
+/*
+.dsq-widget-comment {
+	line-height: normal;
+	font-size: 0.75em;
+	line-height: 100%;
+}
+*/

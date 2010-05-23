@@ -78,10 +78,17 @@ foreach ($A->byid as $ent) {
 }
 
 $rightbox = <<<HTML
+<a href="http://OSCON.com">
+<img src="http://assets.en.oreilly.com/1/event/45/oscon2010_spkr_210x60.jpg" width="210" height="60"  border="0"  alt="OSCON 2010" title="OSCON 2010"  />
+</a>
 <h3>Recent Articles</h3>
 <ul class='recentarticles'>
 $recent
 </ul>
+<div id="recentcomments" class="dsq-widget">
+<h3 class="dsq-widget-title">Recent Comments</h3>
+<script type="text/javascript" src="http://disqus.com/forums/evilasindr/recent_comments_widget.js?num_items=5&hide_avatars=0&avatar_size=24&excerpt_length=200"></script></div>
+
 <h3>Articles by tag</h3>
 <ul class='taglist'>
 $taglist
