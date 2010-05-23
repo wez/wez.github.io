@@ -79,7 +79,7 @@ function wfo_rest($verb, $url, $params = null, $format = 'json')
 
   if ($verb == 'GET') {
     // Make use of a cache
-    $cache_path = '/tmp/.wfo_' . md5($url . ":$format");
+    $cache_path = '/tmp/.wfo/' . md5($url . ":$format");
     $now = time();
     if (file_exists($cache_path) &&
         (filemtime($cache_path) + $REST_CACHE_TIME) > $now) {
@@ -99,6 +99,9 @@ function wfo_rest($verb, $url, $params = null, $format = 'json')
     }
 
     if ($res !== false && $cache_path !== null) {
+      if (!is_dir('/tmp/.wfo')) {
+        mkdir('/tmp/.wfo');
+      }
       wfo_file_put($cache_path, $res);
     }
 
