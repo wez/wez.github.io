@@ -89,7 +89,7 @@ function wfo_html_esc($string)
   return htmlentities($string, ENT_QUOTES, 'utf-8');
 }
 
-function wfo_head($title, $area = 'home')
+function wfo_head($title, $area = 'home', $extra_head = '')
 {
   global $AREAS;
   global $AREA;
@@ -149,6 +149,7 @@ function wfo_head($title, $area = 'home')
     <link rel="alternate" type="application/rss+xml"
           title="Evil, as in Dr."
           href="http://feeds.feedburner.com/EvilAsInDr">
+    $extra_head
     <title>$TITLE</title>
     <script src="http://www.google.com/jsapi?key=$GOOG_API" type="text/javascript"></script>
     <script type="text/javascript">

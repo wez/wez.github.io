@@ -208,7 +208,13 @@ if ($pi == '/') {
 
   $meta = json_decode(wfo_file_get("$article/meta.json"));
   $content = wfo_file_get("$article/index.html");
-  wfo_head($meta->subject);
+
+  if (isset($_GET['comments'])) {
+    wfo_head($meta->subject, 'home',
+      "<META NAME='ROBOTS' CONTENT='NOINDEX, NOFOLLOW'>");
+  } else {
+    wfo_head($meta->subject);
+  }
 
   $ctime = format_date($meta->date);
   $subj = wfo_html_esc($meta->subject);
