@@ -275,13 +275,13 @@ HTML;
   } else {
     $title = addcslashes($meta->subject, "'\"\n\r\t");
     $commentlink = $WEBROOT . "blog/" . $meta->url . "?comments=1";
+// <a rel="nofollow" href="$commentlink">See this page with comments inline</a>
     $id = $meta->uniqid;
     $com = <<<HTML
   <div class='comment'>
 <h2>Comments</h2>
 <a name='disqus_thread'></a>
 <div id="disqus_thread">
-  <a href="$commentlink">See this page with comments inline</a>
 </div>
 <script type="text/javascript">
 var disqus_developer = $DISQUS_DEVELOPER;
