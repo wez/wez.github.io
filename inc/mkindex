@@ -123,11 +123,11 @@ function load_page($filename)
     $metasave = true;
   }
   if (!isset($meta->date)) {
-    $meta->date = date('%Y-%m-%d %H:%M', filectime($filename));
+    $meta->date = strftime('%Y-%m-%d %H:%M', filectime($filename));
     $metasave = true;
   }
   if (isset($meta->changed) && !strlen($meta->changed)) {
-    $meta->changed = date('%Y-%m-%d %H:%M', filemtime($filename));
+    $meta->changed = strftime('%Y-%m-%d %H:%M', filemtime($filename));
     $metasave = true;
   }
   if (!isset($meta->url)) {

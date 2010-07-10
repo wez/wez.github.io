@@ -377,6 +377,11 @@ p {
 	line-height: 150%;
 }
 
+ul li {
+	max-width: 50em;
+	line-height: 150%;
+}
+
 a.permalink {
 }
 
