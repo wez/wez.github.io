@@ -1,5 +1,9 @@
 <?php # vim:ts=2:sw=2:et:
 
+if (function_exists('date_default_timezone_set')) {
+  date_default_timezone_set('EST');
+}
+
 if ($_SERVER['REMOTE_ADDR'] == '::1') {
   $WEBROOT = 'http://localhost/~wez/wfo/';
   $DISQUS_DEVELOPER = 1;
