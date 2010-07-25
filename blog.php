@@ -77,10 +77,13 @@ foreach ($A->byid as $ent) {
   }
 }
 
-$rightbox = <<<HTML
+/*
 <a href="http://OSCON.com">
 <img src="http://assets.en.oreilly.com/1/event/45/oscon2010_spkr_210x60.jpg" width="210" height="60"  border="0"  alt="OSCON 2010" title="OSCON 2010"  />
 </a>
+*/
+
+$rightbox = <<<HTML
 <h3>Recent Articles</h3>
 <ul class='recentarticles'>
 $recent

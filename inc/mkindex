@@ -1,6 +1,8 @@
 #!/usr/bin/php
 <?php # vim:ts=2:sw=2:et:ft=php:
 # Reads posts and builds out the index data
+
+include_once dirname(__FILE__) . '/common.php';
 include 'inc/rest.php';
 
 if (php_sapi_name() != 'cli') {
@@ -90,20 +92,6 @@ function html_excerpt($content, $limit = 100)
   $subset = str_replace("\x02", ' ', $subset);
 
   return $subset;
-}
-
-function prettify($title)
-{
-  $pretty = strtolower(trim($title));
-  $pretty = str_replace('@', '-at-', $pretty);
-  $pretty = str_replace('=', '-equals-', $pretty);
-  $pretty = str_replace("i'll", '-i-will-', $pretty);
-  $pretty = str_replace("i'm", '-i-am-', $pretty);
-  $pretty = str_replace('\'', '', $pretty);
-  $pretty = preg_replace('/[^a-z0-9]+/', '-', $pretty);
-  $pretty = preg_replace('/-+/', '-', $pretty);
-  $pretty = trim($pretty, '-');
-  return $pretty;
 }
 
 function load_page($filename)

@@ -1,11 +1,9 @@
 <?php # vim:ts=2:sw=2:et:
 
-if (function_exists('date_default_timezone_set')) {
-  date_default_timezone_set('EST');
-}
+include_once dirname(__FILE__) . '/common.php';
 
 if ($_SERVER['REMOTE_ADDR'] == '::1') {
-  $WEBROOT = 'http://localhost/~wez/wfo/';
+  $WEBROOT = 'http://localhost/wez/wfo/';
   $DISQUS_DEVELOPER = 1;
 } else {
   $WEBROOT = 'http://wezfurlong.org/';
@@ -26,7 +24,7 @@ $BOXES = array(
   'me' => <<<HTML
 
 <span id="mugshot"><img alt="Wez Furlong" border="0"
-      class="photo" src="http://netevil.org/images/wez-head-75.jpg"></span>
+      class="photo" src="$WEBROOT/images/wez-hawaii.jpg"></span>
   I am Wez Furlong, Chief Software Architect at
   <a title="Message Systems, Inc" href="http://messagesystems.com"
     >Message Systems</a>.
@@ -44,7 +42,7 @@ HTML
 
 <p>
 <span id="mugshot"><img alt="Wez Furlong" border="0"
-      class="photo" src="http://netevil.org/images/wez-head-75.jpg"></span>
+      class="photo" src="$WEBROOT/images/wez-hawaii.jpg"></span>
   I am Wez Furlong, Chief Software Architect at
   <a href="http://messagesystems.com/">Message Systems</a>,
   <a href="http://php.net">PHP</a> Core developer and
