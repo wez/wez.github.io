@@ -24,7 +24,7 @@ $BOXES = array(
   'me' => <<<HTML
 
 <span id="mugshot"><img alt="Wez Furlong" border="0"
-      class="photo" src="$WEBROOT/images/wez-hawaii.jpg"></span>
+      class="photo" src="$WEBROOT/images/wezmugshot75.jpg"></span>
   I am Wez Furlong, Chief Software Architect at
   <a title="Message Systems, Inc" href="http://messagesystems.com"
     >Message Systems</a>.
@@ -42,7 +42,7 @@ HTML
 
 <p>
 <span id="mugshot"><img alt="Wez Furlong" border="0"
-      class="photo" src="$WEBROOT/images/wez-hawaii.jpg"></span>
+      class="photo" src="$WEBROOT/images/wezmugshot75.jpg"></span>
   I am Wez Furlong, Chief Software Architect at
   <a href="http://messagesystems.com/">Message Systems</a>,
   <a href="http://php.net">PHP</a> Core developer and
