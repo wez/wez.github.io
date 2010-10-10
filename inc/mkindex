@@ -33,6 +33,15 @@ function excerpt_inner($doc, $data, $node)
     $node->parentNode->removeChild($node);
     return $next;
   }
+  
+  if (!strcasecmp($node->nodeName, 'img')) {
+    /* rewrite relative images to be absolute */
+    $src = $node->getAttribute('src');
+    if (!strncmp("../../../", $src, 9)) {
+      $src = substr($src, 9);
+      $node->setAttribute('src', $src);
+    }
+  }
 
   if ($node->nodeType == XML_TEXT_NODE) {
     $w = preg_split("/\s+/", $node->textContent);
