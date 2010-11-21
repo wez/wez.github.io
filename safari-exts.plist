@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Extension Updates</key>
+	<array>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>org.wezfurlong.safari.mail-checker</string>
+			<key>Developer Identifier</key>
+			<string>P4A6FU9KZ3</string>
+			<key>CFBundleVersion</key>
+			<string>4</string>
+			<key>CFBundleShortVersionString</key>
+			<string>1.1</string>
+			<key>URL</key>
+			<string>http://bitbucket.org/wez/mail-checker.safariextension/downloads/mail-checker-1.1.safariextz</string>
+		</dict>
+	</array>
+</dict>
+</plist>
