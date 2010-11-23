@@ -10,11 +10,11 @@
 			<key>Developer Identifier</key>
 			<string>P4A6FU9KZ3</string>
 			<key>CFBundleVersion</key>
-			<string>4</string>
+			<string>5</string>
 			<key>CFBundleShortVersionString</key>
-			<string>1.1</string>
+			<string>1.2</string>
 			<key>URL</key>
-			<string>http://bitbucket.org/wez/mail-checker.safariextension/downloads/mail-checker-1.1.safariextz</string>
+			<string>http://bitbucket.org/wez/mail-checker.safariextension/downloads/mail-checker-1.2.safariextz</string>
 		</dict>
 	</array>
 </dict>
