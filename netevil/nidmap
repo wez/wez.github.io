@@ -1,0 +1,961 @@
+1 
+2 
+3 
+4 
+5 
+6 2004/apr/an-evil-blog
+7 
+8 
+9 
+10 
+11 
+12 2004/may/structured-errors-in-php
+13 
+14 
+15 
+16 
+17 
+18 
+19 2004/may/pty-support-for-proc-open-in-php-5
+20 
+21 
+22 
+23 
+24 2004/apr/cronforwindows
+25 
+26 2004/apr/subethaedit
+27 2004/apr/eaters-of-the-dead
+28 
+29 
+30 
+31 
+32 2004/may/should-have-known-better
+33 
+34 
+35 2004/may/the-meatrix
+36 
+37 
+38 
+39 2004/may/the-horrors-of-e-mail
+40 
+41 
+42 
+43 2004/sep/php-5-extension-dependencies-we-need-your-help
+44 2004/may/first-steps-with-pdo
+45 
+46 
+47 
+48 
+49 
+50 
+51 
+52 2004/may/anyone-with-bsdi
+53 
+54 2004/jun/come-to-the-lamp-area-at-linuxtag
+55 
+56 2004/jun/dont-underestimate-the-power-of-xargs
+57 2004/jun/dead-laptop-disk-equals-equals-more-linux-hacking
+58 
+59 2004/jun/back-from-linuxtag
+60 
+61 2004/jul/bouncing-around-the-usa-again
+62 
+63 
+64 2004/jul/electric-sheep
+65 
+66 2004/jul/activephp
+67 
+68 
+69 2004/jul/phpscript
+70 2004/jul/more-on-pdo
+71 
+72 
+73 
+74 
+75 2004/jul/goto-isnt-evil
+76 
+77 
+78 
+79 
+80 
+81 
+82 
+83 2004/jul/moronic-12-line-sigs-are-evil
+84 
+85 
+86 
+87 
+88 2004/aug/piracy-sucks
+89 
+90 2005/may/rtl8180-under-linux-2-6
+91 2004/aug/thebrainroom-is-dead-long-live-thebrainroom
+92 
+93 
+94 2004/aug/e-bay-never-ceases-to-amaze-me
+95 
+96 
+97 
+98 2004/sep/back-online
+99 2004/sep/mysql-comcon-europe-2004
+100 
+101 
+102 
+103 
+104 
+105 2004/sep/gmail-accounts-up-for-grabs
+106 
+107 
+108 
+109 2004/sep/evil-genius
+110 
+111 2004/sep/moving-to-usa-its-official
+112 
+113 2004/sep/php-works
+114 
+115 
+116 2004/sep/qui-gon-we-love-you
+117 
+118 2004/sep/php-and-com-slides-from-php-works
+119 2004/sep/pdo-slides-from-php-works
+120 
+121 2004/sep/pdo-semi-toy-example
+122 
+123 
+124 2004/sep/its-like-5-bucks-right
+125 
+126 2004/oct/i-am-legend
+127 2004/oct/none-of-the-above
+128 2004/oct/shoddy-software
+129 
+130 2004/oct/blog-api-and-blogging-tools
+131 2004/oct/vmware-on-win32-tweaks
+132 
+133 
+134 
+135 
+136 2004/oct/net-annoyances
+137 2004/oct/xander-at-play-school
+138 2004/oct/php-marketing-war-chest
+139 2004/oct/nvidia-nview-virtual-desktop-manager
+140 
+141 2004/oct/java-how-to-program
+142 2004/oct/really-moving-to-america
+143 
+144 2004/nov/here-in-usa
+145 
+146 
+147 
+148 2004/dec/pecl-event
+149 2004/dec/what-i-miss-in-thunderbird
+150 
+151 
+152 
+153 
+154 
+155 
+156 2004/dec/the-evil-overlord-list
+157 
+158 
+159 
+160 2004/dec/winxp-desktop-shell-replacement
+161 
+162 
+163 
+164 
+165 
+166 2005/jan/php-tropics-2005
+167 
+168 2005/jan/setting-up-msde-with-php
+169 
+170 
+171 
+172 2005/sep/running-php-as-a-service-on-win32
+173 2005/jan/scheduling-tasks-on-win32-with-php
+174 
+175 
+176 2005/feb/blog-spam-a-solution
+177 
+178 
+179 
+180 
+181 
+182 
+183 
+184 2005/feb/50-gmail-accounts-up-for-grabs
+185 
+186 2005/feb/pdo-beta-releases
+187 
+188 
+189 
+190 
+191 
+192 
+193 
+194 
+195 
+196 2005/feb/pdo-iterators
+197 
+198 
+199 2005/feb/its-the-weekend-test-pdo
+200 
+201 
+202 2005/feb/pdo-on-osx
+203 
+204 
+205 
+206 
+207 2005/feb/50-gmail-accounts-up-for-grabs-again
+208 
+209 
+210 
+214 
+215 
+216 
+217 
+218 2005/feb/gmail-saga-continues
+219 2005/feb/fileiterator
+220 
+221 
+222 
+223 
+224 
+225 
+226 
+227 
+228 
+229 
+230 
+231 
+232 
+233 
+234 
+235 
+236 
+237 
+238 
+239 
+240 
+241 
+242 
+243 
+244 
+245 
+246 
+247 2005/mar/new-toys-for-me
+248 
+249 
+250 
+251 
+252 
+253 
+254 
+255 
+256 
+257 2005/dec/winxp-desktop-shell-replacement-2nd-release
+258 
+259 
+260 
+261 
+262 
+263 
+264 
+265 2005/jul/evildesk-release-3
+266 
+267 
+268 
+269 
+270 
+271 
+272 
+273 
+274 2005/may/osevents-spammers
+275 
+276 
+277 
+278 
+279 2005/may/php-tropics-coming-up
+280 2005/may/guru-multiplexing
+281 
+282 2005/may/php-tropics-slides
+283 
+284 
+285 
+286 
+287 2005/may/pdo-article-on-ibms-developerworks
+288 2005/may/pdo-at-oscon
+289 
+290 
+291 
+292 2005/may/crappy-cable-day-and-geek-fantasies
+293 2005/may/computer-languages-history
+294 
+295 
+296 2005/jun/re-pdo-meeting-in-cancun
+297 
+298 
+299 
+300 
+301 
+302 
+303 2005/jun/php-podcast
+304 2005/jun/a-decade-of-php
+305 
+306 2005/jun/stupid-error-in-php-5-1beta
+307 
+308 
+309 
+310 2005/jun/back-to-the-uk-for-a-week
+311 2005/jun/reply-to-forwarded-message-in-thunderbird
+312 
+313 
+314 
+315 
+316 
+317 
+318 
+319 
+320 2005/jul/pdo-mysql-now-with-native-prepared-statements-mysql-4-1-and-up
+321 
+322 
+323 
+324 
+325 2005/jul/pdo-in-php-5-1-beta-3
+326 
+327 
+328 
+329 
+330 
+331 
+332 
+333 
+334 
+335 
+336 2005/jul/win9x-support-in-php
+337 
+338 
+339 
+340 
+341 
+342 
+343 
+344 
+345 
+346 
+347 
+348 
+349 
+350 
+351 
+352 2005/jul/evildesk-release-4
+353 
+354 2005/jul/evildesk-release-5
+355 
+356 
+357 
+358 
+359 2005/jul/evildesk-mini-release
+360 
+361 
+362 
+363 
+364 
+365 
+366 2005/jul/pdo-intro-on-sitepoint
+367 2005/jul/pear-developers-listen
+368 
+369 
+370 
+371 
+372 2005/jul/synergy
+373 
+374 
+375 
+376 
+377 
+378 2005/jul/pdo-pecl-releases
+379 
+380 
+381 
+382 
+383 
+384 
+385 
+386 
+387 
+388 
+389 
+390 
+391 
+392 
+393 
+394 
+395 
+396 
+397 
+398 
+399 
+400 
+401 
+402 
+403 
+404 
+405 
+406 
+407 
+408 
+409 
+410 
+411 
+412 
+413 2005/aug/dtracing-php-on-solaris
+414 
+415 
+416 2005/aug/back-from-oscon-let-there-be-slides
+417 2005/sep/php-and-web-works-2005
+418 
+419 
+420 
+421 
+422 
+423 
+424 
+425 
+426 
+427 2005/aug/responsibility-and-opensource
+428 
+429 
+430 2005/aug/please-dont-write-code-like-this
+431 
+432 
+433 
+434 
+435 
+436 
+437 
+438 
+439 
+440 
+441 
+442 
+443 
+444 
+445 
+446 
+447 
+448 
+449 
+450 
+451 
+452 
+453 
+454 2005/aug/toshiba-hotkeys-on-solaris
+455 
+456 
+457 
+458 
+459 
+460 
+461 
+462 
+463 
+464 
+465 
+466 
+467 
+468 
+469 
+470 
+471 
+472 
+473 
+474 
+475 
+476 
+477 
+478 
+479 
+480 
+481 
+482 
+483 
+484 2005/sep/php-dtrace-1-0-3
+485 
+486 2005/sep/updated-oci8-extension-now-in-pecl
+487 
+488 
+489 
+490 
+491 
+492 
+493 
+494 
+495 2005/sep/pdo-1-0rc1
+496 
+497 
+498 
+499 
+500 
+501 
+502 
+503 
+504 
+505 
+506 
+507 2005/sep/php-streams-talk-from-php-works-2005
+508 
+509 
+510 
+511 
+512 2005/sep/php-and-com-slides-from-php-works-2005
+513 
+514 2005/sep/pdo-slides-from-php-works-2005
+515 
+516 
+517 
+518 
+519 
+520 
+521 2005/sep/release-engineering
+522 
+523 
+524 
+525 
+526 
+527 
+528 
+529 
+530 
+531 
+532 
+533 
+534 
+535 2005/sep/moderated-blogs-a-k-a-censorship
+536 
+537 
+538 
+539 
+540 
+541 
+542 
+543 
+544 
+545 
+546 
+547 
+548 
+549 
+550 
+551 2005/sep/benchmarking-in-general
+552 
+553 
+554 
+555 
+556 
+557 
+558 
+559 
+560 
+561 
+562 
+563 
+564 
+565 2005/oct/recommendations-for-xsl-fo-pdf
+566 
+567 
+568 
+569 
+570 
+571 
+572 
+573 
+574 
+575 
+576 
+577 
+578 
+579 
+580 
+581 
+582 
+583 
+584 
+585 
+586 
+587 
+588 
+589 
+590 
+591 
+592 
+593 
+594 
+595 
+596 
+597 
+598 
+599 
+600 
+601 
+602 
+603 
+604 
+605 
+606 
+607 
+608 
+609 
+610 
+611 
+612 
+613 
+614 
+615 
+616 
+617 
+618 
+619 
+620 
+621 
+622 
+623 
+624 2005/oct/pdo-driver-howto-online
+625 2005/oct/in-sf-for-the-zend-php-conference-2005
+626 
+627 
+628 
+629 2005/oct/pdo-slides-from-zendcon
+630 2005/oct/back-from-zendcon
+631 2005/oct/upcoming-php-on-windows-webcasts-next-week
+632 
+633 2005/oct/zend-framework
+634 
+635 
+636 
+637 
+638 
+639 
+640 
+641 
+642 
+643 
+644 
+645 
+646 
+647 
+648 
+649 
+650 
+651 
+652 
+653 2005/oct/lob-support-added-to-pdo-oci-in-php-5-1-cvs-finally
+654 2005/nov/trying-out-feedburner
+655 
+656 2005/nov/pdo-1-0rc2-released-via-pecl
+657 2005/nov/pecl4win
+658 
+659 
+660 
+661 
+662 
+663 2005/nov/ive-arrived-at-forum-php
+664 
+665 
+666 
+667 
+668 
+669 
+670 2005/nov/back-from-paris
+671 2005/nov/recent-books
+672 2005/nov/techie-books
+673 2005/nov/sun-studio-11-compiler-now-available-and-its-free
+674 
+675 2005/nov/dont-blog-bugs-file-bug-reports-and-read-the-manual-before-you-do-that
+676 
+677 
+678 
+679 
+680 
+681 
+682 
+683 
+684 
+685 2005/nov/oracles-php-developer-of-the-year-2005
+686 
+687 
+688 
+689 
+690 2005/nov/why-no-acap
+691 
+692 
+693 
+694 
+695 
+696 
+697 
+698 
+699 
+700 2005/nov/calling-sqlbindparameter-to-bind-sql-timestamp-struct-as-sql-c-type-timestamp-avoiding-a-datetime-overflow
+701 
+702 
+703 2005/nov/pdo-goes-stable
+704 
+705 
+706 
+707 
+708 
+709 
+710 
+711 
+712 
+713 
+714 
+715 
+716 
+717 
+718 
+719 
+720 2005/nov/redefining-malloc-is-evil
+721 
+722 
+723 
+724 
+725 
+726 
+727 
+728 
+729 
+730 
+731 
+732 
+733 
+734 
+735 
+736 2005/dec/lesson-of-the-day-print-in-t-sql-has-side-effects
+737 
+738 
+739 
+740 
+741 2005/dec/minimizetotray-thunderbird-equals-equals-lower-memory-usage
+742 
+743 
+744 2005/dec/evildesk-0-6-released
+745 2005/dec/evildesk-0-7-released
+746 
+747 
+748 
+749 
+750 2006/jan/evildesk-0-8-released
+751 
+752 
+753 2006/jan/happy-new-year-and-by-the-way-we-think-you-dont-do-shit
+754 
+755 
+756 
+757 
+758 
+759 
+760 
+761 
+762 
+763 
+764 
+765 
+766 
+767 
+768 
+769 
+770 
+771 
+772 
+773 
+774 
+775 
+776 
+777 
+778 
+779 
+780 2006/feb/introducing-my-sysadmin
+781 
+782 
+783 
+784 
+785 2006/mar/solaris-libumem-port-on-sourceforge
+786 
+787 
+788 
+789 2006/apr/upcoming-conference-appearances
+790 
+791 2006/apr/test-driving-google-calendar
+792 
+793 
+794 
+795 2006/apr/using-pdo-mysql
+796 
+797 
+798 
+799 
+800 
+801 
+802 
+803 
+804 
+805 
+806 2006/apr/pdo-mysql-slides-from-mysqluc-2006
+807 
+808 2006/apr/undefined-behaviour
+809 
+810 
+811 
+812 
+813 
+814 2006/may/a-kick-in-the-nuts
+815 
+816 
+817 2006/may/more-pdo-pecl-releases
+818 2006/may/just-the-facts-maam
+819 
+820 2006/may/implementing-pdo-drivers-using-php
+821 
+822 
+823 2006/may/programming-php
+824 2006/may/extending-php
+825 
+826 
+827 2006/may/authentication-services
+828 
+829 
+830 
+831 
+832 2006/may/yme-still-in-the-dark-ages
+833 
+834 
+835 
+836 
+837 
+838 
+839 
+840 
+841 
+842 2006/may/strategistic-synergism
+843 
+844 
+845 
+846 
+847 2006/may/ecelerity-selected-by-messagelabs
+848 
+849 2006/jun/oscamp-at-oscon
+850 
+851 
+852 
+853 
+854 
+855 
+856 
+857 
+858 2006/jun/yme-mandatory-upgrade
+859 2006/jun/ill-be-at-php-db-works-2006
+860 
+861 
+862 2006/jun/want-to-work-with-us-at-omniti
+863 2006/jul/mounting-iso-files-and-disk-images-on-windows
+864 
+865 
+866 
+867 
+868 
+869 
+870 2006/jul/beware-of-hardened-boca-burgers
+871 
+872 2006/jul/squeet-ignore-this
+873 2006/jul/deja-vu-nostalgia
+874 2006/jul/oscon-coming-up
+875 
+876 
+877 2006/jul/php-the-trading-card-game
+878 
+879 
+880 
+881 
+882 
+883 2006/jul/port25-microsofts-opensource-software-lab
+884 2006/jul/pdo-slides-from-oscon
+885 2006/jul/handbook-for-being-evil
+886 
+887 
+888 
+889 
+890 
+891 2006/aug/motorola-razr-syncml-with-t-mobile
+892 
+893 
+894 2006/aug/do-you-want-to-work-on-my-team
+895 2006/aug/sdo-soa-tla
+896 
+897 
+898 
+899 
+900 
+901 2006/aug/yahoo-music-engine-on-win64
+902 2006/aug/pdo-fud-less-anecdotes-more-facts
+903 
+904 
+905 
+906 
+907 
+908 
+909 
+910 
+911 
+912 2006/sep/me-at-php-works-and-zendcon06
+913 
+914 
+915 2006/sep/php-works-2006-slides-online
+916 2006/sep/ms-web-dev-summit
+917 
+918 
+919 
+920 
+921 
+922 
+923 
+924 2006/oct/identity-authentication-and-php-openssl-updates-in-the-pipeline
+925 2006/oct/background-batch-workflow-processing-with-pdo-pgsql
+926 
+927 
+928 
+929 
+930 
+931 
+932 
+933 
+934 2006/oct/on-the-road-to-san-jose-for-zendcon06
+935 2006/nov/a-man-a-plan-a-cat-a-ham-a-yak-a-yam-a-hat-a-canal-panama
+936 2006/nov/im-looking-for-another-dark-apprentice
+937 2006/nov/http-post-from-php-without-curl
+938 2006/nov/wireless-pow-wah
+939 
+940 2006/nov/help-build-a-public-uk-postcode-database
+941 2006/nov/parser-and-lexer-generators-for-php
+942 
+943 
+944 2006/dec/coding-for-coders-api-and-abi-considerations-in-an-evolving-code-base
+945 2006/dec/coding-for-source-control
+946 2007/jan/2006-from-wezs-perspective
+947 
+948 2007/jan/evildesk-0-9-0-released
+949 2007/feb/openid-and-typekey-using-native-openssl-functions-in-php
+950 
+951 
+952 
+953 2007/feb/aol-switches-on-openid-provider
+954 2007/feb/jyte-com-digg-crossed-with-social-networking
+955 
+956 2007/mar/php-meetup-at-omniti-hq-in-baltimore-dc-area
+957 2007/mar/omniti-does-opensource-omniti-labs
+958 2007/mar/portable-umem-released-via-omniti-labs
+959 2007/mar/ill-be-at-mix07
+960 2007/apr/soliciting-questions-for-php-and-asp-net-panel-at-mix
+961 
+962 2007/may/goodnight-star
+963 2007/may/php-tek-here-i-come
+964 

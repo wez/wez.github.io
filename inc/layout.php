@@ -131,7 +131,7 @@ function wfo_head($title, $area = 'home', $extra_head = '')
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="author" content="Wez Furlong">
     <meta name="copyright"
-      content="&copy; 2003-2010, Wez Furlong, unless otherwise attributed">
+      content="&copy; 2003-2011, Wez Furlong, unless otherwise attributed">
     
     <link rel="stylesheet" href="{$WEBROOT}style.css" type="text/css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
@@ -258,7 +258,7 @@ function wfo_foot()
    src="http://i.creativecommons.org/l/by/3.0/80x15.png"/></a>
         <a rel="license" 
           href="http://creativecommons.org/licenses/by/3.0/"
-          >Copyright &copy; 2003-2010</a>
+          >Copyright &copy; 2003-2011</a>
   <a xmlns:cc="http://creativecommons.org/ns#"
         property="cc:attributionName" rel="cc:attributionURL"
         href="http://wezfurlong.org">Wez Furlong</a>
