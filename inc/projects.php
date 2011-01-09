@@ -122,7 +122,7 @@ function wfo_get_project_data()
     $R = new wfo_repo_info;
     $R->name = $proj->name;
     $R->description = $proj->description;
-    $R->website = $proj->homepage;
+    $R->website = "http://" . $proj->homepage;
     $R->source = $proj->CVSRepository->browse;
     $repos[] = $R;
   }
