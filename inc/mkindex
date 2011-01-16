@@ -38,7 +38,7 @@ function excerpt_inner($doc, $data, $node)
     /* rewrite relative images to be absolute */
     $src = $node->getAttribute('src');
     if (!strncmp("../../../", $src, 9)) {
-      $src = substr($src, 9);
+      $src = 'http://wezfurlong.org' . substr($src, 8);
       $node->setAttribute('src', $src);
     }
   }
