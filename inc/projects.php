@@ -74,6 +74,45 @@ function wfo_get_project_data()
     $repos[] = $R;
   }
 
+if (false) {
+  // Github org repos that I belong to
+  $gh = wfo_rest('GET',
+      'http://github.com/api/v2/json/user/show/wez/organizations');
+  foreach ($gh->organizations as $org) {
+
+    $orgrepos = wfo_rest('GET',
+        'http://github.com/api/v2/json/repos/show/' . $org->login);
+    foreach ($orgrepos->repositories as $repo) {
+      if ($repo->private) continue;
+
+      // Am I a collaborator?
+      $collab = wfo_rest('GET',
+          'http://github.com/api/v2/json/repos/show/' .
+          $org->login . '/' . $repo->name . '/collaborators');
+
+      if (!in_array('wez', $collab->collaborators)) continue;
+
+      $R = new wfo_repo_info;
+      $R->name = $repo->name;
+      $R->description = $repo->description;
+      $R->website = $repo->homepage;
+      $R->source = $repo->url;
+      $R->followers = $repo->watchers;
+
+      $cs = wfo_rest('GET',
+          "http://github.com/api/v2/json/commits/list/wez/$repo->name/master");
+      if (is_object($cs)) {
+        $R->recent_commits = count($cs->commits);
+        $r = $cs->commits[0];
+        $R->last_change = strtotime($r->committed_date);
+        $R->commit_msg = $r->message;
+      }
+
+      $repos[] = $R;
+    }
+  }
+}
+
   foreach (array(
       //'gimli',
       'jlog', 'portableumem') as $name) {
