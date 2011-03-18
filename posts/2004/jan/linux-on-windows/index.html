@@ -1,7 +1,7 @@
 <p>Call me crazy, but I've wanted to run a linux binary natively under windows for a while now; kinda like <a href="http://www.winehq.com">wine</a>, but in reverse.</p><p>Well, the other day I was browsing through the MSDN docs (as you do) and
 discovered that it is possible to install a "vectored" exception handler.  A quick bit of test code later, and I discovered that I can trap "int 0x80" instructions using this technique--those are used by linux binaries to initiate syscalls.</p><p>A couple of days hacking later, and I have a very small linux kernel emulation
 environment; it's split into two parts--low.dll (the kernel code) and low.exe (the bootstrap).  The usage is quite simple; from your command prompt, run the
-linux binary of choice by prefixing the command line with "low.exe":</p><p>low.exe linuxsmallapp one two three four</p><p><a href="http://pics.thebrainroom.net/albums/screenjunk/pengwin.png"><img src="http://pics.thebrainroom.net/albums/screenjunk/pengwin.thumb.png" width="150" height="85"  border="1"></a></p><p>The code from the named linux binary is loaded (low.dll includes an ELF loader) and
+linux binary of choice by prefixing the command line with "low.exe":</p><p>low.exe linuxsmallapp one two three four</p><p><a href="/images/pengwin.png"><img src="/images/pengwin.thumb.png" width="150" height="85"  border="1"></a></p><p>The code from the named linux binary is loaded (low.dll includes an ELF loader) and
 bootstraps the process by faking an execve() syscall.  When the syscall
 returns, the code resumes execution inside the loaded module.  The code is
 running natively on your processor; and syscalls happen in userspace (just

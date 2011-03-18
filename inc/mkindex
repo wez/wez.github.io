@@ -5,6 +5,8 @@
 include_once dirname(__FILE__) . '/common.php';
 include 'inc/rest.php';
 
+define('WEBDOMAIN', 'http://wezfurlong.org');
+
 if (php_sapi_name() != 'cli') {
   header("Location: $WEBROOT");
   exit;
@@ -37,9 +39,14 @@ function excerpt_inner($doc, $data, $node)
   if (!strcasecmp($node->nodeName, 'img')) {
     /* rewrite relative images to be absolute */
     $src = $node->getAttribute('src');
-    if (!strncmp("../../../", $src, 9)) {
-      $src = 'http://wezfurlong.org' . substr($src, 8);
-      $node->setAttribute('src', $src);
+    if ($src[0] == '/') {
+      $node->setAttribute('src', WEBDOMAIN . $src);
+    }
+  }
+  if (!strcasecmp($node->nodeName, 'a')) {
+    $href = $node->getAttribute('href');
+    if ($href[0] == '/') {
+      $node->setAttribute('href', WEBDOMAIN . $href);
     }
   }
 

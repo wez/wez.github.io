@@ -2,13 +2,15 @@
 
 include_once dirname(__FILE__) . '/common.php';
 
-if ($_SERVER['REMOTE_ADDR'] == '::1') {
-  $WEBROOT = 'http://localhost/wez/wfo/';
+if ($_SERVER['REMOTE_ADDR'] == '::1' ||
+    $_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+  $WEBROOT = 'http://wfo.test/';
   $DISQUS_DEVELOPER = 1;
 } else {
   $WEBROOT = 'http://wezfurlong.org/';
   $DISQUS_DEVELOPER = 0;
 }
+
 $DISQUS_SITE = 'evilasindr';
 
 $AREA = null;
