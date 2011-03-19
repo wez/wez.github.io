@@ -367,6 +367,11 @@ dl.conferences dt {
 	margin-top: 1.2em;
 	font-weight: bold;
 }
+
+#dsq-content {
+	font-size: 100% !important;
+}
+
 /**
  * Non-semantic helper classes: please define your styles before this section.
  */

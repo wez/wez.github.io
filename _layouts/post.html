@@ -10,7 +10,7 @@ layout: default
   </div>
   <div class="item_meta">
       {% for topic in page.categories %}
-        <a href="{{ site.url }}/blog/tag/{{ topic | downcase }}" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
+        <a href="{{ site.url }}/blog/tag/{{ topic | downcase }}/" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
       {% endfor %}
   </div>
   <div class="item_content">
@@ -22,7 +22,7 @@ layout: default
   <a href="{{ page.url }}#disqus_thread">View Comments</a>
   <div id="disqus_thread"></div>
   <script type="text/javascript">
-var disqus_developer = 1;
+var disqus_developer = 0;
 var disqus_title = '{{ page.title }}';
 var disqus_identifier = '{% if page.uniqid %}{{ page.uniqid }}{% else %}{{ page.url }}{% endif %}';
   </script>
