@@ -1,4 +1,4 @@
 permalink: /blog/:year/:mname/:title
 exclude:
- - migrate
+ - Makefile
 
