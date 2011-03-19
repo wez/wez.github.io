@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Blog upgraded"
+date: 2007-06-02 10:43:09
+
+uniqid: c66181fd-a918-48a0-b6a8-64680a50751f
+categories: 
+ - Blog
+---
+<p>I've had the code sitting around for months, but haven't had the time to push it to production until now. 
+</p><p>This is the third generation of my blog and incorporates the data from its prior incarnations (including my original s9y based 'zlog). The new architecture uses PostgreSQL for the database, largely because I want to take advantage of its <a href="/blog/2006/oct/background-batch-workflow-processing-with-pdo-pgsql">LISTEN/NOTIFY</a> support. 
+</p><p>Another change from the previous incarnation is that the authentication system is now OpenID based, which suits me a great deal because I'm too lazy to code user management just for my blog (previously, I used a pass-through to the PHP CVS repository for auth). 
+</p><p>I've restructured my URLs and implemented some fairly neat URL rewriting rules to make sure that the old links continue to work, even those for zlog.thebrainroom.net. I'll blog about that in another entry. 
+</p><p>I've also decided to completely do away with HTML form based admin and blogging, because I'm always really frustrated by the editing interface. Instead, I'm using Microsoft Word 2007 (running under Parallels on my Macbook Pro) to post entries using its blogging capability. </p>

@@ -1,0 +1,168 @@
+---
+layout: post
+title: "OpenID (and TypeKey) using native OpenSSL functions in PHP"
+date: 2007-02-15 22:23:48
+
+uniqid: 45cde9ce-6236-3339-1695-5cde9ce4aa94
+categories: 
+ - PHP
+---
+<p>Update: fixed a flaw in my implementation   </p>
+<p>I may have hinted at this a couple of times before, but now I'm actually saying something useful about it... I have a patch (<a href="/images/php-openid.diff">php-openid.diff</a>, for PHP 5, might also apply to PHP 4) for the openssl extension that makes it easier to build OpenID and <a href="http://www.sixapart.com/typekey/">TypeKey</a> authentication support into your PHP apps.   </p>
+<p>I don't have a canned solution for you to deploy, but I can give you some pointers on how to use these bits.  I'm assuming that you know a bit about how <a href="http://openid.net">OpenID</a> works.   </p>
+<p>This worked for me in my tests; it's not necessarily the most optimal way to do it, but it highlights how it works.   </p>
+<p>Thanks to the folks at JanRain, there was a flaw in my implementation that is now fixed.   </p>
+<p><b>Associate</b>   </p>
+<p>Association allows you to generate a relationship with an OpenID server by generating and exchanging keys.  It has nothing to do with an authentication request per-se; the result of the request can be used to authenticate a user later (and other users of that same identity server).  The results of the association should be cached.   </p>
+<p>If you haven't already associated with an OpenID server, you'll want to do something like the following:   </p>
+<pre class="phpcode"><span class="default">&lt;?php
+  </span><span class="comment">// convert openssl unsigned big endian into signed two's complement
+  // notation
+  </span><span class="keyword">function </span><span class="default">btowc</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) {
+    if (</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]) &gt; </span><span class="default">127</span><span class="keyword">) {
+      return </span><span class="string">"\\x00" </span><span class="keyword">. </span><span class="default">$str</span><span class="keyword">;
+    }
+    return </span><span class="default">$str</span><span class="keyword">;
+  }
+  </span><span class="default">$assoc </span><span class="keyword">= array();
+  </span><span class="default">$crypto </span><span class="keyword">= array();
+  </span><span class="default">$dh </span><span class="keyword">= </span><span class="default">openssl_dh_generate_key</span><span class="keyword">(</span><span class="default">OPENID_P_VALUE</span><span class="keyword">, </span><span class="string">'2'</span><span class="keyword">);
+  foreach (</span><span class="default">openssl_dh_get_params</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">) as </span><span class="default">$n </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {
+    </span><span class="default">$crypto</span><span class="keyword">[</span><span class="default">$n</span><span class="keyword">] = </span><span class="default">openssl_bignum_to_string</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);
+  }
+  </span><span class="default">$params </span><span class="keyword">= array(
+     </span><span class="string">'openid.mode' </span><span class="keyword">=&gt; </span><span class="string">'associate'</span><span class="keyword">,
+     </span><span class="string">'openid.assoc_type' </span><span class="keyword">=&gt; </span><span class="string">'HMAC-SHA1'</span><span class="keyword">,
+     </span><span class="string">'openid.session_type' </span><span class="keyword">=&gt; </span><span class="string">'DH-SHA1'</span><span class="keyword">,
+     </span><span class="string">'openid.dh_modulus' </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(
+                </span><span class="default">btwoc</span><span class="keyword">(</span><span class="default">openssl_bignum_to_string</span><span class="keyword">(</span><span class="default">OPENID_P_VALUE</span><span class="keyword">))),
+     </span><span class="string">'openid.dh_gen' </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(
+                </span><span class="default">btwoc</span><span class="keyword">(</span><span class="default">openssl_bignum_to_string</span><span class="keyword">(</span><span class="string">'2'</span><span class="keyword">))),
+     </span><span class="string">'openid.dh_consumer_public' </span><span class="keyword">=&gt; </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">btwoc</span><span class="keyword">(
+                </span><span class="default">openssl_bignum_to_string</span><span class="keyword">(</span><span class="default">$crypto</span><span class="keyword">[</span><span class="string">'pub_key'</span><span class="keyword">]))),
+  );
+  </span><span class="default">$r </span><span class="keyword">= </span><span class="default">perform_openid_rpc</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">, </span><span class="default">$params</span><span class="keyword">); </span><span class="comment">// talk to server
+  </span><span class="keyword">if (</span><span class="default">$r</span><span class="keyword">[</span><span class="string">'session_type'</span><span class="keyword">] == </span><span class="string">'DH-SHA1'</span><span class="keyword">) {
+    </span><span class="default">$s_pub </span><span class="keyword">= </span><span class="default">openssl_bignum_from_bin</span><span class="keyword">(
+               </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">[</span><span class="string">'dh_server_public'</span><span class="keyword">]));
+    </span><span class="default">$dh_sec </span><span class="keyword">= </span><span class="default">openssl_dh_compute_key</span><span class="keyword">(</span><span class="default">$dh</span><span class="keyword">, </span><span class="default">$s_pub</span><span class="keyword">);
+    if (</span><span class="default">$dh_sec </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {
+      do {
+        </span><span class="default">$err </span><span class="keyword">= </span><span class="default">openssl_error_string</span><span class="keyword">();
+        if (</span><span class="default">$err </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {
+          break;
+        }
+        echo </span><span class="string">"$err&lt;br&gt;\\n"</span><span class="keyword">;
+      } while (</span><span class="default">true</span><span class="keyword">);
+    }
+    </span><span class="default">$sh_sec </span><span class="keyword">= </span><span class="default">sha1</span><span class="keyword">(</span><span class="default">$dh_sec</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);
+    </span><span class="default">$enc_mac </span><span class="keyword">= </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">[</span><span class="string">'enc_mac_key'</span><span class="keyword">]);
+    </span><span class="default">$secret </span><span class="keyword">= </span><span class="default">$enc_mac </span><span class="keyword">^ </span><span class="default">$sh_sec</span><span class="keyword">;
+    </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'secret'</span><span class="keyword">] = </span><span class="default">$secret</span><span class="keyword">;
+    </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'handle'</span><span class="keyword">]  = </span><span class="default">$r</span><span class="keyword">[</span><span class="string">'assoc_handle'</span><span class="keyword">];
+    </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'assoc_type'</span><span class="keyword">] = </span><span class="default">$r</span><span class="keyword">[</span><span class="string">'assoc_type'</span><span class="keyword">];
+    </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'expires'</span><span class="keyword">] = </span><span class="default">time</span><span class="keyword">() + </span><span class="default">$r</span><span class="keyword">[</span><span class="string">'expires_in'</span><span class="keyword">];
+  } else {
+    </span><span class="default">$assoc </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;
+  }
+</span><span class="default">?&gt;
+</span></pre><p><b>Performing Authentication</b>   </p>
+<p>Authentication is browser based; the user enters their URL into your site, and you then redirect to their OpenID server with a sprinkle of magic sauce in the get parameters.  Here's how you create the sauce:   </p>
+<pre class="phpcode"><span class="default">&lt;?php
+  </span><span class="comment">// $identifier is the URL they gave to you
+  // $server is the server you discovered
+  // $delegate is the identity you discovered
+  // $returnURL is your auth endpoint to receive the results
+  </span><span class="default">$x </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">);
+  </span><span class="default">$params </span><span class="keyword">= array();
+  if (isset(</span><span class="default">$x</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">])) {
+    foreach (</span><span class="default">explode</span><span class="keyword">(</span><span class="string">'&#38;'</span><span class="keyword">, </span><span class="default">$x</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">]) as </span><span class="default">$param</span><span class="keyword">) {
+      list(</span><span class="default">$k</span><span class="keyword">, </span><span class="default">$v</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'='</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);
+      </span><span class="default">$params</span><span class="keyword">[</span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">)] = </span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">);
+    }
+  }
+  </span><span class="comment">// get assoc details from cache, or associate now.
+  </span><span class="default">$assoc </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">associate</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">);
+  </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.mode'</span><span class="keyword">] = </span><span class="string">'checkid_immediate'</span><span class="keyword">;
+  </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.identity'</span><span class="keyword">] = </span><span class="default">$delegate</span><span class="keyword">;
+  </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.return_to'</span><span class="keyword">] = </span><span class="default">$returnURL</span><span class="keyword">;
+  </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.trust_root'</span><span class="keyword">] = </span><span class="default">YOUR_TRUST_ROOT_URL</span><span class="keyword">;
+  </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.sreg.required'</span><span class="keyword">] = </span><span class="string">'nickname,email'</span><span class="keyword">;
+  if (</span><span class="default">$assoc </span><span class="keyword">!== </span><span class="default">false</span><span class="keyword">) {
+    </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.assoc_handle'</span><span class="keyword">] = </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'handle'</span><span class="keyword">];
+  }
+  </span><span class="default">$x</span><span class="keyword">[</span><span class="string">'query'</span><span class="keyword">] = </span><span class="default">http_build_query</span><span class="keyword">(</span><span class="default">$params</span><span class="keyword">);
+  </span><span class="comment">// you can now assemble $x into a URL and redirect the user there
+</span><span class="default">?&gt;
+</span></pre><p>Once the user has authenticated against their ID server, they'll be redirected back to your $returnURL:   </p>
+<pre class="phpcode"><span class="default">&lt;?php
+    $assoc </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">associate</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="string">'srv'</span><span class="keyword">]);
+    </span><span class="default">$token_contents </span><span class="keyword">= </span><span class="string">''</span><span class="keyword">;
+    </span><span class="comment">/* note well: the name in the token_contents hash is the
+     * name without any prefix.
+     * This nuance can keep you occupied for hours. */
+    </span><span class="keyword">foreach (</span><span class="default">explode</span><span class="keyword">(</span><span class="string">','</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'openid_signed'</span><span class="keyword">]) as </span><span class="default">$name</span><span class="keyword">) {
+      </span><span class="default">$token_contents </span><span class="keyword">.= </span><span class="string">"$name:" </span><span class="keyword">. </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">"openid_" </span><span class="keyword">. </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'_'</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">)] . </span><span class="string">"\\n"</span><span class="keyword">;
+    }
+    </span><span class="default">$x </span><span class="keyword">= </span><span class="default">hash_hmac</span><span class="keyword">(</span><span class="string">'sha1'</span><span class="keyword">, </span><span class="default">$token_contents</span><span class="keyword">, </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'secret'</span><span class="keyword">], </span><span class="default">true</span><span class="keyword">);
+    </span><span class="default">$hash </span><span class="keyword">= </span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">);
+    if (</span><span class="default">$hash </span><span class="keyword">=== </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'openid_sig'</span><span class="keyword">]) {
+      </span><span class="comment">// Authenticated
+      </span><span class="keyword">return </span><span class="default">true</span><span class="keyword">;
+    }
+    </span><span class="comment">/* not valid for whatever reason; we need to do a dumb mode check */
+    </span><span class="default">$params </span><span class="keyword">= array();
+    </span><span class="default">$signed </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">','</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'openid_signed'</span><span class="keyword">]);
+    </span><span class="default">$signed </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$signed</span><span class="keyword">, array(</span><span class="string">'assoc_handle'</span><span class="keyword">, </span><span class="string">'sig'</span><span class="keyword">, </span><span class="string">'signed'</span><span class="keyword">, </span><span class="string">'invalidate_handle'</span><span class="keyword">));
+    foreach (</span><span class="default">$signed </span><span class="keyword">as </span><span class="default">$name</span><span class="keyword">) {
+      </span><span class="default">$k </span><span class="keyword">= </span><span class="string">"openid_" </span><span class="keyword">. </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">'.'</span><span class="keyword">, </span><span class="string">'_'</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">);
+      if (</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">)) {
+        </span><span class="default">$params</span><span class="keyword">[</span><span class="string">"openid.$name"</span><span class="keyword">] = </span><span class="default">$_GET</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">];
+      }
+    }
+    </span><span class="default">$server </span><span class="keyword">= </span><span class="default">$args</span><span class="keyword">[</span><span class="string">'srv'</span><span class="keyword">];
+    </span><span class="comment">/* broken spec.  You need to set openid.mode to
+     * check_authentication to get it to do the auth checks.
+     * But, it needs openid.mode to be id_res for the signature to work.
+     */
+    </span><span class="default">$params</span><span class="keyword">[</span><span class="string">'openid.mode'</span><span class="keyword">] = </span><span class="string">'check_authentication'</span><span class="keyword">;
+    </span><span class="default">$res </span><span class="keyword">= </span><span class="default">perform_openid_rpc</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">, </span><span class="default">$params</span><span class="keyword">);
+    if (isset(</span><span class="default">$res</span><span class="keyword">[</span><span class="string">'invalidate_handle'</span><span class="keyword">])) {
+      if (</span><span class="default">$res</span><span class="keyword">[</span><span class="string">'invalidate_handle'</span><span class="keyword">] === </span><span class="default">$assoc</span><span class="keyword">[</span><span class="string">'handle'</span><span class="keyword">]) {
+        </span><span class="comment">/* remove association */
+        </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">associate</span><span class="keyword">(</span><span class="default">$server</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);
+      }
+    }
+    return </span><span class="default">$res</span><span class="keyword">[</span><span class="string">'is_valid'</span><span class="keyword">] === </span><span class="string">'true'</span><span class="keyword">;
+</span><span class="default">?&gt;
+</span></pre><p><b>Didn't he also mention TypeKey?</b>   </p>
+<p>Yeah, here's how to validate the signature you get when your user is redirected back from TypeKey:   </p>
+<pre class="phpcode"><span class="default">&lt;?php
+    $keydata </span><span class="keyword">= array();
+    </span><span class="default">$regkeys </span><span class="keyword">= </span><span class="default">cache</span><span class="keyword">::</span><span class="default">httpGet</span><span class="keyword">(</span><span class="string">'http://www.typekey.com/extras/regkeys.txt'</span><span class="keyword">, </span><span class="default">24</span><span class="keyword">*</span><span class="default">60</span><span class="keyword">*</span><span class="default">60</span><span class="keyword">);
+    if (</span><span class="default">$regkeys </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {
+       die(</span><span class="string">"urgh"</span><span class="keyword">);
+    }
+    foreach (</span><span class="default">explode</span><span class="keyword">(</span><span class="string">' '</span><span class="keyword">, </span><span class="default">$regkeys</span><span class="keyword">) as </span><span class="default">$pair</span><span class="keyword">) {
+      list(</span><span class="default">$k</span><span class="keyword">, </span><span class="default">$v</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">'='</span><span class="keyword">, </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$pair</span><span class="keyword">));
+      </span><span class="default">$keydata</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">] = </span><span class="default">$v</span><span class="keyword">;
+    }
+    </span><span class="default">$sig </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">' '</span><span class="keyword">, </span><span class="string">'+'</span><span class="keyword">, </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'sig'</span><span class="keyword">]);
+    </span><span class="default">$email </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'email'</span><span class="keyword">];
+    </span><span class="default">$name </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'name'</span><span class="keyword">];
+    </span><span class="default">$nick </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'nick'</span><span class="keyword">];
+    </span><span class="default">$ts </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">'ts'</span><span class="keyword">];
+    </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">"$email::$name::$nick::$ts::" </span><span class="keyword">. </span><span class="default">TYPEKEY_TOKEN</span><span class="keyword">;
+    if (</span><span class="default">time</span><span class="keyword">() - </span><span class="default">$ts </span><span class="keyword">&gt; </span><span class="default">300</span><span class="keyword">) {
+      die(</span><span class="string">"possible replay"</span><span class="keyword">);
+    }
+    list(</span><span class="default">$r_sig</span><span class="keyword">, </span><span class="default">$s_sig</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">':'</span><span class="keyword">, </span><span class="default">$sig</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);
+    </span><span class="default">$r_sig </span><span class="keyword">= </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$r_sig</span><span class="keyword">);
+    </span><span class="default">$s_sig </span><span class="keyword">= </span><span class="default">base64_decode</span><span class="keyword">(</span><span class="default">$s_sig</span><span class="keyword">);
+    </span><span class="default">$valid </span><span class="keyword">= </span><span class="default">openssl_dsa_verify</span><span class="keyword">(</span><span class="default">sha1</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">),
+                                </span><span class="default">openssl_bignum_from_bin</span><span class="keyword">(</span><span class="default">$r_sig</span><span class="keyword">),
+                                </span><span class="default">openssl_bignum_from_bin</span><span class="keyword">(</span><span class="default">$s_sig</span><span class="keyword">),
+                                </span><span class="default">$keydata</span><span class="keyword">[</span><span class="string">'p'</span><span class="keyword">], </span><span class="default">$keydata</span><span class="keyword">[</span><span class="string">'q'</span><span class="keyword">],
+                                </span><span class="default">$keydata</span><span class="keyword">[</span><span class="string">'g'</span><span class="keyword">], </span><span class="default">$keydata</span><span class="keyword">[</span><span class="string">'pub_key'</span><span class="keyword">]);
+</span><span class="default">?&gt;
+</span></pre><p>  </p>

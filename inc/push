@@ -1,5 +1,0 @@
-#!/bin/sh
-#DEST=10.80.117.160:
-DEST=joy.wezfurlong.org:
-rsync -avz -e ssh --exclude=".hg" --exclude=".*.swp*" ../wfo $DEST
-

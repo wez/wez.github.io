@@ -1,0 +1,71 @@
+---
+layout: post
+title: "HOWTO: Set yourself up with an OpenID"
+date: 2007-06-03 10:48:40
+
+uniqid: c662d4c8-ddac-4cc4-beed-1c820a50751f
+categories: 
+ - PHP
+ - OpenID
+---
+<p>This post is in response to <a href="/blog/2007/06/blog-upgraded">this comment</a> on my blog (because I have no idea who that is :-). Here's my suggestion on how to get the most out of your OpenID.
+</p><ol><li>Get yourself an identity provider.<br/>I recommend using a pre-existing service rather than setting up your own.  You can use AOL, <a href="http://pip.verisignlabs.com/">Verisign (PIP)</a>, <a href="https://www.myopenid.com/">MyOpenID</a> and <a href="http://openid.net/wiki/index.php/OpenIDServers">a whole host of others</a>.
+</li><li>Edit your preferred blog or home page to configure it for delegation.
+</li><li>When you sign into web apps, use your URL, not the URL from your provider.
+</li></ol><p>I'm currently using AOL as my preferred identity provider; I also have accounts with Verisign and MyOpenID.  If you already have an AIM account, you can use AOL as your identity provider without having to explicitly sign up for another service (which means that you don't need to remember yet another password).
+</p><p>So, assuming that you're using AOL, the next thing to do is edit your home page or blog template and add a couple of lines to the &lt;head&gt;:
+</p><p><pre><code>   &lt;link rel="openid.server" 
+</code></pre></p><p><pre><code>      href="https://api.screenname.aol.com/auth/openidServer"&gt;
+</code></pre></p><p><pre><code>   &lt;link rel="openid.delegate"
+</code></pre></p><p><pre><code>       href="http://openid.aol.com/wezfurlong"&gt;
+</code></pre></p><p>If you're using Verisign PIP:
+</p><p><pre><code>   &lt;link rel="openid.server"
+</code></pre></p><p><pre><code>      href="https://pip.verisignlabs.com/server/" /&gt;
+</code></pre></p><p><pre><code>   &lt;link rel="openid.delegate"
+</code></pre></p><p><pre><code>      href="http://wezfurlong.pip.verisignlabs.com/" /&gt;
+</code></pre></p><p><pre><code>   &lt;meta http-equiv="X-XRDS-Location"
+</code></pre></p><p><pre><code>      content="http://pip.verisignlabs.com/user/wezfurlong/yadis" /&gt;
+</code></pre></p><p><pre><code>   &lt;meta http-equiv="X-YADIS-Location"
+</code></pre></p><p><pre><code>      content="http://pip.verisignlabs.com/user/wezfurlong/yadis" /&gt;
+</code></pre></p><p>And for MyOpenID:
+</p><p><pre><code>   &lt;link rel="openid.server"
+</code></pre></p><p><pre><code>        href="http://www.myopenid.com/server" /&gt;
+</code></pre></p><p><pre><code>   &lt;link rel="openid.delegate"
+</code></pre></p><p><pre><code>        href="http://youraccount.myopenid.com/" /&gt;
+</code></pre></p><p><pre><code>   &lt;meta http-equiv="X-XRDS-Location"
+</code></pre></p><p><pre><code>        content="http://www.myopenid.com/xrds?username=youraccount.myopenid.com" /&gt;
+</code></pre></p><p>These fragments allow an OpenID consumer site (such as my blog) to discover your identity provider and your identity with that provider.  They can then initiate authentication using those credentials but then retain your original URL as your identity.  This is nice because your URL is more meaningful than the various identity endpoint URLs from the providers, and also nice because you can easily switch out to a different provider if it takes your fancy.
+</p><p>This delegation mechanism relies on the consumer being able to parse your web page to locate those elements.  Sometimes you may not be able to control some of the content on your page, so it may not be successfully parsed.  You can avoid that issue by explicitly sending X-XRDS-Location and X-YADIS-Location headers, either in your PHP script, or by some magic in your httpd.conf.
+</p><p>Another trick is to redirect to your yadis file if the client indicates that it is looking for it:
+</p><p><pre><code>   RewriteCond %{HTTP_ACCEPT} application/xrds\\+xml
+</code></pre></p><p><pre><code>   RewriteCond %{HTTP_ACCEPT} !application/xrds\\+xml\\s*;\\s*q\\s*=\\s*0(\\.0{1,3})?\\s*(,|$)
+</code></pre></p><p><pre><code>   RewriteRule ^$ http://netevil.org/yadis.xrdf [R,L]
+</code></pre></p><p>(I think I borrowed this from <a href="http://intertwingly.net/blog/">Sam Ruby</a>, or maybe it was <a href="http://simonwillison.net/">Simon Willison</a>).
+</p><p>What's in the yadis file?  You can <a href="http://www.openidenabled.com/yadis/creating-a-yadis-services-document/">read all about it on openidenabled.com</a>.  Here's mine:
+</p><p><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</code></pre></p><p><pre><code>&lt;xrds:XRDS
+</code></pre></p><p><pre><code>  xmlns:xrds="xri://$xrds"
+</code></pre></p><p><pre><code>  xmlns:openid="http://openid.net/xmlns/1.0"  
+</code></pre></p><p><pre><code>  xmlns="xri://$xrd*($v*2.0)"&gt;
+</code></pre></p><p><pre><code>  &lt;XRD&gt;
+</code></pre></p><p><pre><code>    &lt;Service priority="5"&gt;
+</code></pre></p><p><pre><code>      &lt;Type&gt;http://openid.net/signon/1.1&lt;/Type&gt;
+</code></pre></p><p><pre><code>      &lt;URI&gt;https://api.screenname.aol.com/auth/openidServer&lt;/URI&gt;
+</code></pre></p><p><pre><code>      &lt;openid:Delegate&gt;http://openid.aol.com/wezfurlong&lt;/openid:Delegate&gt;
+</code></pre></p><p><pre><code>    &lt;/Service&gt;
+</code></pre></p><p><pre><code>    &lt;Service priority="10"&gt;
+</code></pre></p><p><pre><code>      &lt;Type&gt;http://openid.net/signon/1.1&lt;/Type&gt;
+</code></pre></p><p><pre><code>      &lt;Type&gt;http://openid.net/sreg/1.0&lt;/Type&gt;
+</code></pre></p><p><pre><code>      &lt;URI&gt;https://pip.verisignlabs.com/server&lt;/URI&gt;
+</code></pre></p><p><pre><code>      &lt;openid:Delegate&gt;http://wezfurlong.pip.verisignlabs.com/&lt;/openid:Delegate&gt;
+</code></pre></p><p><pre><code>    &lt;/Service&gt;
+</code></pre></p><p><pre><code>    &lt;Service priority="20"&gt;
+</code></pre></p><p><pre><code>      &lt;Type&gt;http://openid.net/signon/1.0&lt;/Type&gt;
+</code></pre></p><p><pre><code>      &lt;Type&gt;http://openid.net/sreg/1.0&lt;/Type&gt;
+</code></pre></p><p><pre><code>      &lt;URI&gt;https://pip.verisignlabs.com/server&lt;/URI&gt;
+</code></pre></p><p><pre><code>      &lt;openid:Delegate&gt;http://wezfurlong.pip.verisignlabs.com/&lt;/openid:Delegate&gt;
+</code></pre></p><p><pre><code>    &lt;/Service&gt;
+</code></pre></p><p><pre><code>  &lt;/XRD&gt;
+</code></pre></p><p><pre><code>&lt;/xrds:XRDS&gt;
+</code></pre></p><p>This yadis file says that I prefer to use AOL (its priority value is lower than the others) and then VeriSign PIP, preferring OpenID version 1.1 over version 1.0.
+</p><p>If you're using only one provider, you can just use their yadis URI rather than setting up your own (that's what those http-equiv meta elements are doing in my examples above).</p>

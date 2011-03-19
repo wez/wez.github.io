@@ -1,0 +1,31 @@
+---
+layout: default
+---
+<div class="item">
+  <div class="item_details">
+    <h1>{{ page.title }}</h1>
+	<div class='post-info'>
+		Posted on {{ page.date | date_to_string }}{% if page.updated %}, Updated on {{ page.updated | date_to_string }}{% endif %}
+	</div>
+  </div>
+  <div class="item_meta">
+      {% for topic in page.categories %}
+        <a href="{{ site.url }}/blog/tag/{{ topic | downcase }}" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
+      {% endfor %}
+  </div>
+  <div class="item_content">
+    {{ content }}
+  </div>
+</div>
+{% if page.comments_disabled != true %}
+<div id="comments">
+  <a href="{{ page.url }}#disqus_thread">View Comments</a>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_developer = 1;
+var disqus_title = '{{ page.title }}';
+var disqus_identifier = '{% if page.uniqid %}{{ page.uniqid }}{% else %}{{ page.url }}{% endif %}';
+  </script>
+</div>
+<br/>
+{% endif %}

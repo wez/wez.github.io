@@ -1,0 +1,62 @@
+---
+layout: post
+title: "mtrack: a software development tracker + wiki"
+date: 2010-01-21 11:12:40
+updated: 2010-01-27
+uniqid: cb587cf8-1dfc-48d7-a7b5-43dc0808261f
+categories: 
+ - MessageSystems
+ - PHP
+ - mtrack
+---
+<p>[Updated to add IRC and Google Groups links]</p>
+<p>I don't know if it's just me, or whether everyone in software development finds issue tracking software frustrating and/or broken in some way.&nbsp; They're all either way too complicated to set up, configure or use (the Bugzilla's or the Jira's), or have annoying "features" (such as Trac's you-lose-your-edits-if-someone-else-changed-something).</p>
+<p>We've been using Trac at Message Systems for several years now and have been enjoying its pragmatic approach of keeping the interface simple but expressive; just enough structure to be helpful but not too much that it intrudes.&nbsp; We've added/modified a couple of plug-ins to it to help track time and draw some graphs, but it has otherwise served us well.</p>
+<p>However, we've got a couple of projects that have started to converge and overlap and it's frustrating to visit the two different portals to interact and stay on top of things.&nbsp; As we scale up our development teams even further (we continue to have bigger and bigger plans!) this will prove to be more widely frustrating.</p>
+<p>Enter mtrack; on one hand it's a clone of many of Trac's features (possible due to their pragmatic BSD license), but on the other it has some refinements in terms of its workflow.&nbsp; What's important to me is that it is built to work with multiple code repositories and allows breaking out information on a per project basis.&nbsp; It also tries hard to avoid losing your wiki or ticket edits if someone else updates things while you're working.</p>
+<p>I chose to implement mtrack in PHP rather than continuing to extend Trac in python.&nbsp; My primary reason for this is that I've seen web apps written with Perl and Python, and while there are certainly guru developers out there that can build some awesome apps, those languages don't really lend themselves to web development and that limits the scope of potential contributors.&nbsp; While I can probably persuade some of my colleagues to code python web bits, I'll find it much easier to persuade more of them to code PHP web bits.&nbsp; I'm sure this property extends outside of our organization.</p>
+<p>We've been running our engineering department on mtrack for a couple of weeks now (after a period of running it in parallel to Trac) with just under 20 or so people using it actively as part of their day-to-day activities, so I feel comfortable in making this blog post to solicit input from the broader community, both in terms of suggestions and bug reports as well as potential contributions.</p>
+<p>While I am soliciting feedback, I'd like to emphasize that this is still relatively young and that there is no support and no warranty; if you are the cautious type, this is not the time to try mtrack.</p>
+<p>And now for some Anticipated Questions to pre-empt FAQ:</p>
+<p>Where can I get mtrack?</p>
+<ul>
+<li><a title="http://bitbucket.org/wez/mtrack/wiki/Home" href="http://bitbucket.org/wez/mtrack/wiki/Home">http://bitbucket.org/wez/mtrack/wiki/Home</a> is where the project resides, in a Mercurial repository; you are welcome to clone it and work with it.</li>
+</ul>
+<p>How is mtrack licensed?</p>
+<ul>
+<li><a title="http://bitbucket.org/wez/mtrack/src/tip/LICENSE" href="http://bitbucket.org/wez/mtrack/src/tip/LICENSE">Modified BSD</a></li>
+</ul>
+<p>What are some of the key features in mtrack?</p>
+<ul>
+<li>Trac style wiki syntax (all of its core syntax is supported) </li>
+<li>Subversion and Mercurial repository integration (API extensible to other VCS) </li>
+<li>Email notifications batch related information together to reduce the amount of mail you need to read; if you make 5 changes relating to a ticket in a 5 minute period you get one email with all 5 changes in it, instead of 1 per change.&nbsp; Code changes that reference a ticket generate a single email with the ticket changes and the diff, not a separate email for each. </li>
+<li>Issue tracking with configurable components, priorities, severities, milestones. </li>
+<li>Define "projects" and associate components and paths within repositories with them to control who gets notified of changes. </li>
+<li>Flot based graphing of Scrum burn-down based on time estimates and recorded effort </li>
+<li>Wiki edits have in-built conflict resolution and the Issue tracker tries hard to behave reasonably in the case where multiple people are working on the same item. </li>
+<li>Uses the Gravatar service to add some personality throughout the application. </li>
+<li>Includes an importer to migrate your Trac project(s) into mtrack. </li>
+<li>Has a plugin/hook API to support both core and external enhancements. </li>
+<li>Uses the Zend Framework Lucene implementation for full-text search capabilities.&nbsp; </li>
+</ul>
+<p>Why didn't you use &lt;Name of Framework&gt;?</p>
+<ul>
+<li>Frameworks can increase development overhead and I wanted to get this done.&nbsp; Also, if I had used a framework, I would have to defend my choice against the others ;-). I am not morally opposed to contributions that adopt a framework, but would want to carefully assess the impact on longer term maintenance before doing so.</li>
+</ul>
+<p>How do I install mtrack?</p>
+<ul>
+<li><a title="Installation Docs" href="http://bitbucket.org/wez/mtrack/raw/tip/defaults/help/Install">Installation Docs</a></li>
+</ul>
+<p>How can I contribute to mtrack?</p>
+<ul>
+<li>By trying it out; I'm looking forward to hearing suggestions, comments and bug reports.&nbsp; Please file them in the issue tracker: <a title="http://bitbucket.org/wez/mtrack/issues/?status=new&amp;status=open" href="http://bitbucket.org/wez/mtrack/issues/?status=new&amp;status=open">http://bitbucket.org/wez/mtrack/issues/?status=new&amp;status=open</a> and keep in mind that you may not get a response until the following weekend (or even longer!) due to my busy schedule </li>
+<li>By fixing bugs; if you've found and resolved an issue and want to pass a patch back to me you can do so either by attaching the patch or details on how to get at the patch to the issue tracker.&nbsp; I recommend doing this by keeping your own fork on bitbucket as it makes it much more convenient for both of us. </li>
+<li>By building out and sharing new features; I'm very open to adding new features.&nbsp; My preference is to enable those by making the core modular enough that new features don't have to be part of the main mtrack code to be used by it.&nbsp; This will keep the the core light and make it easier to share modules. </li>
+<li>By fleshing out docs.&nbsp; I'm the first to admit that mtrack could do with more documentation.</li>
+<li>Join in the discussion in the <a href="http://groups.google.com/group/mtrack">mtrack mailing list</a> or in the <a href="irc://irc.freenode.net/mtrack">#mtrack IRC channel on freenode</a>.</li>
+</ul>
+<p>You started this article claiming that all other issue trackers suck, but I think mtrack needs improvement</p>
+<ul>
+<li>I'm sure it does; it is still early days and I welcome your feedback (see above!)</li>
+</ul>

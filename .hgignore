@@ -5,3 +5,4 @@ sitemap.xml
 feed.xml
 posts/articles.json
 *.swp
+_site

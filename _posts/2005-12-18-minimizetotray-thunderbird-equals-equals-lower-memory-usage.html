@@ -1,0 +1,12 @@
+---
+layout: post
+title: "MinimizeToTray + thunderbird == lower memory usage"
+date: 2005-12-18 19:04:39
+
+uniqid: 43a5b2c7-c2f1-1121-7465-3a5b2c71113e
+categories: 
+ - Windows
+---
+<p>Having just set up the <a href="http://www.mozilla.org/projects/calendar/">mozilla calendar plugin</a> to launch when I open <a href="http://www.mozilla.com/thunderbird/">thunderbird</a>, I was wondering how much memory I was going to be sacrificing to the GUI god.  I was <i>very pleasantly</i> surprised to see that thunderbird.exe was consuming less than 2MB when minimized.   </p>
+<p>I put this down to <a href="http://minimizetotray.mozdev.org/">MinimizeToTray</a>.  My guess is that it's calling <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dllproc/base/setprocessworkingsetsize.asp">SetProcessWorkingSetSize</a>(GetCurrentProcess(), 0xffffffff, 0xffffffff) to swap the process out of memory when minimized.   </p>
+<p>Yep, after a while, the memory usage creeps back up again, as thunderbird does its background bits and pieces, like checking mail.  </p>

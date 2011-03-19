@@ -1,0 +1,19 @@
+---
+layout: post
+title: "Release Engineering"
+date: 2005-09-19 01:04:10
+
+uniqid: 432e0e8a-701c-1268-2092-32e0e8a2adc9
+categories: 
+ - PHP
+---
+<p>One of the things I spend a <b>lot</b> of time doing is release engineering.  If you're not familiar with the term, it's the process of taking some software product and packaging it.  Piece of cake?  Far from it.   </p>
+<p>The packaging has to be perfect.  It needs to handle all kinds of quirky problems on the different flavours of systems that you're planning to install on.  You need to expect the unexpected (you have no idea exactly <b>what</b> people have done to their systems), handle all errors gracefully, preserve <b>everything</b> that might be important, and at the end of the day, <i>it just needs to work</i>.   </p>
+<p>I've spent many hours building and rebuilding packages on different combinations of operating system flavours and versions, watching the build output scrolling by for several minutes just to verify the smallest change in the packaging configuration, rolling back virtual machines, installing, uninstalling, reinstalling ad infinitum.  Tedious but essential.  And it's not easy.   </p>
+<p>So, why have I been going on about all this?  The recent (or not so recent) changes in the PEAR infrastructure have introduced a new package2.xml file to describe packages.  For reasons of backwards compatibility, the older package.xml file still needs to be maintained.  This instantly makes the release engineering section of my brain nervous... it's going to be all too easy to forget to update both of these files when it's time to ship the software, especially when shipping time means releasing 8 packages at once (just taking pdo as an example).  That means that I'll need to edit 16 package files and 8 C source files when I want to push a release.  I have a hard enough time editing the 8 source files and 8 package files I already have right now, so I'm not looking forward to this--it's going to be unmaintainable.   </p>
+<p>It would seem pretty reasonable to expect to be able to automate this process a little; why can't the package.xml file be generated from the package2.xml file, or vice versa?  I've yet to hear a good answer on this, but I've been told that we can't.  I don't buy it, which is one of the reasons why I'm blogging this.   </p>
+<p>One suggestion is to drop support for package.xml and only go with package2.xml.  If someone has an older version of PEAR that &quot;works for them(tm)&quot; and they use it to download a pecl package today (and it works), they'd expect for it to work if that package had a minor bug fix next week.  This would not be the case if switch-to-package2.xml day happened in the middle of that week.   </p>
+<p>For it to suddenly stop working in this situation is wrong because their environment didn't change.  It's our breakage, and even if it is intentional, we didn't give them any notice that we're doing this.   </p>
+<p>There is no good reason why we can't provide an auto-generated package.xml file, especially if the package2.xml describes the same package as the package.xml file.   </p>
+<p>Why can't we make things easier instead of harder?   </p>
+<p>(and that means that the automatic conversion needs to be part of the &quot;pear package&quot; tool, or that the tool provides clear, simple instructions on how to ensure that any pre-requisites are met).  </p>

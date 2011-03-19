@@ -1,0 +1,21 @@
+---
+layout: post
+title: "EvilDesk 0.7 Released"
+date: 2005-12-27 18:03:55
+
+uniqid: 43b181dd-cc00-7337-5385-3b181ddcfea2
+categories: 
+ - EvilDesk
+ - Windows
+---
+<p>Well, the bug fixes I made in the last release left me feeling empowered again, so I've followed up with a couple more features and some more bug fixes:   </p>
+<p><ul>
+<li>Added new MATCH CREATE window matching configuration option, which allows actions to be taken when windows are created. For example, you can cause all VMWare windows to start on a given workspace, or have your mp3 player automatically stick to all workspaces when it starts up.
+ <li>Fixed a slit layout calculation bug.
+ <li>Avoid blocking the flasher when the flashing app (eg: gaim 2.0 beta) hangs itself
+ <li>Balloon tips now display the body of the balloon text, instead of the tooltip from the tray area, and will rise all the way to the top of the z-order.
+ <li>Improved detection of deleted tray tooltips, so that balloon tips are not wiped out at the wrong time.
+ <li>When a window was made sticky, it would remain in the minimized state on the inactive workspaces. This has now been corrected.
+ <li>Fixed a string termination bug in the PuTTY plugin for sessions that have spaces in their names.
+ <li>Environmental variables are now expanded when processing the MergeDirs directive in the .evdm file
+   </ul>

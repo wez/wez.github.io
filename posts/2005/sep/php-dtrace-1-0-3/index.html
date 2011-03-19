@@ -1,5 +1,0 @@
-<p>I added two new probe parameters to the dtrace module; they don't do anything useful with PHP 4, but if you're running PHP 5, they add the classname (arg3) and a scoping operator (arg4) (either &quot;::&quot;, &quot;-&gt;&quot; or &quot;&quot;) that are filled in when making a call to an object or a static call to a class.   </p>
-<p>This means that you can use the concatentation of arg3, arg4 and arg0 (in that order) for the full name of the method or function being called.   </p>
-<p>I can probably fill in those things for PHP 4, but I didn't have the time to do that yet; I pushed this release because I'm likely to get too busy to do it otherwise :)   </p>
-<p>I also refined the build process very slightly; if you're running on 64-bit, you should have better luck.   </p>
-<p>One of these days (maybe at php|works) I'll write up some more docs on using dtrace.  If you're on solaris and want to try it, let me know and I'll give you some pointers.  If you're not on solaris, you can't use dtrace :)  </p>

@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Coding for source control"
+date: 2006-12-04 04:55:37
+
+uniqid: 4573aa49-34f1-5846-6702-573aa49875cc
+categories: 
+ - PHP
+---
+<p>Hot on the heels of <a href="/blog/2006/dec/coding-for-coders-api-and-abi-considerations-in-an-evolving-code-base">my Coding for Coders entry</a> (focused on C), here's another on coding for source control.   </p>
+<p>When you have a large code base in a source control system (like subversion), you'll find that things go easier if you adopt a few coding practices that work in-hand with the way that the version control works.   </p>
+<p><b>Embrace branches and tags</b>   </p>
+<p>You really should investigate how to use the branching and tagging feature in your source control system.  A typical practice is to do development in trunk and have a branch for each major version of the code (eg: a 1.0 branch, 2.0 branch and so on), tagging that branch each time you reach a significant point in development and each time you ship code.  Depending on your project, you might branch for minor versions too (eg: 1.2, 1.3).   </p>
+<p><b>Think in terms of changesets</b>   </p>
+<p>If you're working on a bug fix or implementing a feature, it's good practice to distill the net development effort down to a single patch for the tree.  The set of changes in that patch is the changeset that implements the bug fix or feature.   </p>
+<p>Once you have the changeset, you can look at applying it to one of your branches so that you can ship the fixed/enhanced product.   </p>
+<p>Trivial fixes can usually be implemented with a single commit to the repository, but more complex changesets might span a number of commits. It's important to track the commits so that your changeset is easier to produce.   </p>
+<p>We use <a href="http://trac.edgewall.org/">trac</a> for our development ticket tracking.  It's easy to configure trac/subversion to add a commit hook that allows developers to reference a ticket in their commit messages and then have all the commits related to that ticket show up as comments when viewing the ticket.  You can then merge each commit into your working copy and then check in the resulting changeset.   </p>
+<p>If one of more of your developers are making extensive changes, it's a good idea for them to do their work in their own branches.  That way they won't step on each others toes during development.  You might also want to look at creating a branch per big ticket--this will allow you to exploit the diffing/merging features of your source control system to keep track of the overall changeset.   </p>
+<p><b>Code with merging in mind</b>   </p>
+<p>When you're making code changes, try to think ahead to how the patch will look, and how easy it will be for your source control system to manage merging that code.   </p>
+<p>A few suggestions:   </p>
+<p><ul>
+<li>if you have a list of things to update, break the list up so that each item has its own line.
+ <li>if the list has a separator character (eg: a comma), include the separator on the last line of the list.
+ <li>if you're adding to a list, add to the end if possible.
+ <li>avoid changing whitespace, try to have your patch reflect functional changes only.
+   </ul>
+<p>Your goal is to minimize the patch so that it represents the smallest possible set of changed lines.  If you can avoid touching peripheral lines around your change set, you reduce the disk of running into conflicts when you merge.   </p>
+<p>Get into the habit of diffing your changes against the repository while your work, and certainly always diff before you commit.  If you find in changed lines that are not essential for the patch (whitespace in particular), take them out!   </p>
+<p>Here's an example from a makefile:   </p>
+<pre>      SOURCES = one.c two.c three.c
+</pre><p>This is nice and readable at first, but over time this line may grow to include a large number of source files.  People will tend to add to the end at first, and perhaps alphabetically when the number of files increases.  The resulting diff shows a single modified line but won't really show you what changed on that line.  Things get difficult when two changeset affect that line; you'll get a conflict because the source control system doesn't know how to merge them.   </p>
+<pre>      # this is better
+      SOURCES = \\
+        one.c \\
+        two.c \\
+        three.c \\
+</pre><p>Each item now has its own line.  By getting into the habit of adding at the end, complete with separator or continuation character you help the merge process: each item you add will be a single line diff, and it will know that you're adding it at the end, improving the chances of a successful merge a great deal.   </p>
+<p>Adding at the end isn't the golden rule so much as making sure that everyone adds consistently.  Often, order is important, so adding at the end isn't going to help you.  By adding in a consistent manner, you reduce the chances of touching the same lines as another changeset and thus reduce the chances of a conflict.   </p>
+<p>Here's the same example, but in PHP:   </p>
+<pre>      $foo = array(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;);
+</pre><p>better:   </p>
+<pre>      $foo = array(
+              &quot;one&quot;,
+              &quot;two&quot;,
+              &quot;three&quot;,
+             );
+</pre><p>Dangling commas are good! :)   </p>
+<p><b>Keep the diff readable</b>   </p>
+<p>Don't take the concept of small diffs too literally--if you can express your change on a single line that is 1024 characters long you've made the merge easier at the expense of making it really hard to review what the change does.  This basically boils down to making sure that you stick to the coding standards that have been established for the project.   </p>
+<p>Don't sacrifice human readability for the sake of easier merging.   </p>
+<p>If you find that you need to merge a changeset to more than one branch (say you have a bug fix to apply to 2.0 and 2.0.1) then it's often easier to merge to 2.0 first, resolve any conflicts, commit and merge the 2.0 changeset into 2.0.1 rather than the trunk changeset direct to 2.0.1.   </p>
+<p>These practices aren't obtrusive and will help you when you need to merge a changeset from one branch to another.   </p>
+<p>I don't pretend to know everything, these are just a couple of tidbits I thought I'd share.  If you have other similar advice, I'd like to hear it--feel free to post a comment.   </p>
+<p>  </p>

@@ -1,8 +1,0 @@
-<p>I released the next release candidate for PDO tonight.  You can <a href="http://pecl.php.net/package-changelog.php?package=PDO">find the full changelog here</a>.  There are two changes of note (I can't take credit for these, you can (blame|thank) <a href="http://ilia.ws">Ilia</a> and <a href="http://marcus-boerger.de/">Marcus</a>):   </p>
-<p><ul>
-<li>Changed PDO_XXX constant names into PDO::XXX and renamed pdo_drivers() to PDO::getAvailableDrivers()
- <li>Removed the &quot;final&quot; attribute from the PDO and PDOStatement constructors, making it significantly easier to extend PDO in your apps. You'll probably want to look at PDO::setAttribute(PDO::ATTR_STATEMENT_CLASS) if you're doing that sort of thing.
-   </ul>
-<p>I also released the next installment for the various drivers; mostly bug fixes here and there.  The biggest patch was <a href="/blog/2005/oct/lob-support-added-to-pdo-oci-in-php-5-1-cvs-finally">making LOBs work for the OCI driver</a>.   </p>
-<p>You can <a href="http://pecl.php.net/">find the updated packages in PECL</a>, and <a href="http://pecl4win.php.net">find pre-compiled Windows extension DLLs at pecl4win</a>.   </p>
-<p>Enjoy!  </p>

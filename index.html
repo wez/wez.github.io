@@ -1,0 +1,66 @@
+---
+layout: default
+title: Wez Furlong, Open Sourceror
+---
+
+<div id="aboutme">
+<span id="mugshot"><img alt="Wez Furlong" border="0"
+      class="photo" src="/images/wezmugshot75.jpg"></span>
+
+<p>
+I'm a systems architect from England living in in Maryland, USA. I like to
+unwind from work with an occasional single malt and a good movie. If I can't
+get my hands on those, I'll substitute bourbon, bad sci-fi or xbox 360.
+</p>
+
+<p>
+At work, I'm responsible for ensuring that the architecture of
+<a href="http://messagesystems.com">Message Systems</a>
+software continues to meet the performance, scalability and flexibility demands
+placed upon it by clientele such as <a href="http://facebook.com">Facebook</a>,
+<a href="http://salesforce.com">Salesforce</a>,
+<a href="http://match.com">Match.com</a> and
+<a href="http://messagelabs.com">MessageLabs</a>.
+</p>
+
+</div>
+
+<hr>
+
+<div id="findme">
+<a title="Subscribe to my blog" rel="alternate"
+	class="feedlink"
+	type="application/rss+xml"
+	href="http://feeds.feedburner.com/EvilAsInDr"><img
+	src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png"
+	width="32" height="32" alt="Subscribe to my blog"></a>
+<p>
+	You can find me on <a href="http://www.twitter.com/wezfurlong">Twitter</a>,
+	<a href="http://www.linkedin.com/in/wezfurlong">LinkedIn</a>,
+	<a href="https://github.com/wez">GitHub</a> and
+	<a href="https://bitbucket.org/wez">BitBucket</a>.<br>
+	You may also wish to <a href="http://feeds.feedburner.com/EvilAsInDr"
+	>subscribe to my blog</a>.
+</p>
+</div>
+
+<hr>
+
+<div id="recent">
+<h1>Recent Articles</h1>
+
+<ul>
+  {% for post in site.posts limit:5 %}
+    <li>
+      <div class="post-title">
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </div>
+      <div class='post-info'>
+	  	Posted on {{ post.date | date_to_string }}{% if post.updated %}, Updated on {{ post.updated | date_to_string }}{% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+
+</div>
+

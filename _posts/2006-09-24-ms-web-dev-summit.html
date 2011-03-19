@@ -1,0 +1,29 @@
+---
+layout: post
+title: "MS Web Dev Summit"
+date: 2006-09-24 03:37:30
+
+uniqid: 4515fd7a-0afc-4028-3472-515fd7b0129b
+categories: 
+ - Conferences
+ - PHP
+---
+<p>For the past couple of days I've been in (rainy|sunny) Seattle attending a web development summit hosted on the Microsoft campus in Redmond.  Microsoft invited a number of &quot;influentials&quot; from web development communities outside of the usual MS camps; the folks attending were mostly of a PHP background, but there was one Rails guy and a couple of others with more of a .Net background.   </p>
+<p>At first you'd think that MS had set out to brainwash us all into talking about how great their new bits are.  While that was true to a certain extent, they were very keen to find out what we all thought about those bits--did they suck? how could they be improved? and so on.   </p>
+<p>For me, the more interesting parts included:   </p>
+<p><b> Feature focus on IIS7 </b>  </p>
+<p>The IIS7 that will ship with Vista is designed to make things easier for a web developer.  There are some innovations like per-directory configuration files called web.config files.  These are effectively an XML equivalent to Apache .htaccess files and will make things much easier for transporting configuration from a local dev box up to a staging or even production server.  The IIS guys re-engineered the core of IIS to run in a modular fashion, making it much easier to build in custom authentication or URL rewriting facilities, for example.   </p>
+<p>This may not sound like a big deal to apache users, but it's a significant stride in the right direction as far as feature parity between apache and IIS is concerned--it makes it easier to create an app that will run &quot;the same&quot; on IIS as it does on Apache.   </p>
+<p>Oh yes, FastCGI support is planned ship with with IIS7.   </p>
+<p><b> LINQ </b>  </p>
+<p>LINQ can be described as SQL integration at the programming level.  But its more than that; the LINQ langugage extensions to C# allow you to structure queries across disparate data sources.  If you have an array of in memory data and a SQL table, you can join and query across both those things as though they were one data source.  It sounds very interesting; you can find out more at <a href="http://msdn.microsoft.com/data/ref/linq/">http://msdn.microsoft.com/data/ref/linq/</a>.   </p>
+<p><b> CardSpace (formerly known as InfoCard) </b>  </p>
+<p>CardSpace is a new identity technology that will be integrated into browsers (IE7 will ship with it, and I've been told that there is a firefox plugin).  The technology uses cryptography to put you firmly in control of your personal and financial information.  For instance, if you're buying something online the authorization for that transaction takes place between you and your bank/credit provider and they issue a cryptographically signed token that the seller can use as confirmation of the transfer of funds.  The seller never even has an inkling of what your credit card details are, eliminating the risk of identity theft.   </p>
+<p>It's an interesting technology.  If you google for &quot;cardspace php&quot; you can find some PHP code that accepts CardSpace data.  I was talking to Rob Richards about this last week in Toronto; you can see working CardSpace/InfoCard authentication on his <a href="http://www.cdatazone.org/">blog</a>.   </p>
+<p><b> Feature focus on IE7 </b>  </p>
+<p>I don't have too much to say about this except that, like IIS 7, a lot of the visible changes are primarily playing catch-up to opensource alternatives.  Again, it's definitely a step in the right direction, but feels a bit like &quot;so what?&quot; right now.  The IE7 guys made a point of saying that they are committed to making IE a better browser and that they are aware of its current shortcomings.  IE7 will ship in Q4 2006 and they already have a roadmap for the next two versions of IE.  Again, good news.   </p>
+<p><b> Expression Web </b>  </p>
+<p>You can think of this as being something like Microsofts equivalent to dreamweaver.  (disclaimer: I haven't really touched DW for some time, and barely scratched the surface, so I could be a bit off-base here). Expression Web is part of a suite of tools aimed at designers rather than coders.  It looks like a very nice tool for editing HTML and CSS, and the folks behind it stressed repeatedly that a fundamental principle behind the tool is to generate standards compliant xhtml and css.   </p>
+<p>Expression has a nice natural editor that intelligently creates and re-uses style classes according to your preferences, generating good, clean markup.  One particuarly nice feature was visualization of the box model; it's possible to drag and change padding and margins for elements in the page.   </p>
+<p><b> Summing up </b>  </p>
+<p>Looks like Microsoft have some interesting bits heading our way in the near future.  More importantly, this event helped to underscore an attitude shift within Microsoft that has been taking place over the last couple of years.  People like <a href="http://blogs.msdn.com/bgold/">Brian Goldfarb</a> and <a href="http://joeon.net/">Joe Stagner</a> have played an important role in sending the message that Microsoft are genuinely interested in making the Windows platform more appealing for non-Microsoft technologies like PHP, python and ruby.   </p>

@@ -1,0 +1,17 @@
+---
+layout: post
+title: "nVidia nView virtual desktop manager"
+date: 2004-10-14 09:44:17
+
+uniqid: 416e4a71-5b23-9531-7156-16e4a7169ed3
+categories: 
+ - Windows
+---
+<p>I've been using this for a while and been annoyed by two things it does:   </p>
+<p><ul>
+<li>Won't allow you to assign ALT-F4 to switch to desktop 4
+ <li>It's unable to manage win32 console windows
+   </ul>
+<p>The latter doesn't seem fixable, but I can live with it.  The Alt-F4 thing <b>can</b> be solved with a bit of registry hacking.  First, turn off nView, so that it saves its state into the registry.  Then open up regedit and create the key shown in the picture below (the full registry path can be seen in the status bar).  Once you've added it, turn on nView again.   </p>
+<p><img src="/images/nview-alt-f4.png" alt="Alt-F4 as a hotkey"/>   </p>
+<p>I did try <a href="http://virtuawin.sourceforge.net/">VirtuaWin</a> for a while, but it has particularly crappy interaction with the cygwin X server: switching desktops causes most of your xterm windows go into attention grabbing flashing mode.  Very annoying.  </p>

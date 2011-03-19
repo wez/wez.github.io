@@ -1,0 +1,151 @@
+---
+layout: post
+title: "Coding for coders: API and ABI considerations in an evolving code base"
+date: 2006-12-04 03:54:32
+
+uniqid: 45739bf8-0f3a-6743-9590-5739bf834935
+categories: 
+ - Blog
+---
+<p>As you may know, <a href="http://www.messagesystems.com/">we</a> have an MTA product that is designed to be extended by people writing modules in C/C++, Java and Perl.  To facilitate this, not only do we need to write the code for product, but we also need to provide an API (Application Programming Interface) to our customers and partners so that they can build and run their modules.   </p>
+<p>There are a number of considerations when publishing an API:   </p>
+<p><b>Make the API easy to use</b>   </p>
+<p>If the API is hard to understand then people will use it incorrectly, which might result in things blowing up in rare conditions that didn't come up in their testing.  APIs tend to be hard to use if they have too many parameters or do too many things.  It's a good idea to keep your API functions small and concise so that it's clear how they are supposed to work.   </p>
+<p>If you have a complex procedure with a number of steps, you should encapsulate those steps in another API function.  This makes it easier to perform that procedure in the future.   </p>
+<p>Good documentation is a key component to ensuring that the APIs are used correctly; not only does it tell people how to use the API, it tells you how people are supposed to be using the API.  More on that in a bit.   </p>
+<p><b>Don't change those APIs!</b>   </p>
+<p>Once you've created an API and shipped your product and its gloriously detailed documentation, people will start to use it.  There are two broad categories of people that will consume your API: customers that are building their own modules and partners that build modules to sell to other people running the software.  Any changes that you make to the API will require the first group to update their code, recompile and re-deploy.  The latter group will need to do the same, but need to ship the updated modules to their customers.   </p>
+<p>This is a pain for both groups of people.  If the API changes you make are extensive it requires someone there to become familiar with those changes and figure out how to migrate their code from the old API to the new API in such a way that things still work.  They may not have the resources to do this at the point where you release those changes, so you <b>really</b> need to avoid changing the API if you're shipping a critical bug fix.   </p>
+<p><b>ABI changes are bad too</b>   </p>
+<p>ABI is an acronym for Application Binary Interface.  It's similar to API, but the distinction is that API affects how you program against something, whereas ABI affects how the machine code expects things to work.  If you're coming from a dynamic/scripting background, ABI doesn't really apply.  Where it really matters is in cases where you're compiling your code and shipping the result.  When you compile your code, the compiler figures out things like offsets of fields in structures, orders of parameters and sizes of of structures and so forth and encodes these things into the executable.   </p>
+<p>This is best illustrated with an example:   </p>
+<pre>   struct foo {
+      int a;
+      int b;
+   };
+   int do_something(int param1, struct foo *foo);
+   #define DOIT(a, b)   do_something(a, b)
+</pre><p>Now, imagine that we ship another release where we've tweaked some code around:   </p>
+<pre>   struct foo {
+      int b;
+      int a;
+   };
+   int do_something(struct foo *foo, int param1);
+   #define DOIT(a, b)   do_something(b, a)
+</pre><p>From an API perspective, things look the same (assuming that people only use the DOIT macro and not the do_something() function).  If you don't rebuild the code, weird things will happen.  For instance, the <b>a</b> and <b>b</b> fields in the foo structure have swapped places.  That means that code compiled against the release 1 headers will be storing what it thinks is the value for <b>a</b> in the <b>b</b> slot.  This can result in subtle to not-so-subtle behavior when the code is run, depending on what those functions do.  The switch in the ordering of parameters to the do_something() function leads to similar problems.   </p>
+<p>These problems will vanish if the third party code is rebuilt against the new headers, but this requires that the updated code be re-deployed, and that may require additional resources, time and effort.   </p>
+<p>ABI changes are bad because they are not always immediately detected; the code will load and run until it either subtly corrupts memory or less subtly crashes because a pointer isn't where it used to be.  The code paths that lead to these events may take some time to trigger.   </p>
+<p>In my contrived example above there was no reason to change the ordering of those things, and not changing them would have eliminated those problems.   </p>
+<p><b>Avoiding ABI and API breakage</b>   </p>
+<p>A common technique for enhancing API calls is to do something like this:   </p>
+<pre>   int do_this(int a);
+</pre><p>and later:   </p>
+<pre>   int do_this_ex(int a, int b);
+   #define do_this(a)   do_this_ex(a, 0)
+</pre><p>This neatly avoids an API change but breaks ABI: the do_this() function doesn't exist any more, so the program will break when that symbol is referenced.  Depending on the platform, this might be at compile time or it might be at run time at the point where the function is about to be called for the first time.   </p>
+<p>If ABI is a concern for you, something like this is better:   </p>
+<pre>   int do_this(int a) {
+      return do_this_ex(a, 0);
+   }
+</pre><p>this creates a &quot;physical&quot; wrapper around the new API.  You can keep the #define do_this() in your header file if you wish, and save an extra function call frame for people that are using the new API; people using the old ABI will still find that their linker is satisfied and that their code will continue to run.   </p>
+<p>Oh, and while I'm talking about making extended APIs, think ahead.  If you think you're going to need an extra parameter in there one day, you can consider reserving it by doing something like this:   </p>
+<pre>    int do_this(int a, int reserved);
+</pre><p>and then documenting that reserved should always be 0.  While that works, try to think a bit further ahead.  Why might you need to extend that API?  Will those projected changes require that additional APIs be added?  If the answer is yes, then you shouldn't reserve parameters because what you'll end up with is code that does stuff like this:   </p>
+<pre>   // I decided that I might add 4 parameters one day
+   do_this(a, 0, 0, 0, 0);
+</pre><pre>   // but when that day arrived, I actually added a new function
+   // that only needed 3
+   do_this2(a, b, c);
+</pre><p>Those reserved parameters add to your code complexity by making it harder to immediately grasp what's going on.  What do those four zeros mean?  Remember that one of the goals it to keep things simple.   </p>
+<p>You might have noticed that I called the new version of the API do_this2() instead of do_this_ex().  This also stems from thinking ahead.  do_this_ex() is (by common convention) an extended form of do_this(), but what if I want to extend the extended version--do I call it do_this_ex_ex()?  That sounds silly.   </p>
+<p>It's better to acknowledge API versioning as soon as you know that you need to do it.  I'm currently leaning towards a numeric suffix like do_this2() for the second generation of the API and do_this3() for the third and so on.   </p>
+<p>Each time you do this, it's usually a good idea to implement the older versions of the APIs in terms of calls to the newer versions.  This avoids code duplication which has a maintenance cost to you.   </p>
+<p>Of course, you'll make sure that you have unit tests that cover each of these APIs so that you can verify that they continue to work exactly as expected after you make your changes.  At the very least, the unit tests should cover all the use cases in that wonderful documentation that you wrote--that way you know for sure that things will continue to work after you've made changes.   </p>
+<p><b>Structures and ABI</b>   </p>
+<p>I got a little side tracked by talking about API function versioning.  What about structures?  I've already mentioned that changing the order of fields is &quot;OK&quot; from an API change perspective but not from an ABI.  What about adding fields?   </p>
+<pre>   struct foo {
+      int a;
+      int b;
+   };
+</pre><p>becoming:   </p>
+<pre>   struct foo {
+      int a;
+      int b;
+      int c;
+   };
+</pre><p>Whether this breaks ABI depends on how you intend people to use that structure.  The following use case illustrates an ABI break:   </p>
+<pre>   int main() {
+      struct foo foo;
+      int bar;
+</pre><pre>      do_something(&amp;foo);
+   }
+</pre><p>Here, foo is declared on the stack, occupying 8 bytes in version 1 and 12 bytes (maybe more with padding, depending on your compiler flags) in version 2.  Either side of foo on the stack are the stack frame and the bar variable.  If we're running a program built against version 1 against version 2 libraries the do_something() function will misbehave when it attempts to access the <b>c</b> field of the structure.  If the usage is read-only it will be reading &quot;random&quot; garbage from the stack--either something in the stack frame or perhaps even the contents of the bar variable, depending on the architecture and compilation flags.  If it tries to update the <b>c</b> field then it will be poking into either the stack frame or the bar variable--stack corruption.   </p>
+<p>You can avoid this issue by using pointers rather than on-stack or global variables.  There are two main techniques; the first builds ABI awareness into your APIs:   </p>
+<pre>   struct foo {
+      int size_of_foo;
+      int a;
+      int b;
+   };
+</pre><pre>   int main() {
+      struct foo foo;
+      int bar;
+</pre><pre>      foo.size_of_foo = sizeof(foo);
+      do_something(&amp;foo);
+   }
+</pre><p>The convention here is to ensure that the first member of a structure is populated with its size.  That way you can explicitly version your structures in your header files:   </p>
+<pre>   struct foo_1 {
+      int size_of_foo;
+      int a;
+      int b;
+   };
+   struct foo {
+      int size_of_foo;
+      int a;
+      int b;
+      int c;
+   };
+</pre><pre>   int do_something(struct foo *foo) {
+      if (foo-&gt;size_of_foo &gt;= sizeof(struct foo)) {
+         // we know that foo-&gt;c is safe to touch
+      } else if (foo-&gt;sizeo_of_foo == sizeof(struct foo_1)) {
+         // &quot;old style&quot; foo, do something a bit different
+      }
+   }
+</pre><p>Microsoft are rather fond of this technique.  Another technique, which can be used in conjunction with the ABI-aware-API, is to encapsulate memory management.  Rather than declare the structures on the stack, the API consumer works with pointers:   </p>
+<pre>   int main() {
+      struct foo *foo;
+      int bar;
+</pre><pre>      foo = create_foo();
+      foo-&gt;a = 1;
+      foo-&gt;b = 2;
+      do_something(&amp;foo);
+      free_foo(foo);
+   }
+</pre><p>This approach ensures that all the instances of struct foo in the program are of the correct size in memory, so you wont run the risk of stack corruption.  You'll need to ensure that create_foo() initializes the foo instance in such a way that th*e other API calls that consume it will treat it as a version 1 foo instance.  Whether you do this by zeroing out the structure or building in ABI awareness is up to you.   </p>
+<p><b>Encapsulation</b>   </p>
+<p>You can protect your API consumers from ABI breakage by providing a well encapsulated API.  You do this by hiding the implementation of the structure and providing only accessor functions.   </p>
+<pre>   struct foo; /* opaque, defined in a header file that you
+                * don't ship to the customer */
+   struct foo *create_foo();
+   void free_foo(struct foo*);
+   void foo_set_a(struct foo *, int value);
+   int  foo_get_a(struct foo *);
+</pre><p>By completely hiding the layout of the foo structure, the consumers code is completely immune to changes in the layout of that structure, because it is forced to use the accessor APIs that you provided.   </p>
+<p>You can see practical example of this in Solaris's <a href="http://partneradvantage.sun.com/protected/solaris10/adoptionkit/general/ucred_get.txt">ucred_get(3C)</a> API.   </p>
+<p>Encapsulation has a trade-off though; if there are a lot of fields that you need to set in a structure, you might find that the aggregate cost of making function calls to get and set those values becomes significant.  My usual disclaimer applies though--don't code it one way because you think it will run faster--do it after you've profiled the code and when you <b>know</b> that it will be faster.  It's better to opt for maintainability first, otherwise you might as well be hand-coding in assembly language.   </p>
+<p><b>Summing up</b>   </p>
+<p>It can be hard to retrofit API and ABI compatibility; it's best to plan for it early on, even if you just decide that you're not going to do it.   </p>
+<p>Projects typically adopt a strategy along the lines of: no ABI (and thus API) breaks in patchlevel releases.  Avoid ABI (and this API) breaks in minor releases.  API will only break in major releases after appropriate deprecation notices are published and a suitable grace period observed to facilitate migration.   </p>
+<p>Folks that are truly committed to API/ABI preservation will have a long deprecation period and will add an extra restriction--API/ABI changes will be removals only.   </p>
+<p>API/API preservation is a challenge, but if you get it right, your API consumers will love you for it.   </p>
+<p>I'll leave you with some bullet points:   </p>
+<p><ul>
+<li>Avoid changing APIs.
+ <li>Avoid changing ABIs.
+ <li>It's particularly important to preserve ABI compatibility if you're shipping a patch level release, because people tend to put less effort into QA and might overlook a breakage.
+ <li>If you need to expand, spawn a new generation of APIs rather than mutating existing ones.
+ <li>If you need to expand structures, don't change the ordering of fields, add to the end.
+ <li>encapsulate structures with APIs if you can.
+ <li>Unit tests are essential
+ <li>Documentation is very important
+   </ul>
