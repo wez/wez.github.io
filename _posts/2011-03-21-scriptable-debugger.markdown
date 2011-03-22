@@ -3,7 +3,7 @@
 layout: post
 title: Scriptable Debugger
 categories:
- - gimli
+ - Gimli
 ---
 
 [Adam Leventhal](http://dtrace.org/blogs/ahl/) mentioned on twitter that he'd
