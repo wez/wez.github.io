@@ -164,7 +164,7 @@ Future
 ======
 
 I think this is really quite a cool concept, and will be following through
-to flesh this out fully.  What I'm also interested in doing is adding
+to flesh this out more fully.  What I'm also interested in doing is adding
 in some more functionality to make it a halfway decent interactive debugger.
 
 My personal debugger needs tend to be focused on inspecting a target
@@ -191,6 +191,22 @@ VM trace alongside each other, to replicate the mdb dcmds above,
 as well as others that work with umem to help diagnose memory issues.
 
 *What would you like to see in a debugger?*
+
+[Bryan Cantrill](http://dtrace.org/blogs/bmc/) adds:
+
+> * \:\:stacks
+> * \:\:walk
+> * \:\:whatis
+> * \:\:whattype
+> * \:\:findfalse
+
+
+[@alexr](http://twitter.com/alexr) adds:
+> [@bcantrill](http://twitter.com/bcantrill) [@ahl](http://twitter.com/ahl) [@wezfurlong](http://twitter.com/wezfurlong) I'd rather you do all that to LLDB. :-)
+
+Now [lldb](http://lldb.llvm.org/) sounds interesting, but for me it is rather
+appealing to be able to script this stuff and not *have* to reach for a C (or
+in this case, C++) compiler to write a module to get at some guts.
 
 #### Quick note about Gimli
 
