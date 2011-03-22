@@ -1,4 +1,6 @@
 permalink: /blog/:year/:mname/:title/
+# lsi takes 22 minutes!
+lsi: false
 exclude:
  - Makefile
 

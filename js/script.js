@@ -1,15 +1,20 @@
 $(document).ready(function(){
 
 if (window.disqus_title) {
-	$('#disqus_thread').html('');
-	(function() {
-		var dsq = document.createElement('script');
-		dsq.type = 'text/javascript';
-		dsq.async = true;
-		dsq.src = 'http://evilasindr.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || 
-			document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
+	// on pages that have comments, only load disqus when it scrolls into
+	// view; this approach is borrowed from the jQuery docs page; it makes
+	// the site feel faster
+	var comments_top = $('#disqus_thread').offset().top;
+	var comments_loaded = false;
+	function check_comment_scroll() {
+		if (comments_loaded) return;
+		if ($(window).scrollTop() + $(window).height() > comments_top) {
+			comments_loaded = true;
+			$.getScript('http://evilasindr.disqus.com/embed.js');
+		}
+	}
+	$(window).scroll(check_comment_scroll);
+	check_comment_scroll();
 }
 
 function add_repo(o) {
