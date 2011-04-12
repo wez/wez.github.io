@@ -64,31 +64,12 @@ if (window.repos_by_name) {
 	});
 
 	$.ajax({
-		url: "https://api.bitbucket.org/1.0/users/wez/",
-		dataType: 'jsonp',
-		success: function (data, status, xhr) {
-			var i;
-			for (i = 0; i < data.repositories.length; i++) {
-				var r = data.repositories[i];
-				if (r.is_private) continue;
-				var o = {};
-				o.name = r.name;
-				o.desc = r.description;
-				o.source = "https://bitbucket.org/wez/" + r.slug;
-				o.followers = r.followers_count;
-				o.web = r.website;
-
-				add_repo(o);
-
-			}
-		}
-	});
-	$.ajax({
 		url: "http://sourceforge.net/api/user/username/wez/json",
 		success: function (data, status, xhr) {
 			var i;
 			var p = data.User.projects;
 			for (i = 0; i < p.length; i++) {
+				if (p[i].name == 'libumem') continue;
 				$.ajax({
 					url: "http://sourceforge.net/api/project/id/" +
 							p[i].id + "/json",
@@ -174,6 +155,26 @@ if (window.repos_by_name) {
 						}
 					}
 				});
+			}
+		}
+	});
+	$.ajax({
+		url: "https://api.bitbucket.org/1.0/users/wez/",
+		dataType: 'jsonp',
+		success: function (data, status, xhr) {
+			var i;
+			for (i = 0; i < data.repositories.length; i++) {
+				var r = data.repositories[i];
+				if (r.is_private) continue;
+				var o = {};
+				o.name = r.name;
+				o.desc = r.description;
+				o.source = "https://bitbucket.org/wez/" + r.slug;
+				o.followers = r.followers_count;
+				o.web = r.website;
+
+				add_repo(o);
+
 			}
 		}
 	});
