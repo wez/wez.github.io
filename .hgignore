@@ -2,7 +2,6 @@ syntax: glob
 sitemap.xml
 .ohloh
 .disqus
-feed.xml
 posts/articles.json
 *.swp
 _site

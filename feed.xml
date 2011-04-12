@@ -1,0 +1,49 @@
+---
+layout: nil
+# vim:ts=2:sw=2:et:
+---
+<rss version="2.0"
+  xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+  xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+>
+  <channel>
+    <title>Wez Furlong</title>
+    <link>http://wezfurlong.org/</link>
+    <description>Software Architect, OpenSourceror</description>
+    <language>en</language>
+    <pubDate>{{ site.time | date_to_xmlschema }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_xmlschema }}</lastBuildDate>
+    <atom:updated>{{ site.time | date_to_xmlschema }}</atom:updated>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <creativeCommons:license>http://creativecommons.org/licenses/by/3.0/</creativeCommons:license>
+
+{% for post in site.posts limit:6 %}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <link>http://wezfurlong.org{{ post.url }}</link>
+      <description>
+        {{ post.content | postmorefilter: post.url, "Continue reading on wezfurlong.org" | fixlinksfilter: "http://wezfurlong.org" | xml_escape }}
+      </description>
+      <dc:creator>Wez Furlong</dc:creator>
+      <author>Wez Furlong</author>
+      <comments>http://wezfurlong.org{{ post.url }}/#comments</comments>
+      <guid isPermaLink="true">http://wezfurlong.org{{ post.url }}</guid>
+		  {% if post.updated %}
+      <pubDate>{{ post.updated | date_to_xmlschema }}</pubDate>
+      <atom:updated>{{ post.updated | date_to_xmlschema }}</atom:updated>
+      <atom:published>{{ post.date | date_to_xmlschema }}</atom:published>
+      {% else %}
+      <pubDate>{{ post.date | date_to_xmlschema }}</pubDate>
+      <atom:published>{{ post.date | date_to_xmlschema }}</atom:published>
+      {% endif %}
+      <source url="http://wezfurlong.org/">http://wezfurlong.org/</source>
+      <creativeCommons:license>http://creativecommons.org/licenses/by/3.0/</creativeCommons:license>
+      {% for topic in post.categories %}
+      <category>{{ topic | xml_escape }}</category>
+      {% endfor %}
+    </item>
+{% endfor %}
+  </channel>
+</rss>
