@@ -1,0 +1,21 @@
+
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.3em; }
+h3 { font-size: 1.2em; }
+p { margin-bottom: 1em; }
+
+#resumecontact { float: right; }
+#resumename { float: left; }
+#main { clear: both; }
+ul#resumecontact { list-style-type: none; font-size: 0.9em; }
+#resumeheader { margin-top: 1em; }
+#resumecontact { margin-bottom: 1em; }
+
+@media print {
+	body, li, p {
+		font-size: 11pt;
+	}
+	@page {
+		margin: 1cm;
+	}
+}

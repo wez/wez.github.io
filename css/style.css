@@ -285,6 +285,10 @@ div.publist h5
 	margin-top: 0.5em;
 }
 
+#main ul, #main ol {
+	margin-bottom: 0.5em;
+}
+
 #aboutme {
 	margin-top: 1em;
 	margin-right: 1em;
