@@ -1,6 +1,6 @@
 ---
 layout: resume
-title: Wez Furlong, Curriculum Vitae
+title: Wez Furlong, Resume
 ---
 
 An exceptional software engineer with 13 years of experience with all
@@ -89,13 +89,13 @@ A micro-consultancy that I co-owned with my wife, a seasoned graphic
 designer.  Developed a variety of web applications, the most significant
 were two large contracts in Japan and Australia.
 
-An e-learning system and courseware authoring package implemented as a
-PHP web app with a Windows based authoring tool (implemented with
-Delphi), and a web based productivity suite which can be succintly
-described as being a bit like Google Apps but with a focus on project
-planning, workflow and email.  This system included a proprietary SMTP
-daemon and a novel VNC proxy server to provide WebEx style screen
-sharing.
+Designed and implemented an e-learning system and courseware authoring
+package implemented as a PHP web app with a Windows based authoring tool
+(implemented with Delphi), and a web based productivity suite which can
+be succintly described as being a bit like Google Apps but with a focus
+on project planning, workflow and email.  This system included a
+proprietary SMTP daemon and a novel VNC proxy server to provide WebEx
+style screen sharing.
 
 ### Systems Programmer, Ryland Technology Ltd., England :: 1998-2000
 
