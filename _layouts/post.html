@@ -26,7 +26,7 @@ layout: default
   <script type="text/javascript">
 var disqus_developer = 0;
 var disqus_shortname = 'evilasindr';
-var disqus_title = '{{ page.title }}';
+var disqus_title = '{{ page.title | replace:"'","\\'" }}';
 var disqus_identifier = '{% if page.uniqid %}{{ page.uniqid }}{% else %}{{ page.url }}{% endif %}';
   </script>
 </div>
