@@ -32,16 +32,26 @@ level of expertise and/or familiarity.
 
 ## Experience
 
-### Chief Software Architect, Message Systems, Inc., Columbia MD :: 2010-present
+<br/>
+
+### Chief Software Architect, Director of Software Engineering
+#### Message Systems, Inc., Columbia MD
+#### Jan 2010 - present
 
 Responsible for strategic technology issues for the Message Systems
 product line.  Ran the Research and Development program.  Set standards
 for development practice, architecture and design.  Mentor for the
-engineering group (25 people including development and QA).  Implemented
-a multi-thread safe Lua runtime featuring a concurrent, generational
-garbage collector.
+engineering group (25 people including development and QA).
 
-### Director of Engineering, Message Systems, Inc., Columbia MD :: 2008-2010
+Responsible for the development output of the organization.  Managed a
+team of 14 developers and a handful of "nearsourced" developers.
+
+Implemented a multi-thread safe Lua runtime featuring a concurrent,
+generational garbage collector.
+
+### Director of Engineering
+#### Message Systems, Inc., Columbia MD
+#### Jan 2008 - Dec 2009
 
 Responsible for the development output of the organization.  Introduced
 the Scrum agile development methodology to facilitate regular and
@@ -58,7 +68,9 @@ server process and a "Grand Unified Packaging System" that made it
 very easy to produce binary software packages across multiple
 operating systems and architectures.
 
-### Lead Engineer, OmniTI, Inc., Columbia, MD :: 2004-2008
+### Lead Engineer
+#### OmniTI, Inc., Columbia, MD
+#### Nov 2004 - Dec 2007
 
 Work on the messaging products in the internal division that would later
 be spun out as Message Systems, Inc.  Primary focus was product
@@ -69,7 +81,9 @@ abstraction layer with integrated query results cache, a novel hook
 extension system and more.  I also filled the role of Sales Engineer and
 Support Engineer in the early bootstrap days.
 
-### PHP Core Developer, Open Source :: 2001-present
+### PHP Core Developer
+#### Open Source
+#### Since 2001
 
 Numerous contributions to the core of the PHP programming language.
 Architect of the Streams internals (shipped in PHP 4.3), the PDO
@@ -82,8 +96,9 @@ as PECL), with a successful mission to help foster and grow that
 community by providing project development facilities, news and
 programming resources.
 
-
-### Owner and CTO, The Brain Room Ltd., England :: 2000-2004
+### Owner and CTO
+#### The Brain Room Ltd., England
+#### 2000-2004
 
 A micro-consultancy that I co-owned with my wife, a seasoned graphic
 designer.  Developed a variety of web applications, the most significant
@@ -97,7 +112,9 @@ on project planning, workflow and email.  This system included a
 proprietary SMTP daemon and a novel VNC proxy server to provide WebEx
 style screen sharing.
 
-### Systems Programmer, Ryland Technology Ltd., England :: 1998-2000
+### Systems Programmer
+#### Ryland Technology Ltd., England
+#### 1998-2000
 
 Distributed application development in a Windows environment using DCOM.
 Custom web apllication development using ASP (classic), ISAPI, DHTML, MS
