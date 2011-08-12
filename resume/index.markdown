@@ -15,8 +15,8 @@ implementation of world-class, innovative and excellent software.
 
 ## Skills & Technologies
 
-All of these can be classified as being mastered through to competent in
-level of expertise and/or familiarity.
+All of these can be classed as being mastered through competent in
+level of expertise and/or familiarity.  This is not an exhaustive list.
 
  * C/C++, Lua, PHP, Perl, Objective-C, XML, HTML, CSS, Javascript, Java,
    shell scripting.
@@ -78,7 +78,7 @@ development, creating a novel implementation of the Sieve language,
 porting and standardizing on the Solaris "umem" allocator, improved
 build system, docbook based documentation system, a data-source
 abstraction layer with integrated query results cache, a novel hook
-extension system and more.  I also filled the role of Sales Engineer and
+extension system and more.  Filled the role of Sales Engineer and
 Support Engineer in the early bootstrap days.
 
 ### PHP Core Developer
@@ -100,9 +100,9 @@ programming resources.
 #### The Brain Room Ltd., England
 #### 2000-2004
 
-A micro-consultancy that I co-owned with my wife, a seasoned graphic
-designer.  Developed a variety of web applications, the most significant
-were two large contracts in Japan and Australia.
+A family-owned micro-consultancy that I co-founded with a seasoned
+graphic designer.  Developed a variety of web applications, the most
+significant were two large contracts in Japan and Australia.
 
 Designed and implemented an e-learning system and courseware authoring
 package implemented as a PHP web app with a Windows based authoring tool
