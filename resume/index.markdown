@@ -47,7 +47,8 @@ Responsible for the development output of the organization.  Managed a
 team of 14 developers and a handful of "nearsourced" developers.
 
 Implemented a multi-thread safe Lua runtime featuring a concurrent,
-generational garbage collector.
+generational garbage collector.  Implemented a prototype extensible XMPP
+service.
 
 ### Director of Engineering
 #### Message Systems, Inc., Columbia MD
