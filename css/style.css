@@ -215,7 +215,7 @@ p {
 p img.left {
 	float:left;margin:1.5em 1.5em 1.5em 0;padding:0;
 }
-p img.right {
+p img.right, img.right {
 	float:right;margin:1.5em 0 1.5em 1.5em;
 }
 
