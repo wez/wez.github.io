@@ -430,7 +430,7 @@ some highlights.
    at HTML 5 form validation but eventually settled on using the [jQuery
    tools validator library](http://flowplayer.org/tools/validator/) for
    consistency and ease of integrating with the Twitter Bootstrap
-   styling for form errors.
+   styling for form errors. ([See my other post on this](http://wezfurlong.org/blog/2011/dec/jquery-tools-form-validator-and-twitter-bootstrap/))
  * Express really wants you to use a templating layer for expanding
    views, and everyauth uses those views too, so I had to learn how to
    use the [Jade](https://github.com/visionmedia/jade) templating
