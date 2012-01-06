@@ -3,7 +3,7 @@ layout: resume
 title: Wez Furlong, Resume
 ---
 
-An exceptional software engineer with 13 years of experience with all
+An exceptional software engineer with 14 years of experience with all
 aspects of the software development lifecycle.  Great breadth and depth
 of experience with a wide range of technologies.  A great mentor and
 leader and well-liked by the rest of the team.  Open Source developer
