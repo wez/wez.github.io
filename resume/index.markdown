@@ -34,9 +34,16 @@ level of expertise and/or familiarity.  This is not an exhaustive list.
 
 <br/>
 
+
+### Software Engineer
+#### Facebook, Inc., Menlo Park, CA
+#### June 2012 - present
+
+Focusing on developer tools in this new role.
+
 ### Chief Software Architect, Director of Software Engineering
 #### Message Systems, Inc., Columbia MD
-#### Jan 2010 - present
+#### Jan 2010 - June 2012
 
 Responsible for strategic technology issues for the Message Systems
 product line.  Ran the Research and Development program.  Set standards

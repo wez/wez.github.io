@@ -1,0 +1,89 @@
+---
+# vim:ts=4:sw=4:et:
+layout: post
+title: My Facebook Adventure
+---
+
+Earlier this year I made a difficult choice: to leave Message Systems
+and join Facebook.
+
+I moved countries to work with OmniTI/Message Systems 
+[back in 2004](http://wezfurlong.org/blog/2004/nov/here-in-usa/), and
+I've worked with the team for almost 8 years, seen things grow
+from a couple of engineers and a sales guy to a company with multiple
+offices in the USA, Europe and Asia/Pacific.  In my time with the
+company I've learned a lot about many things, worked hard with some
+great people and had good times.
+
+So why leave?  It was time to try something new.  My day-to-day had
+settled into a fairly repetitive and steady pattern and there wasn't a
+huge amount going on in the neighborhood where I lived; rural Maryland
+isn't exactly a hotbed of activity!  Add to that the oppressive
+humidity in the summer and the snow in the winter, I felt like I was
+never really all that comfortable getting out of the house.
+
+So it was time to try something new, and the time was right to give
+Facebook a shot.
+
+My last day at Message Systems was the start of June; we parted
+on very amicable terms and I'm going to miss the team:
+
+<img src='/images/msys-eng-team.jpg'>
+
+## Facebook
+
+After talking with a couple of different folks about possible futures,
+I'd settled on Facebook as my next great adventure.
+
+While the hiring/interview process was a little bumpy, I had a lot of
+excitement around the sorts of things that Facebook are doing, and it
+really seemed like they had a lot of fun working hard.
+
+I've been a full-time employee of Facebook for just shy of a month, and I'm
+blown away.  The on-boarding process is well structured, fun, and
+informative.  Facebook believes very strongly in enabling you to get
+stuff done with minimal obstruction and there's a great vibe on campus.
+
+<img src='/images/facebook-hack-courtyard.jpg'>
+
+We work hard and play hard; there's opportunity to blow off steam in
+many ways, and this is actively encouraged by the culture to help keep
+folks energized.  I've had code deployed to the main facebook web site
+within days of joining, expanded a high performing internal service
+in C, changed RPC interfaces, worked in Xcode, changed some Flash code,
+learned new build/push infrastructure and tooling and more.  The scale
+of our operations is staggering and amazing, and the pace is rapid.
+
+I've commented a lot on my Facebook timeline about the perks and
+activities (which often include alcohol!) that keep it feeling fun.  I'm
+sure my family and friends think I'm partying all the time, but that's
+because I can't post details of the work I'm doing and that biases the
+results.
+
+<img src='/images/redbull-total-zero.jpg'>
+
+The campus has modern fittings and has a kind of industrial
+engineering-in-progress feel to it that helps reinforce the culture: the
+not-quite-finished look reminds us that our journey is not done and that
+we're continuing to iterate building and improving our services and
+apps.
+
+One of my criteria for the next big adventure was that the climate be
+more conducive to getting me outside, and California scores highly in
+this department:
+
+<a href='/images/facebook-hacker-co.jpg'><img src='/images/facebook-hack-co-small.jpg'></a>
+
+## Moving
+
+So far I've been staying in temporary accomodation in Mountain View.
+The next thing on my agenda is getting the family relocated from
+Maryland to the Bay Area.  As usual, I hate having to deal with the
+logistics of moving, but can't wait to establish a more permanent base
+out here.
+
+As first steps go, off to an amazing start, but this journey is only 1%
+finished.
+
+<a href="http://www.flickr.com/photos/jldavid/6147377125/"><img src='/images/journey-one-percent.jpg'></a>
+
