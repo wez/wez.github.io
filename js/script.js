@@ -18,7 +18,6 @@ if (window.disqus_title) {
 }
 
 function add_repo(o) {
-
 	if (repos_by_name[o.name]) {
 		// have a dupe (probably bb and github)
 		repos_by_name[o.name].followers += o.followers;
@@ -91,12 +90,12 @@ if (window.repos_by_name) {
 		}
 	});
 	$.ajax({
-		url: "https://github.com/api/v2/json/repos/show/wez",
+		url: "https://api.github.com/users/wez/repos",
 		dataType: 'jsonp',
 		success: function (data, status, xhr) {
 			var i;
-			for (i = 0; i < data.repositories.length; i++) {
-				var r = data.repositories[i];
+			for (i = 0; i < data.data.length; i++) {
+				var r = data.data[i];
 				if (r.is_private) continue;
 				var o = {};
 				o.name = r.name;
@@ -110,20 +109,19 @@ if (window.repos_by_name) {
 		}
 	});
 	$.ajax({
-		url: "https://github.com/api/v2/json/user/show/wez/organizations",
+		url: "https://api.github.com/users/wez/orgs",
 		dataType: 'jsonp',
 		success: function (data, status, xhr) {
 			var i;
-			for (i = 0; i < data.organizations.length; i++) {
-				var org = data.organizations[i];
+			for (i = 0; i < data.data.length; i++) {
+				var org = data.data[i];
 				$.ajax({
-					url: "https://github.com/api/v2/json/repos/show/" +
-							org.login,
+					url: "https://api.github.com/orgs/" + org.login + "/repos",
 					dataType: 'jsonp',
 					success: function (data, status, xhr) {
 						var j;
-						for (j = 0; j < data.repositories.length; j++) {
-							var r = data.repositories[j];
+						for (j = 0; j < data.data.length; j++) {
+							var r = data.data[j];
 
 							if (r.is_private) continue;
 							var o = {};
@@ -136,16 +134,16 @@ if (window.repos_by_name) {
 							// Am I a collaborator?
 							$.ajax({
 								url:
-									"https://github.com/api/v2/json/repos/show/"
+									"https://api.github.com/repos/"
 									+ org.login + "/" + r.name +
 									"/collaborators",
 								dataType: 'jsonp',
 								context: o,
 								success: function (data, status, xhr) {
 									var k;
-									for (k = 0; k < data.collaborators.length;
+									for (k = 0; k < data.data.length;
 											k++) {
-										if (data.collaborators[k] == 'wez') {
+										if (data.data[k] == 'wez') {
 											add_repo(this);
 											break;
 										}
