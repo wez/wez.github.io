@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+    xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>MenuBarFilter Changelog</title>
+    <link>http://wezfurlong.org/appcasts/MenuBarFilter.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+
+<item>
+    <title>Version 1.2.1 (Improved Mountain Lion support)</title>
+    <description>
+      Improved handling of Mission Control and expose events
+    </description>
+    <pubDate>Sun, 11 Nov 2012 15:33:10 -0800</pubDate>
+    <enclosure
+        url="https://github.com/downloads/wez/MenuBarFilter/MenuBarFilter_1.2.1.zip"
+        sparkle:version="1.2.1"
+        type="application/octet-stream"
+        length="501241"
+        sparkle:dsaSignature="MC4CFQClbJKXyai7mSN8u77j6ov8sqsMoAIVAM1udntYHfC+4Q1ffap9689syRvl"
+    />
+</item>
+
+
+<item>
+    <title>Version 1.2.2</title>
+    <description>
+      Avoid a glitch with vmware fusion in full-screen mode.
+    </description>
+    <pubDate>Mon, 12 Nov 2012 00:49:49 -0800</pubDate>
+    <enclosure
+        url="https://github.com/downloads/wez/MenuBarFilter/MenuBarFilter_1.2.2.zip"
+        sparkle:version="1.2.2"
+        type="application/octet-stream"
+        length="501304"
+        sparkle:dsaSignature="MCwCFB0pMj+TPqZ9piTX2TNzII8gTd8FAhQurLXZBxPtUwAyUWjnpfK1btcZXQ=="
+    />
+</item>
+
+</channel>
+</rss>
