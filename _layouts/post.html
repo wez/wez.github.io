@@ -12,7 +12,7 @@ layout: default
 
 <div class="item_meta">
   {% for topic in page.categories %}
-    <a class="label label-info" href="{{ site.url }}/blog/tag/{{ topic | downcase }}/" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
+    <a class="label" href="{{ site.url }}/blog/tag/{{ topic | downcase }}/" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
   {% endfor %}
 </div>
 

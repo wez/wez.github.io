@@ -10,6 +10,10 @@ layout: static
       </div>
       <div class='post-info'>
 	  	Posted on {{ post.date | date_to_string }}{% if post.updated %}, Updated on {{ post.updated | date_to_string }}{% endif %}
+  {% for topic in post.categories %}
+    <a class="label" href="{{ site.url }}/blog/tag/{{ topic | downcase }}/" title="View posts tagged with &quot;{{ topic }}&quot;">{{ topic }}</a>{% if forloop.last != true %}, {% endif %}
+  {% endfor %}
+
       </div>
     </li>
 
