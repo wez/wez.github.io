@@ -1,6 +1,11 @@
 .PHONY: build push deps
 
+STYLE=cerulean
+LESSC=lessc --include-path="css/$(STYLE)"
+	
 build:
+	$(LESSC) css/swatch.less > css/bootstrap.css
+	$(LESSC) css/responsive.less > css/bootstrap-responsive.css
 	/usr/local/Cellar/ruby/1.9.3-p327/bin/jekyll
 
 push:

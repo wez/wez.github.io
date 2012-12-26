@@ -4,4 +4,3 @@ lsi: false
 pygments: true
 exclude:
  - Makefile
-

@@ -1,0 +1,21 @@
+
+body {
+  padding-top: 80px;
+}
+
+div.highlight pre {
+  background-color: black;
+}
+
+footer {
+  background-color: #ccc;
+  border-top: 1px solid #e3e3e3;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+}
+
+div.item_meta {
+  margin-bottom: 1em;
+}
+

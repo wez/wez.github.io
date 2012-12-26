@@ -1,0 +1,18 @@
+---
+layout: static
+---
+
+<ul id='archive'>
+	{% for post in page.posts %}
+    <li>
+      <div class="post-title">
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </div>
+      <div class='post-info'>
+	  	Posted on {{ post.date | date_to_string }}{% if post.updated %}, Updated on {{ post.updated | date_to_string }}{% endif %}
+      </div>
+    </li>
+
+	{% endfor %}
+</ul>
+

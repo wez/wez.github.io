@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,65 +8,81 @@
   <meta name="author" content="Wez Furlong">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="copyright"
-      content="&copy; 2003-2012, Wez Furlong, unless otherwise attributed">
-    <link rel="openid.server" 
-        href="https://api.screenname.aol.com/auth/openidServer">
-    <link rel="openid.delegate"
-        href="http://openid.aol.com/wezfurlong">
+  <meta name="copyright"
+    content="&copy; 2003-2012, Wez Furlong, unless otherwise attributed">
+  <link rel="openid.server" 
+      href="https://api.screenname.aol.com/auth/openidServer">
+  <link rel="openid.delegate"
+      href="http://openid.aol.com/wezfurlong">
 
-    <meta http-equiv="X-XRDS-Location" 
-          content="http://wezfurlong.org/yadis.xrdf">
-    <meta http-equiv="X-YADIS-Location"
-          content="http://wezfurlong.org/yadis.xrdf">
-    <link rel="alternate" type="application/rss+xml"
-          title="Wez Furlong's Blog"
-          href="http://feeds.feedburner.com/EvilAsInDr">
+  <meta http-equiv="X-XRDS-Location" 
+      content="http://wezfurlong.org/yadis.xrdf">
+  <meta http-equiv="X-YADIS-Location"
+      content="http://wezfurlong.org/yadis.xrdf">
+  <link rel="alternate" type="application/rss+xml"
+      title="Wez Furlong's Blog"
+      href="http://feeds.feedburner.com/EvilAsInDr">
  
-	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/wezboot.css">
+	<link rel="stylesheet" href="/css/bootstrap-responsive.css">
 	<link rel="stylesheet" href="/css/wezterm.css">
-	<script src="/js/libs/modernizr-1.7.min.js"></script>
-	<link href='http://fonts.googleapis.com/css?family=Amaranth'
-		rel='stylesheet' type='text/css'>
 
 </head>
 
 <body>
 
-  <div id="container">
-    <header>
-		<div id="topnav">
-			<ul id="nav">
-				<li><a href="/about/">About</a></li>
-				<li><a href="/projects/">Projects</a></li>
-				<li><a href="/publications/">Publications</a></li>
-				<li><a href="/blog/">Archives</a></li>
-			</ul>
-			<div id="sitename"><a href="/">Wez Furlong</a></div>
-			<div>Software Architect, Open Sourceror</div>
-		</div>
-    </header>
-    <div id="main" role="main">
-		{{ content }}
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse"
+            data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">Wez Furlong</a>
+        <div class="nav-collapse" id="main-menu">
+          <ul class="nav" id="main-menu-left">
+            <li
+              {% if page.url == "/about/index.html" %}
+                class="active"
+              {% endif %}
+              ><a href="/about/">About</a></li>
+            <li
+              {% if page.url == "/projects/index.html" %}
+                class="active"
+              {% endif %}
+              ><a href="/projects/">Projects</a></li>
+            <li
+              {% if page.url == "/publications/index.html" %}
+                class="active"
+              {% endif %}
+              ><a href="/publications/">Publications</a></li>
+            <li
+              {% if page.url == "/blog/index.html" %}
+                class="active"
+              {% endif %}
+              ><a href="/blog/">Archives</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <footer>
-		{% include footer.html %}
-    </footer>
-  </div> <!--! end of #container -->
+  </div>
 
-
+  <div class="container">
+		{{ content }}
+  </div>
+  
+  {% include footer.html %}
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
-  <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.5.1.min.js">\x3C/script>')</script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+  <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.8.3.min.js">\x3C/script>')</script>
 
+  <script src="/js/libs/bootstrap.js"></script>
   <script src="/js/plugins.js"></script>
   <script src="/js/script.js"></script>
-
-  <!--[if lt IE 7 ]>
-    <script src="js/libs/dd_belatedpng.js"></script>
-    <script>DD_belatedPNG.fix('img, .png_bg'); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
-  <![endif]-->
 
   <script>
     var _gaq=[['_setAccount','UA-1250469-3'],['_trackPageview']];
