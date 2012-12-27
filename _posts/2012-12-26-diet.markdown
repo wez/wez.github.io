@@ -7,9 +7,10 @@ title: Diet + Weight loss
 This year one of the changes I made was around my eating and exercise habits.
 I managed to *lose 30lbs in just under 3 months*.  I wanted to share how I did
 this because it seemed much easier than I thought it would be.
-it.
 
 <img src="/images/weight-loss.jpg">
+
+<!--more-->
 
 ## How?
 
@@ -127,7 +128,7 @@ you're exercising, make a habit of doing it at the same times of the day and
 days of the week.  Sometimes you'll feel like quitting your workout early.
 You'll make excuses like "I'll make it up tomorrow" or "I'll just eat less
 today" but those are BS.  Stick with your routine (unless you're faint or
-exhasuted, in which case you should stop immediately!).
+exhausted, in which case you should stop immediately!).
 
 ### Boredom
 
