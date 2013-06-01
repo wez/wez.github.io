@@ -1,0 +1,45 @@
+---
+# vim:ts=4:sw=4:et:
+layout: post
+title: Watchman
+categories:
+ - watchman
+---
+
+A couple of days ago we [announced Watchman on the Facebook Engineering
+blog](https://www.facebook.com/notes/facebook-engineering/watchman-faster-builds-with-large-source-trees/10151457195103920).
+
+Watchman watches files and records information about them as they change.  You
+can arrange to trigger build or test steps in response to changes in matching
+files, but the main the reason that we built it was so that we can
+instantaneously query file status for a set of files.
+
+Watchman maintains a view of the filesystem that is kept in sync using kernel
+filesystem notification facilities.  This view is indexed so that we can
+quickly return information about the watched portions of the filesystem
+and also query the set of files that changed since a given point in time.
+
+The `since` index is the heart of this; we maintain a linked list of file
+nodes, with the head representing the most recently changed file.  As new files
+are observed they are inserted at the head of the list.  As existing file
+changes are observed they are unlinked from their former position and inserted
+at the head of the list.  This keeps the list sorted in time order without
+having to employ a traditional sorting algorithm; it's very fast to update
+the list and this is important in the face of a high volume of change
+notifications.
+
+Finding the set of files that changed since we last looked is then a simple
+walk from the head until we reach the time in question.  The cost of the
+search is proportional to the number of changed files since we last asked.
+
+We use both the triggering and the querying features to accelerate our build
+processes for the main Facebook web site.  They are important to us because
+we have such a large number of files that it is impractical to manually
+maintain a traditional static build recipe; we need to crawl the tree to
+determine the nature of the build.  Since the tree is so large, and due to
+other factors in our dev environments, we also run into issues with the
+filesystem cache going cold; we need to minimize our I/O profile so that we
+only visit the files that we truly need to in order for our builds to run fast.
+
+[Watchman @ GitHub](https://github.com/facebook/watchman) 
+

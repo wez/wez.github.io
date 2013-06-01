@@ -62,6 +62,15 @@ if (window.repos_by_name) {
 		web: "http://php.net"
 	});
 
+  add_repo({
+    name: "Watchman",
+    desc: "Watches files and takes action when they change",
+    source: "https://github.com/facebook/watchman",
+    web: "https://github.com/facebook/watchman"
+  });
+
+  if (0) {
+    // CORS prevents this from loading
 	$.ajax({
 		url: "http://sourceforge.net/api/user/username/wez/json",
 		success: function (data, status, xhr) {
@@ -89,6 +98,8 @@ if (window.repos_by_name) {
 			}
 		}
 	});
+  } // end CORS
+
 	$.ajax({
 		url: "https://api.github.com/users/wez/repos",
 		dataType: 'jsonp',
