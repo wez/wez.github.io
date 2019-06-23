@@ -119,6 +119,7 @@ if (window.repos_by_name) {
 			}
 		}
 	});
+  /*
 	$.ajax({
 		url: "https://api.github.com/users/wez/orgs",
 		dataType: 'jsonp',
@@ -167,6 +168,7 @@ if (window.repos_by_name) {
 			}
 		}
 	});
+  */
 	$.ajax({
 		url: "https://api.bitbucket.org/1.0/users/wez/",
 		dataType: 'jsonp',
