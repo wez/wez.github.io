@@ -101,7 +101,7 @@ if (window.repos_by_name) {
   } // end CORS
 
 	$.ajax({
-		url: "https://api.github.com/users/wez/repos",
+		url: "https://api.github.com/users/wez/repos?per_page=150",
 		dataType: 'jsonp',
 		success: function (data, status, xhr) {
 			var i;
@@ -111,7 +111,7 @@ if (window.repos_by_name) {
 				var o = {};
 				o.name = r.name;
 				o.desc = r.description;
-				o.source = r.url;
+				o.source = r.html_url;
 				o.followers = r.watchers;
 				o.web = r.homepage;
 
