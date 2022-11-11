@@ -1,0 +1,5 @@
+---
+layout: none
+permalink: .well-known/webfinger
+---
+{"subject":"acct:wez@fosstodon.org","aliases":["https://fosstodon.org/@wez","https://fosstodon.org/users/wez"],"links":[{"rel":"http://webfinger.net/rel/profile-page","type":"text/html","href":"https://fosstodon.org/@wez"},{"rel":"self","type":"application/activity+json","href":"https://fosstodon.org/users/wez"},{"rel":"http://ostatus.org/schema/1.0/subscribe","template":"https://fosstodon.org/authorize_interaction?uri={uri}"}]}
