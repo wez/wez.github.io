@@ -21,7 +21,7 @@ up to 10 users and they start charging when you pass that threshold.
 
 Read on to find out how to set it up.
 
-<!--more-->
+<!-- more -->
 
 I set it up this evening on my Joyent SmartMachine, but the procedure
 should translate to pretty much any other unix system--Solaris is

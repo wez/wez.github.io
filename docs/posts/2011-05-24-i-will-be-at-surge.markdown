@@ -14,7 +14,7 @@ Conference has been accepted!
 [TL;DR: read the session description at the Surge site][sess],
 otherwise, read on for some background and additional commentary.
 
-<!--more-->
+<!-- more -->
 
 When I attended the conference last year I wasn't sure quite what to
 expect; most of my conferences have been developer focused events, but

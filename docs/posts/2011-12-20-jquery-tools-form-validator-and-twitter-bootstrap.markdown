@@ -18,7 +18,7 @@ at your own risk.  You'll be able to make a form that looks like this:
 
 ![Example Form](/images/bootstrap-form.png)
 
-<!--more-->
+<!-- more -->
 
 Dependencies
 ------------

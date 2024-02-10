@@ -19,7 +19,7 @@ of the standard clock frequency, making you sleep for longer.
 So how do you sleep (not busy wait!) for time periods shorter than the
 regular clock?
 
-<!--more-->
+<!-- more -->
 
 {% highlight c %}
 

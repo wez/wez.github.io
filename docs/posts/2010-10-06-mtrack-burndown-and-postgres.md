@@ -28,7 +28,7 @@ categories:
 		the PostgreSQL DB changes</li>
 </ul>
 
-<!--more-->
+<!-- more -->
 
 <h2>HOWTO: Use the schema manager to upgrade your instance</h2>
 

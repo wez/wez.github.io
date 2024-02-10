@@ -30,11 +30,12 @@ you're looking).
 <p>
 So, here's an example of how to send a POST request with straight up PHP, no
 cURL:
-
 </p>
 
-<pre class='phpcode'>
-&lt;?php
+<!-- more -->
+
+```php
+<?php
 function do_post_request($url, $data, $optional_headers = null)
 {
   $params = array('http' =&gt; array(
@@ -55,9 +56,7 @@ function do_post_request($url, $data, $optional_headers = null)
   }
   return $response;
 }
-</pre>
-
-<!--more-->
+```
 
 <p>$optional_headers is a string containing additional HTTP headers that you
 would like to send in your request.   </p>
@@ -133,8 +132,8 @@ end of the URL and try it again.
 
 </p>
 
-<pre class='phpcode'>
-&lt;?php
+```php
+<?php
 function rest_helper($url, $params = null, $verb = 'GET', $format = 'json')
 {
   $cparams = array(
@@ -209,8 +208,7 @@ var_dump(
     ), 'POST'
   )
 );
-
-</pre>
+```
 
 <p>
 You can find more documentation on the HTTP wrapper options in the <a

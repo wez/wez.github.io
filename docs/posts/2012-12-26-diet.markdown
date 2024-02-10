@@ -11,7 +11,7 @@ this because it seemed much easier than I thought it would be.
 
 <img src="/images/weight-loss.jpg">
 
-<!--more-->
+<!-- more -->
 
 ## How?
 

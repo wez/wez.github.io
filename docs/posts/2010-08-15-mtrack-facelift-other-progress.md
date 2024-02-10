@@ -23,7 +23,7 @@ categories:
 	what's changed and a couple of screen shots below.  This effort is
 	in alignment with the <a href="/blog/2010/jul/mtrack-roadmap">roadmap</a> that I published a little while ago.
 </p>
-<!--more-->
+<!-- more -->
 <h2>Changes</h2>
 <ul>
 	<li>Fleshed out the Administration section with some more explanatory

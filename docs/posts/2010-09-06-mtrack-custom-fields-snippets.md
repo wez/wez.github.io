@@ -37,7 +37,7 @@ categories:
 	<li>Display remaining time as 0 if the ticket is closed</li>
 </ul>
 
-<!--more-->
+<!-- more -->
 
 <p>
 	If you have an existing installation, you will need to carry out the

@@ -18,7 +18,7 @@ Gate](http://hg.illumos.org/illumos-gate)) to see how hard this might be.  As
 it happens, this isn't the first time I've looked at porting mdb, so I was bit
 better prepared to go snooping around in there.
 
-<!--more-->
+<!-- more -->
 
 It didn't look much easier to port this time around than last time... there are
 a number of fairly Solaris specific bits in there that would make it a

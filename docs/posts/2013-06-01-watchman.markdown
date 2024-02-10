@@ -20,6 +20,8 @@ filesystem notification facilities.  This view is indexed so that we can
 quickly return information about the watched portions of the filesystem
 and also query the set of files that changed since a given point in time.
 
+<!-- more -->
+
 The `since` index is the heart of this; we maintain a linked list of file
 nodes, with the head representing the most recently changed file.  As new files
 are observed they are inserted at the head of the list.  As existing file

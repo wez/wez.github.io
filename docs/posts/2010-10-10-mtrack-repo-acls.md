@@ -18,7 +18,7 @@ categories:
 </p>
 <img src="/images/mtrack-repo-perms-edit-oct-2010.png"
 	style="border:solid 1px #ccc">
-<!--more-->
+<!-- more -->
 <p>
 	These permissions are respected by the SSH plumbing, so you can prevent
 	checking in or out on a repo-by-repo basis.

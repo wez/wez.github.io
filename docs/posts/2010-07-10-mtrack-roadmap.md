@@ -25,7 +25,7 @@ terms of run time efficiency and in terms of user experience when it comes to
 reporting on the custom fields.
 </p>
 
-<!--more-->
+<!-- more -->
 
 <p>
 The approach taken in trac is to define custom fields in an auxillary table containing ticket, name, and value information, and then joining that back to the main information in the right places.  It makes it painful to write reports.

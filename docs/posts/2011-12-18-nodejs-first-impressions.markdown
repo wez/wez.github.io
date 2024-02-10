@@ -27,7 +27,7 @@ For the purposes of the experiment I selected
 solution; it has a compelling mixture of document storage, full-text
 searching, secondary indices and map-reduce facilities.
 
-<!--more-->
+<!-- more -->
 
 Serving web pages
 -----------------
