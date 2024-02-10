@@ -1,0 +1,80 @@
+copyright: Copyright &copy; 2003-2024 Wez Furlong
+site_name: Wez Furlong
+site_url: https://wezfurlong.org/
+site_description: Wez Furlong's blog
+site_dir: gh_pages
+docs_dir: docs
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.tabs.link
+    - navigation.footer
+    - navigation.indexes
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - blog:
+      blog_dir: .
+      blog_toc: true
+      categories_name: Categories
+      post_url_date_format: yyyy/MMM
+  - search
+  - social:
+      cards: !ENV [CARDS, false]
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - def_list
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: KumoCorp
+      repo: kumomta
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - assets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - "Blog": index.md
+  - "About": about.md
+  - "Projects": projects.md
+  - "Publications": publications.md
+

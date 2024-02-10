@@ -1,0 +1,187 @@
+---
+# vim:ts=4:sw=4:et:
+date: 2012-12-26
+layout: post
+title: Diet + Weight loss
+---
+
+This year one of the changes I made was around my eating and exercise habits.
+I managed to *lose 30lbs in just under 3 months*.  I wanted to share how I did
+this because it seemed much easier than I thought it would be.
+
+<img src="/images/weight-loss.jpg">
+
+<!--more-->
+
+## How?
+
+I had a couple of things going for me; I was living bachelor style for a
+while, which put me in complete control of both my diet and what I did in my
+spare time.  I had also switched jobs and had made it a priority to have
+more "me time" in my new role.
+
+I'd never tried dieting before as I'd never needed to when I was younger and
+my weight had kinda snuck up on me.  I did remember it being difficult for
+others in my family, so when I realized that I was over weight I did a bit of
+reading around to see what the tricks and pitfalls were.
+
+I'm not going to repeat the contents of a diet book here but will call out the
+main points to keep in mind:
+
+ * Your body is fueled by calories
+ * Any calories you don't burn are stored as fat
+ * If your daily calorie burn is less than the amount of calories you eat, you will gain weight
+ * If your daily calorie burn is more than the amount of calories you eat, you will *lose* weight.
+
+Losing weight is "simply" a matter of changing your habits so that you end up
+with a calorie deficit; that you burn more than you consume.  The bigger your
+calorie deficit, the faster you will lose weight.
+
+It really is that simple.  It doesn't particularly matter what kinds of food
+you eat so long as you have a calorie deficit.  The biggest obstacle is
+yourself.  You need to have the willpower to resist eating the wrong things
+and to keep up with your exercise.
+
+If exercise isn't your thing you'll be pleased to hear that you can lose
+weight without increasing how much exercise you do.  In fact, a lot of people
+are not able to put in enough time exercising to be able to make a significant
+impact in their calorie burn rate.
+
+This means that controlling your diet is really the most important part of
+losing weight.
+
+## Specifics
+
+I'm still relatively young(!) so I went for a pretty aggressive diet and
+exercise routine.  Dieting too aggressively is harmful to your health, so
+you should consult your physician before trying out a diet plan.
+
+ * Work out your ideal weight for your height and build; set this as your target weight.  [Ideal weight chart](http://www.healthchecksystems.com/heightweightchart.htm)
+ * Get yourself a wifi connected scale and hook it up to [TrendWeight](https://trendweight.com).  Configure your weight goal.
+ * **Every day**: 20-45 minutes on the stationary bike in the fitness center.
+   After a couple of weeks I dialled this back to 45 minutes 3-4 times a week,
+   with 60-90 minutes on the weekend.
+ * **breakfast**: 1 banana, or 1 serving of scrambled egg whites
+ * **lunch**: salad + protein (such as tofu, tuna, chicken) topping and either no dressing or a low fat dressing, such as balsamic.
+ * **meal**: avoid fatty foods.  Avoid bread, rice, potatoes, pasta or other carb-heavy food.  Avoid cheese and other dairy products.  Favor protein-rich food and green food and veggies like broccoli and carrots.
+ * Try to have no more than two tablespoons of each of the meal components (and protein in the salad).  Avoid rich sauces.
+ * **snack**: you'll inevitably feel hungry after your evening meal.  Find yourself a microwavable popcorn that isn't covered in butter.  You can get a family-size bag that weighs in at around 120 calories total.  This is great for feeling full.
+ * **soda/pop**: say goodbye to the regular/classic versions of sodas.  If you must drink any, drink the 0 calorie versions.  I switched from regular Red Bull to Red Bull Total Zero.  My teeth are happier too.
+ * **alcohol**: avoid it, especially beer.  I recommend enjoying a nice scotch instead.
+
+When I say "avoid", it doesn't mean you can't have any, just keep in mind that
+those foods tend to have a higher calorie content.  If you can, eat more
+protein or greens instead.
+
+I used to cycle a lot when I was younger, and my legs still had muscle tone,
+so I was able to pretty quickly get to a point where I could burn 400 calories
+in 20 minutes.  From what I've read, most folks starting a diet are more
+likely to be able to burn only around 300 calories in an hour.  If you're in
+this category, you might see faster results by replacing a meal with a big
+leafy salad and topping off your hunger with a bag of popcorn.
+
+Try to plan your meals so you know how many calories you're going to eat in a
+given day.  Try to eat the same amount of calories each day.  It is simpler to
+manage if you buy ready-made meals from the supermarket.  There are plenty of
+lean cusine or healthy eating options that weigh in at around 400 calories,
+and pre-packaged single servings of salad + protein that are 200-300 calories.
+
+## Math
+
+To lose 1lb of weight you need to burn 3500 calories.
+
+At the start of my diet I was mostly sedentary which meant that I burned around 2040 calories in a typical day.  [Calculate your daily burn rate](http://caloriecount.about.com/cc/calories-burned.php).
+
+I tried to limit my daily calorie intake to around 1000 calories (1 ready-made
+salad 300 colories, 1 lean cuisine meal 450 calories, 1 banana 90 calories,
+popcorn 120 calories), which means that my daily calorie deficit without
+exercising was:
+
+    1000 - 2040 = -1040
+
+That means that in the course of a week I'd lose:
+
+    7 * 1040 / 3500 = 2lbs per week
+
+If you add in 3 hours in the gym per week, burning 300 calories per hour:
+
+    ((7 * 1040) + (3 * 300)) / 3500 = 2.3lbs per week
+
+In other words, adding in that exercise means you'll lose another pound of
+weight every 3 weeks compared to not exercising.  If you can only manage one
+hour per week at this burn rate it's not going to make much of a difference to
+your rate of weight loss (you'll lose an extra pound every couple of months).
+It is still better for your overall fitness to exercise, you just need to
+recognize that it is not for weight loss.
+
+**Note!** you burn more calories when you are heavier!  There's a 500 calorie
+per day difference between the 200lb me and the 170lb me.
+
+## Sticking with it
+
+It all boils down to willpower.  Your body and subconscious will try to
+find ways to make you cave in and break your diet.
+
+### Routine
+
+Get into a routine.  Make a habit of eating at the same times of the day.  If
+you're exercising, make a habit of doing it at the same times of the day and
+days of the week.  Sometimes you'll feel like quitting your workout early.
+You'll make excuses like "I'll make it up tomorrow" or "I'll just eat less
+today" but those are BS.  Stick with your routine (unless you're faint or
+exhausted, in which case you should stop immediately!).
+
+### Boredom
+
+Cardio exercise is really boring.  I listen to music while reading books on my Kindle.
+
+### Hunger
+
+How you deal with hunger is key.  A weight loss diet is literally starving
+your body, and your body will let you know that you're doing that by making
+you feel hungry.
+
+Each time you feel hungry:
+
+ * Drink a glass of water.
+ * Wait 20 minutes.  If you're still ravenous, consider eating popcorn, but if you're due to have a meal within an hour, just have some more water and hold out until your meal is ready.
+
+You may want to change your eating habits so that you are grazing throughout
+the day instead of having a couple of low calorie meals hours apart.  This
+helps avoid having an empty stomach for long periods of time, but you need to
+be very careful about the total calorie intake.
+
+### Trend
+
+Your weight can change up and down daily in ways that are hard to predict.
+It's easy to feel like your efforts aren't having too much effect if you see
+your weight go up, or to feel like you can cheat today because your weight
+dropped by a couple more pounds than you expected, only to have it go up again
+a day later.
+
+Record your weight daily but ignore the scale reading.  Look at the weight
+trend on [TrendWeight](https://trendweight.com) instead.  This will show you
+how your weight is trending, calculate your rate of weight loss and give you a
+projected date for when you'll reach your goal.
+
+These are tremendously motivating and can warn you if you're eating too many
+calories.
+
+## When you're done
+
+Once you hit your target you should tune your calorie intake to balance your
+calorie burn rate.  You can eat more food because you're not aiming for a
+deficit, but you need to make sure that you don't eat more than you are
+burning if you want to avoid putting on weight again.
+
+My routine is now to work out for around 90-100 minutes per week (~2000
+calories, about 40 miles) and I typically do this as either a couple of 45
+minute workouts or a long workout on the weekend.
+
+I've switched from salads for lunch to more hearty meals, and I'm eating more
+carbs again, but I still favor protein over carbs and try to avoid fatty
+meals.  I've been stable at around 170lbs for a while now and I feel much
+happier with myself.
+
+I hope this helps someone else make similar changes to improve their life!
+

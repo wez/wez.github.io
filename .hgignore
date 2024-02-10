@@ -1,7 +1,0 @@
-syntax: glob
-sitemap.xml
-.ohloh
-.disqus
-posts/articles.json
-*.swp
-_site

@@ -1,7 +1,0 @@
-permalink: /blog/:year/:short_month/:title/
-# lsi takes 22 minutes!
-lsi: false
-exclude:
- - Makefile
-plugins:
- - jekyll-redirect-from
