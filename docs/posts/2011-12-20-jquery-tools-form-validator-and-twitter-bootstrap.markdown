@@ -10,13 +10,13 @@ categories:
 
 I've had a couple of folks ask me about the form validation I
 [mentioned in my last
-post](http://wezfurlong.org/blog/2011/dec/nodejs-first-impressions/), so
+post](2011-12-18-nodejs-first-impressions.markdown), so
 here's the code.
 
 It's fairly basic IMO.  This is public domain code; use as you will and
 at your own risk.  You'll be able to make a form that looks like this:
 
-![Example Form](/images/bootstrap-form.png)
+![Example Form](../images/bootstrap-form.png)
 
 <!-- more -->
 

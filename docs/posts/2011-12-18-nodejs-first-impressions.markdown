@@ -3,6 +3,7 @@
 date: 2011-12-18
 layout: post
 title: Node.js - First Impressions
+slug: "nodejs-first-impressions"
 categories:
  - nodejs
 ---

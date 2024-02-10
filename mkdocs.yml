@@ -42,6 +42,7 @@ plugins:
       blog_dir: .
       blog_toc: true
       categories_name: Categories
+      post_url_format: "blog/{date}/{slug}"
       post_url_date_format: yyyy/MMM
   - search
   - social:
