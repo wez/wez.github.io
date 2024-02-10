@@ -1,0 +1,9 @@
+@import "https://fonts.googleapis.com/css?family=Lora";
+
+body {
+  --md-text-font-family: Lora, Georgia, serif;
+}
+
+.md-typeset {
+  font-size: 1rem;
+}
