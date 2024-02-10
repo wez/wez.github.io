@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Publications
+hide:
+    - navigation
+    - toc
 ---
 
 <div class="publist">
@@ -23,7 +26,7 @@ title: Publications
 
 <ul>
   <li><a
-    href="/blog/2005/nov/oracles-php-developer-of-the-year-2005/">Oracle Magazine's PHP Developer of the Year 2005.</a></li>
+    href="/blog/2005/Nov/oracles-php-developer-of-the-year-2005/">Oracle Magazine's PHP Developer of the Year 2005.</a></li>
   <li>Nominee for the ActiveState ActiveAwards 2003 for contributions to the PHP programming language.</li>
 </ul>
 

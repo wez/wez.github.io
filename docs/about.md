@@ -1,59 +1,37 @@
 ---
 layout: default
 title: About Wez Furlong
+hide:
+    - navigation
+    - toc
 ---
 
-<div class="page-header">
-<h2>About Wez</h2>
-</div>
+# About Wez
 
-<div class="media">
-  <span class="pull-left">
-    <img alt="Wez Furlong" border="0"
-      height="75" width="75"
-      class="photo img-polaroid" src="/images/wez-flame-hair.jpg">
-  </span>
-  <div class="media-body">
-    <blockquote>
-      <p>
-    I'm a software engineer from England living in Phoenix, Arizona.
-    I like to unwind with an occasional single malt and a good movie. If I
-    can't get my hands on those, I'll substitute bourbon, bad sci-fi or gaming.
-    </p>
-<p>
-  I'm married to Juliette and we have a son called Xander.  Juliette studies
-  Tae Kwon Do, Haidong Gumdo, Kung-Fu and writing; Xander attends school and
-  loves math, space and Minecraft.
-</p>
-  </blockquote>
-  </div>
-</div>
+<img alt="Wez Furlong" border="0"
+  height="75" width="75"
+  src="/images/wez-flame-hair.jpg">
 
-<div class="well">
-<div class="media">
-<a title="Subscribe to my blog" rel="alternate"
-	class="feedlink pull-left"
-	type="application/rss+xml"
-	href="https://wezfurlong.org/feed.xml"><img
-	src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png"
-	width="32" height="32" alt="Subscribe to my blog"></a>
-<div class="media-body">
-  You can find me on
-  <a href="https://www.facebook.com/wezfurlong">Facebook</a>,
-  <a href="http://www.twitter.com/wezfurlong">Twitter</a>,
-	<a href="http://www.linkedin.com/in/wezfurlong">LinkedIn</a>,
-	<a href="https://github.com/wez">GitHub</a> and
-	<a href="https://bitbucket.org/wez">BitBucket</a>.<br>
-	You may also wish to <a href="https://wezfurlong.org/feed.xml"
-	>subscribe to my blog</a>.
-</div>
-</div>
-</div>
+> I'm a software engineer from England living in Phoenix,
+> Arizona.  I like to unwind with an occasional single malt
+> and a good movie. If I can't get my hands on those, I'll
+> substitute bourbon, bad sci-fi or gaming.
+
+> I'm married to Juliette and we have a son called Xander.
+> Juliette studies Tae Kwon Do, Haidong Gumdo, Kung-Fu and
+> writing; Xander attends school and loves math, space and
+> Minecraft.
+
+You can find me on:
+
+* [The Fediverse](https://fosstodon.org/@wez)
+* [Twitter/X](http://www.twitter.com/wezfurlong)
+* [LinkedIn](http://www.linkedin.com/in/wezfurlong)
+* [GitHub](https://github.com/wez)
+* [KeyOxide](https://keyoxide.org/2D120895F5CD9744A4029C697A7F66A31EC9B387)
 
 
-<div class="page-header">
-<h2>Professional Biography</h2>
-</div>
+## Professional Biography
 
 <p>
 Wez Furlong was a Software Engineer at <a
@@ -87,9 +65,6 @@ Wez Furlong was a Software Engineer at <a
   conferences worldwide.
 </p>
 
-<a href="http://www.linkedin.com/in/wezfurlong"
-><img src="http://www.linkedin.com/img/webpromo/btn_myprofile_160x33.png"
-  width="160" height="33" border="0"
-  alt="View Wez Furlong's profile on LinkedIn"></a>
+<a href="http://www.linkedin.com/in/wezfurlong"><img src="http://www.linkedin.com/img/webpromo/btn_myprofile_160x33.png" width="160" height="33" border="0" alt="View Wez Furlong's profile on LinkedIn"></a>
 
 

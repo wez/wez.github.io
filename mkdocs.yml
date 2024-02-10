@@ -84,6 +84,19 @@ markdown_extensions:
 extra_css:
   - style.css
 
+extra:
+  social:
+    - icon: fontawesome/brands/patreon
+      link: https://www.patreon.com/WezFurlong
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@wez
+    - icon: fontawesome/brands/github
+      link: https://github.com/wez
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/wezfurlong
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/wezfurlong
+
 nav:
   - "Blog": index.md
   - "About": about.md
