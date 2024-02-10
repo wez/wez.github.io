@@ -8,7 +8,7 @@ hide:
 
 # About Wez
 
-![Wez Furlong](/images/wez-portrait-400.jpeg){ class=float-right-mug }
+![Wez Furlong](images/wez-portrait-400.jpeg){ class=float-right-mug }
 
 I'm an experienced software engineer and entrepreneur. A lot of what I've build
 over the years is Open Source. I'm originally from England but I've lived in
