@@ -4,7 +4,7 @@ hide:
     - title
 ---
 
-![Wez Furlong](/images/wez-portrait.jpg){ class=crop-left-mug }
+![Wez Furlong](/images/wez-portrait-400.jpeg){ class=crop-left-mug }
 
 I'm an experienced software engineer and entrepreneur. A lot of what I've built
 over the years is Open Source. If you've ever browsed the web or received an
