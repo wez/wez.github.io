@@ -1,4 +1,5 @@
 .*.sw*
 /.cache
 /_site
+/gh_pages
 
