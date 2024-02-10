@@ -47,6 +47,13 @@ plugins:
   - search
   - social:
       cards: !ENV [CARDS, false]
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
 
 markdown_extensions:
   - admonition
