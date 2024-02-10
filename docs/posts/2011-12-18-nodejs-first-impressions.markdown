@@ -160,12 +160,10 @@ reduced maintenance overheads.
 
 The model sources look a bit like this:
 
-{% highlight javascript %}
-
-     var Backbone = require("backbone");
-     exports = Backbone.model.extend({ ... });
-
-{% endhighlight %}
+```js
+var Backbone = require("backbone");
+exports = Backbone.model.extend({ ... });
+```
 
 `require` is a node function that imports a module; it is not present on
 the client side, so we'd either need to write conditional code to handle
@@ -190,55 +188,50 @@ In the end, I worked up my own asset solution instead; I give it a list
 of javascript files and it will decorate them so that my minimal require
 function (shown below) will function:
 
-{% highlight javascript %}
+```js
+var require;
 
-    var require; 
-    
-    (function () {
-        var modules = {};
-        
-        function do_require(name) {
-            return modules[name];
-        }   
-            
-        require = do_require;
-        require.define = function(name, inst) {
-            modules[name] = inst;
-        };
-    }());
+(function () {
+    var modules = {};
 
-{% endhighlight %}
+    function do_require(name) {
+        return modules[name];
+    }
+
+    require = do_require;
+    require.define = function(name, inst) {
+        modules[name] = inst;
+    };
+}());
+```
 
 The asset compiler stitches the modules together like this:
 
-{% highlight javascript %}
+```js
+(function() {
+    var exports = {};
 
-    (function() {
-        var exports = {};
+    /* --- these are the contents of my model file */
+    var Backbone = require("backbone");
+    exports = Backbone.model.extend({ ... });
+    /* --- end of model file */
 
-        /* --- these are the contents of my model file */
-        var Backbone = require("backbone");
-        exports = Backbone.model.extend({ ... });
-        /* --- end of model file */
+    require.define("modelname", exports);
+}());
 
-        require.define("modelname", exports);
-    }());
-
-{% endhighlight %}
+```
 
 This is a very simple composition; it ignores any kind of dependency analysis and relies on you to specify things in the correct order.  You use it with Express like this:
 
-{% highlight javascript %}
-
-    app.get("/j/app.js", asset.createServer([
-        __dirname + "/../node_modules/underscore/underscore.js",
-        __dirname + "/../node_modules/backbone/backbone.js",
-        __dirname + "/models/user.js"
-        ], {
-            compiler: "require" // use the require.define wrapper
-        }));
-
-{% endhighlight %}
+```js
+app.get("/j/app.js", asset.createServer([
+    __dirname + "/../node_modules/underscore/underscore.js",
+    __dirname + "/../node_modules/backbone/backbone.js",
+    __dirname + "/models/user.js"
+    ], {
+        compiler: "require" // use the require.define wrapper
+    }));
+```
 
 Asset Compilation
 -----------------
@@ -265,24 +258,22 @@ Unfortunately we hit another snag here; since Uglify is all native
 javascript, its processing is all synchronous.  If you have a big chunk
 of javascript to compile, it can take a couple of seconds.
 
-{% highlight javascript %}
+```js
+function uglify_code(data)
+{
+    var ug = require("uglify-js");
+    var jsp = ug.parser;
+    var pro = ug.uglify;
 
-    function uglify_code(data)
-    {
-        var ug = require("uglify-js");
-        var jsp = ug.parser;
-        var pro = ug.uglify;
+    var ast = jsp.parse(data);
+    ast = pro.ast_mangle(ast);
+    /* This next line is the expensive part; it can take a couple of
+    * seconds to process jquery */
+    ast = pro.ast_squeeze(ast);
 
-        var ast = jsp.parse(data);
-        ast = pro.ast_mangle(ast);
-        /* This next line is the expensive part; it can take a couple of
-        * seconds to process jquery */
-        ast = pro.ast_squeeze(ast);
-
-        return pro.gen_code(ast);
-    }
-
-{% endhighlight %}
+    return pro.gen_code(ast);
+}
+```
 
 What this means is that we block our Node process for those two seconds;
 it can't process any other requests in that time, which sucks, but is
@@ -304,23 +295,21 @@ also has a `cluster` facility that allows you to start up a number of
 processes and have them all service the same listening socket.  To use
 the cluster facilities, you write some code like this:
 
-{% highlight javascript %}
-
-    if (cluster.isMaster) {
-        var cpus = os.cpus().length;
-        for (var i = 0; i < cpus; i++) {
-            cluster.fork();
-        }
-        cluster.on("death", function (worker) {
-            console.log("worker " + worker.pid + " died, respawning");
-            cluster.fork();
-        });
-    } else {
-        everyauth.helpExpress(app);
-        app.listen(1337); // listens on http://127.0.0.1:1337
+```js
+if (cluster.isMaster) {
+    var cpus = os.cpus().length;
+    for (var i = 0; i < cpus; i++) {
+        cluster.fork();
     }
-
-{% endhighlight %}
+    cluster.on("death", function (worker) {
+        console.log("worker " + worker.pid + " died, respawning");
+        cluster.fork();
+    });
+} else {
+    everyauth.helpExpress(app);
+    app.listen(1337); // listens on http://127.0.0.1:1337
+}
+```
 
 The listen() call does some magic under the covers; it communicates with the
 master node process over a pipe and asks it to set up the listening socket.  If
@@ -355,48 +344,46 @@ listeners.
 
 It might look something like this:
 
-{% highlight javascript %}
+```js
+if (cluster.isMaster) {
+    var cpus = os.cpus().length;
+    var worker;
 
-    if (cluster.isMaster) {
-        var cpus = os.cpus().length;
-        var worker;
-
-        /* start up the HTTP servers */
-        process.env.HTTP_WORKER = "1";
-        for (var i = 0; i < cpus; i++) {
-            worker = cluster.fork();
-            worker.isHTTP = true;
-        }
-        delete process.env.HTTP_WORKER;
-        process.env.CPU_WORKER = "1";
-        /* start up the workers */
-        for (var i = 0; i < cpus; i++) {
-            cluster.fork();
-        }
-        cluster.on("death", function (worker) {
-            console.log("worker " + worker.pid + " died, respawning");
-            if (worker.isHTTP) {
-                process.env.HTTP_WORKER = "1";
-                delete process.env.CPU_WORKER;
-            } else {
-                process.env.CPU_WORKER = "1";
-                delete process.env.HTTP_WORKER;
-            }
-            var newguy = cluster.fork();
-            if (worker.isHTTP) {
-                newguy.isHTTP = true;
-            }
-        });
-    } else if (process.env.HTTP_WORKER) {
-        everyauth.helpExpress(app);
-        app.listen(1337); // listens on http://127.0.0.1:1337
-    } else if (process.env.CPU_WORKER) {
-        /* code omitted because I haven't written it */
-        var srv = net.createServer(...);
-        srv.listen("/tmp/worker");
+    /* start up the HTTP servers */
+    process.env.HTTP_WORKER = "1";
+    for (var i = 0; i < cpus; i++) {
+        worker = cluster.fork();
+        worker.isHTTP = true;
     }
-
-{% endhighlight %}
+    delete process.env.HTTP_WORKER;
+    process.env.CPU_WORKER = "1";
+    /* start up the workers */
+    for (var i = 0; i < cpus; i++) {
+        cluster.fork();
+    }
+    cluster.on("death", function (worker) {
+        console.log("worker " + worker.pid + " died, respawning");
+        if (worker.isHTTP) {
+            process.env.HTTP_WORKER = "1";
+            delete process.env.CPU_WORKER;
+        } else {
+            process.env.CPU_WORKER = "1";
+            delete process.env.HTTP_WORKER;
+        }
+        var newguy = cluster.fork();
+        if (worker.isHTTP) {
+            newguy.isHTTP = true;
+        }
+    });
+} else if (process.env.HTTP_WORKER) {
+    everyauth.helpExpress(app);
+    app.listen(1337); // listens on http://127.0.0.1:1337
+} else if (process.env.CPU_WORKER) {
+    /* code omitted because I haven't written it */
+    var srv = net.createServer(...);
+    srv.listen("/tmp/worker");
+}
+```
 
 What the above illustrates is that we can create a set of processes
 dedicated to the HTTP listeners and another set that listen on a unix

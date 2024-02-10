@@ -31,83 +31,81 @@ Dependencies
 Head
 ----
 
-{% highlight html %}
-    <!-- your preferred jquery -->
-    <script src="jquery.js"></script>
-    <!-- the jquery validator -->
-    <script src="validator.js"></script>
-    <!-- the twitter bootstrap -->
-    <link rel="stylesheet" href="bootstrap.css">
-    <!-- the javascript below -->
-    <script src="forms.js"></script>
-{% endhighlight %}
+```html
+<!-- your preferred jquery -->
+<script src="jquery.js"></script>
+<!-- the jquery validator -->
+<script src="validator.js"></script>
+<!-- the twitter bootstrap -->
+<link rel="stylesheet" href="bootstrap.css">
+<!-- the javascript below -->
+<script src="forms.js"></script>
+```
 
 
 forms.js
 --------
 
-{% highlight javascript %}
+```js
+$(function () {
+    function find_container(input) {
+        return input.parent().parent();
+    }
+    function remove_validation_markup(input) {
+        var cont = find_container(input);
+        cont.removeClass('error success warning');
+        $('.help-inline.error, .help-inline.success, .help-inline.warning',
+            cont).remove();
+    }
+    function add_validation_markup(input, cls, caption) {
+        var cont = find_container(input);
+        cont.addClass(cls);
+        input.addClass(cls);
 
-    $(function () {
-        function find_container(input) {
-            return input.parent().parent();
+        if (caption) {
+            var msg = $('<span class="help-inline"/>');
+            msg.addClass(cls);
+            msg.text(caption);
+            input.after(msg);
         }
-        function remove_validation_markup(input) {
-            var cont = find_container(input);
-            cont.removeClass('error success warning');
-            $('.help-inline.error, .help-inline.success, .help-inline.warning',
-                cont).remove();
-        }
-        function add_validation_markup(input, cls, caption) {
-            var cont = find_container(input);
-            cont.addClass(cls);
-            input.addClass(cls);
-                
-            if (caption) {
-                var msg = $('<span class="help-inline"/>');
-                msg.addClass(cls);
-                msg.text(caption);
-                input.after(msg);
-            }       
-        }
-        function remove_all_validation_markup(form) {
-            $('.help-inline.error, .help-inline.success, .help-inline.warning',
-                form).remove(); 
-            $('.error, .success, .warning', form)
-                .removeClass('error success warning');
-        }               
-        $('form').each(function () {
-            var form = $(this);
-                    
-            form
-                .validator({
-                })
-                .bind('reset.validator', function () {
-                    remove_all_validation_markup(form);
-                })
-                .bind('onSuccess', function (e, ok) {
-                    $.each(ok, function() {
-                        var input = $(this);
-                        remove_validation_markup(input);
-                        // uncomment next line to highlight successfully
-                        // validated fields in green
-                        //add_validation_markup(input, 'success');
-                    }); 
-                })
-                .bind('onFail', function (e, errors) {
-                    $.each(errors, function() {
-                        var err = this;
-                        var input = $(err.input);
-                        remove_validation_markup(input);
-                        add_validation_markup(input, 'error',
-                            err.messages.join(' '));
-                    });
-                    return false;
+    }
+    function remove_all_validation_markup(form) {
+        $('.help-inline.error, .help-inline.success, .help-inline.warning',
+            form).remove();
+        $('.error, .success, .warning', form)
+            .removeClass('error success warning');
+    }
+    $('form').each(function () {
+        var form = $(this);
+
+        form
+            .validator({
+            })
+            .bind('reset.validator', function () {
+                remove_all_validation_markup(form);
+            })
+            .bind('onSuccess', function (e, ok) {
+                $.each(ok, function() {
+                    var input = $(this);
+                    remove_validation_markup(input);
+                    // uncomment next line to highlight successfully
+                    // validated fields in green
+                    //add_validation_markup(input, 'success');
                 });
-        });
+            })
+            .bind('onFail', function (e, errors) {
+                $.each(errors, function() {
+                    var err = this;
+                    var input = $(err.input);
+                    remove_validation_markup(input);
+                    add_validation_markup(input, 'error',
+                        err.messages.join(' '));
+                });
+                return false;
+            });
     });
-
-{% endhighlight %}
+});
+```
 
 User Registration Form
 ----------------------
@@ -116,58 +114,58 @@ This example uses the [Jade](https://github.com/visionmedia/jade)
 templating engine, but you can certainly port the markup to anything you
 like.
 
-{% highlight jade %}
-    .page-header
-        h1 Sign Up!
+```jade
+.page-header
+    h1 Sign Up!
 
-    form(method='POST', id='register')
-        fieldset
-            legend Enter your details to create an account
-            .clearfix
-                label(for='login') Username
-                .input
-                    input.xlarge(id='login', name='login',
-                        required, pattern="^[a-z][a-z0-9_]*$",
-                        placeholder='Choose a username', size='30')
-                    span.help-block Unix-style; no spaces or punctuation, only lowercase letters and numbers
-            .clearfix
-                label(for='email') Email
-                .input
-                    input.xlarge(id='email', name='email', type='email',
-                        required,
-                        placeholder='Enter your email address', size='30')
-                    span.help-block We'll send you an email to confirm this!
-            .clearfix
-                label(for='password') Password
-                .input
-                    input.xlarge(id='password', name='password',
-                        required,
-                        placeholder='Choose a password', type='password', size='30')
-            .clearfix
-                label(for='password2') Confirm
-                .input
-                    input.xlarge(id='password2', name='password2',
-                        required,
-                        placeholder='Enter that password again',
-                        type='password', size='30')
-            .actions
-                input.btn.primary(type='submit', value='Create Account')
-                | 
-                button.btn(type='reset') Cancel
+form(method='POST', id='register')
+    fieldset
+        legend Enter your details to create an account
+        .clearfix
+            label(for='login') Username
+            .input
+                input.xlarge(id='login', name='login',
+                    required, pattern="^[a-z][a-z0-9_]*$",
+                    placeholder='Choose a username', size='30')
+                span.help-block Unix-style; no spaces or punctuation, only lowercase letters and numbers
+        .clearfix
+            label(for='email') Email
+            .input
+                input.xlarge(id='email', name='email', type='email',
+                    required,
+                    placeholder='Enter your email address', size='30')
+                span.help-block We'll send you an email to confirm this!
+        .clearfix
+            label(for='password') Password
+            .input
+                input.xlarge(id='password', name='password',
+                    required,
+                    placeholder='Choose a password', type='password', size='30')
+        .clearfix
+            label(for='password2') Confirm
+            .input
+                input.xlarge(id='password2', name='password2',
+                    required,
+                    placeholder='Enter that password again',
+                    type='password', size='30')
+        .actions
+            input.btn.primary(type='submit', value='Create Account')
+            |
+            button.btn(type='reset') Cancel
 
-    script.
-        $(function () {
-            $('#register').submit(function () {
-                var form = $(this);
-                if ($('#password').val() != $('#password2').val()) {
-                    form.data('validator').invalidate({
-                        password2: "Passwords don't match"
-                    });
-                    return false;
-                }
-            });
+script.
+    $(function () {
+        $('#register').submit(function () {
+            var form = $(this);
+            if ($('#password').val() != $('#password2').val()) {
+                form.data('validator').invalidate({
+                    password2: "Passwords don't match"
+                });
+                return false;
+            }
         });
-{% endhighlight %}
+    });
+```
 
 
 

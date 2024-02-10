@@ -46,8 +46,7 @@ via metatables and a nice collection of powerful language features.
 
 Here's an example script that demonstrates some of the debugger capabilities:
 
-{% highlight lua %}
-
+```lua
 function spawn(...)
     local pid = posix.fork();
     if pid == 0 then
@@ -113,13 +112,12 @@ for thr in ldb.threads do
 end
 
 posix.kill(pid, 9);
-
-{% endhighlight %}
+```
 
 Running the script gives output like this on a Cento 5.5 x86_64
 system (just a snippet is shown):
 
-{% highlight text %}
+```console
 % ./ldb t.lua
 ...
 Attaching to pid    23997
@@ -134,8 +132,7 @@ looking in struct siginfo
     si_errno    0
     si_code 1
     _sifields
-
-{% endhighlight %}
+```
 
 
 The output and facilities are still very early stage, but they
@@ -143,10 +140,10 @@ hint at the power available under the covers.  One thing the main
 script above doesn't show is how you can drill into vars; we could
 do something like this:
 
-{% highlight lua %}
+```lua
 si = ldb.deref(f.vars.si)
 print(si.si_signo);
-{% endhighlight %}
+```
 
 
 This shows how we can index into the structure fields by name;

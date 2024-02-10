@@ -21,8 +21,7 @@ regular clock?
 
 <!-- more -->
 
-{% highlight c %}
-
+```c
 #define _POSIX_PTHREAD_SEMANTICS
 #include <stdlib.h>
 #include <string.h>
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
 
   exit(0);
 }
-{% endhighlight %}
+```
 
 When compiled and run, this program prints out something like:
 
