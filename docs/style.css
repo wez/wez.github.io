@@ -1,7 +1,12 @@
-@import "https://fonts.googleapis.com/css?family=Lora";
+@import "https://fonts.googleapis.com/css?family=Lora|Ek Mukta";
 
 body {
   --md-text-font-family: Lora, Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Ek Mukta", serif;
+  font-weight: 800;
 }
 
 .md-typeset {
