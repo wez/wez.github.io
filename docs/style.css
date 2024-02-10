@@ -12,3 +12,39 @@ h1, h2, h3, h4, h5, h6 {
 .md-typeset {
   font-size: 1rem;
 }
+
+article.md-post {
+  clear: both;
+}
+
+.md-typeset img.crop-left-mug {
+  width: 200px;
+  height: 200px;
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  object-fit: cover;
+  object-position: top;
+}
+
+.md-typeset img.crop-right-mug {
+  width: 200px;
+  float: right;
+  margin-left: 1em;
+}
+
+.md-typeset img.float-right-mug {
+  float: right;
+  width: 300px;
+  padding-left: 1em;
+}
+
+.float-right-pic {
+  float: right;
+  padding-left: 1em;
+}
+
+.float-left-pic {
+  float: left;
+  padding-left: 1em;
+}

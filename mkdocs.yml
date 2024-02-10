@@ -58,6 +58,7 @@ plugins:
 markdown_extensions:
   - admonition
   - pymdownx.details
+  - attr_list
   - def_list
   - pymdownx.magiclink:
       repo_url_shorthand: true
@@ -80,6 +81,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - style.css
@@ -94,6 +98,8 @@ extra:
       link: https://github.com/wez
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/wezfurlong
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@wez_furlong/streams
     - icon: fontawesome/brands/x-twitter
       link: https://twitter.com/wezfurlong
 

@@ -1,12 +1,16 @@
 ---
 hide:
     - navigation
+    - title
 ---
-# Wez's Blog
 
-I'm a software engineer from England living in Phoenix, Arizona. I like to
-unwind with an occasional single malt and a good movie. If I can't get my hands
-on those, I'll substitute bourbon, bad sci-fi or gaming.
+![Wez Furlong](/images/wez-portrait.jpg){ class=crop-left-mug }
 
-## Most Recent Posts
+I'm an experienced software engineer and entrepreneur. A lot of what I've built
+over the years is Open Source. If you've ever browsed the web or received an
+email there's a strong chance that my software was involved. You can [learn
+more about me over here](about.md).  I'm offering [Mentoring over
+on Patreon](https://www.patreon.com/WezFurlong).
+
+Find me on [:fontawesome-brands-mastodon: @wez@fosstodon.org](https://fosstodon.org/@wez).
 
