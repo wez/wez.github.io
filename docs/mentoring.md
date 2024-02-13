@@ -55,14 +55,19 @@ wez@wezfurlong.org.
 
 The price per session is currently `$250` (US Dollars).
 
-If everything sounds good, then you have two options:
+If everything sounds good, then you have a couple of options for your
+next steps; pick only one of these!
+
+* Visit my [Ko-Fi](https://ko-fi.com/wezfurlong/tiers) page and join the
+  **Mentoring** tier.  That will set you up for a recurring monthly session
+  until you cancel. *(Ko-Fi have the lowest fees for a recurring session)*
 
 * Visit my [:fontawesome-brands-patreon:
   Patreon](https://patreon.com/WezFurlong) page and pledge for the
   **Mentoring** tier.  That will set you up for a recurring monthly session
   until you cancel.
 
-* Book an ad-hoc session via [:fontawesome-regular-calendar-days:
+* Book an ad-hoc, one-time session via [:fontawesome-regular-calendar-days:
   cal.com](https://cal.com/wezfurlong/mentoring-ad-hoc). Payment (via Stripe)
   is required to book.
 
@@ -73,8 +78,6 @@ If everything sounds good, then you have two options:
 !!! warning
     I do not offer refunds, but will accommodate rescheduling should something
     come up and you cannot make the originally scheduled time.
-
-
 
 ## Interested in group or corporate rates?
 
