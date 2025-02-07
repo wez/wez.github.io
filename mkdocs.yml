@@ -50,6 +50,10 @@ plugins:
   - rss:
       enabled: !ENV [CARDS, false]
       match_path: posts/.*
+      feeds_filenames:
+        # See https://guts.github.io/mkdocs-rss-plugin/configuration/#feeds_filenames
+        # https://github.com/Guts/mkdocs-rss-plugin/issues/249
+        rss_created: feed.xml
       date_from_meta:
         as_creation: date
       categories:
