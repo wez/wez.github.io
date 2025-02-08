@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block extrahead %}
+<script>
+  (function redirect(){
+    const currentPath = window.location.pathname + (window.location.hash ? window.location.hash : '');
+    console.log(currentPath);
+    if (currentPath.startsWith('/wezterm/')) {
+      const redirectUrl = 'https://wezterm.org/' + currentPath.slice(9);
+      console.log(redirectUrl);
+      window.location.href = redirectUrl;
+      return;
+    }
+  })();		
+</script>
+{% endblock %}
+
+{% block content %}
+  <h1>404 - Not found</h1>
+{% endblock %}
