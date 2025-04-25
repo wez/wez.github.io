@@ -18,7 +18,7 @@ I'll substitute bourbon, bad sci-fi or gaming.
 
 You can also find me on:
 
-* [:fontawesome-brands-mastodon: The Fediverse](https://fosstodon.org/@wez) - shorter-form content.
+* [:fontawesome-brands-mastodon: The Fediverse](https://social.treehouse.systems/@wez) - shorter-form content.
 * [:fontawesome-brands-github: GitHub](https://github.com/wez) - a lot of my work is here.
 * [:fontawesome-brands-patreon: Patreon](https://www.patreon.com/WezFurlong) -
   I offer Mentoring and appreciate sponsorship for my Open Source work.
