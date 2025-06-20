@@ -72,7 +72,7 @@ next steps; pick only one of these!
   is required to book.
 
 !!! note
-    I'm based in Arizona and my availability will be based around reasonable
+    I'm based in England and my availability will be based around reasonable
     hours in that timezone.
 
 !!! warning

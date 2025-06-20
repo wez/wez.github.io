@@ -10,9 +10,9 @@ hide:
 
 ![Wez Furlong](images/wez-portrait-400.jpeg){ class=float-right-mug }
 
-I'm an experienced software engineer and entrepreneur. A lot of what I've build
-over the years is Open Source. I'm originally from England but I've lived in
-the USA for a long time. I'm currently based in Arizona. I like to unwind with
+I'm an experienced software engineer and entrepreneur. A lot of what I've built
+over the years is Open Source. I'm from and reside in England but also
+previously lived and worked in the USA for a long time. I like to unwind with
 an occasional single malt and a good movie. If I can't get my hands on those,
 I'll substitute bourbon, bad sci-fi or gaming.
 
